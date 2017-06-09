@@ -3,7 +3,7 @@
     <h3 class="title">{{ msg }}</h3>
     <div class="amap-wrapper">
       <el-amap
-        :vid="amap-vues"
+        :vid="'amap-vue'"
         :map-manager="amapManager"
         :center="center"
         :zoom="zoom"
@@ -12,7 +12,7 @@
         class="amap-demo">
       </el-amap>
       <div class="toolbar">
-        <button class="toolbar-button" @click="getMap()">get map</button>
+        <el-button class="toolbar-button" @click="getMap()">get map</el-button>
       </div>
     </div>
   </div>
@@ -20,8 +20,6 @@
 
 <script type="text/ecmascript-6">
   import VueAMap from 'vue-amap'
-  /* eslint-disable no-duplicate-imports */
-  /* eslint-disable no-new */
   let amapManager = new VueAMap.AMapManager()
   export default {
     data () {
