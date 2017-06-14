@@ -1,20 +1,20 @@
 <template>
   <div class="register">
     <h1 class="title">Register</h1>
-    <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
+    <el-form :model="ruleFormRegister" :rules="rules2" ref="ruleFormRegister" class="demo-ruleForm">
       <el-form-item label="username" prop="username">
-        <el-input v-model="ruleForm2.username" placeholder="Pick a username"></el-input>
+        <el-input v-model="ruleFormRegister.username" placeholder="Pick a username"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="pass">
-        <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"
+        <el-input type="password" v-model="ruleFormRegister.pass" auto-complete="off"
                   placeholder="Create a password"></el-input>
       </el-form-item>
       <el-form-item label="confirm" prop="checkPass">
-        <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"
+        <el-input type="password" v-model="ruleFormRegister.checkPass" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm2')">Sign up for vue-login</el-button>
+        <el-button type="primary" @click="submitForm('ruleFormRegister')">Sign up for vue-login</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -22,6 +22,9 @@
 
 <script type="text/ecmascript-6">
   import { Message } from 'element-ui'
+  import { sendRegister } from '../../service/getData'
+  import goto from '../../config/goto'
+  const ERR_OK = 0
   export default {
     name: 'register',
     data () {
@@ -37,8 +40,8 @@
         if (value === '') {
           callback(new Error('请输入密码'))
         } else {
-          if (this.ruleForm2.checkPass !== '') {
-            this.$refs.ruleForm2.validateField('checkPass')
+          if (this.ruleFormRegister.checkPass !== '') {
+            this.$refs.ruleFormRegister.validateField('checkPass')
           }
           callback()
         }
@@ -46,17 +49,17 @@
       let validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleForm2.pass) {
+        } else if (value !== this.ruleFormRegister.pass) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
         }
       }
       return {
-        ruleForm2: {
-          pass: '',
-          checkPass: '',
-          username: ''
+        ruleFormRegister: {
+          username: '15033517219',
+          pass: '123456',
+          checkPass: '123456'
         },
         rules2: {
           pass: [
@@ -73,9 +76,17 @@
     },
     methods: {
       submitForm (formName) {
-        this.$refs[formName].validate((valid) => {
+        this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            Message.success('submit successful')
+            /* eslint-disable no-unused-vars */
+            const {username, pass, checkPass} = this.ruleFormRegister
+            let data = await sendRegister(username, pass)
+            if (data.code === ERR_OK) {
+              Message.success('Register successful')
+              goto(this, 'hello')
+            } else {
+              Message.error('Register error')
+            }
           } else {
             Message.error('submit error')
             return false
