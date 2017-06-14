@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Map from '../components/map'
+import components from '../components/components'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      redirect: 'map'
+      redirect: 'components'
     },
     {
       path: '/hello',
@@ -16,9 +16,9 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/map',
-      name: 'Map',
-      component: Map
+      path: '/components',
+      name: 'components',
+      component: components
     }
   ]
 })

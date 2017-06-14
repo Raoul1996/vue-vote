@@ -1,24 +1,25 @@
 <template>
   <div id="app">
-    <router-link to="map">map</router-link>
-    <router-link to="hello">hello</router-link>
+    <router-link to="components">
+      <el-button>components</el-button>
+    </router-link>
+    <router-link to="hello">
+      <el-button>hello</el-button>
+    </router-link>
     <router-view></router-view>
     <!--<amap></amap>-->
   </div>
 </template>
 
 <script>
-//  import amap from './components/map'
   export default {
     name: 'app',
     data () {
       return {
-        msg: 'vue-amap向你问好！'
+        msg: 'this is the components'
       }
     },
-    components: {
-//      amap
-    }
+    components: {}
   }
 </script>
 
