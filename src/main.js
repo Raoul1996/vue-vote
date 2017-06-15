@@ -13,6 +13,22 @@ Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+router.beforeEach((to, from, next) => {
+  // 模拟登陆状态
+  let isLogin = store.state.login
+  if (!isLogin) {
+    if (to.path !== '/login') {
+      return next({path: '/login'})
+    } else {
+      next()
+    }
+  } else {
+    if (to.path === '/login') {
+      return next({path: '/'})
+    }
+    next()
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

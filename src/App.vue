@@ -26,8 +26,7 @@
         return Math.floor(Math.random() * range)
       },
       handleClick () {
-        let random = this.getRandom(6)
-        console.log(random)
+        let random = this.getRandom(this.routes.length)
         if (this.flag) {
           goto(this, this.routes[random])
         } else {

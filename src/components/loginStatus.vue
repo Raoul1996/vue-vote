@@ -8,6 +8,7 @@
 <script type="text/ecmascript-6">
   import { removeStore } from '../config/localStorage'
   import { mapState, mapActions } from 'vuex'
+  import goto from '../config/goto'
   export default {
     name: 'loginStatus',
     data () {
@@ -28,6 +29,7 @@
         removeStore('token')
         console.log('1')
         this.USER_LOGIN(false)
+        goto(this, '/login')
       }
     }
   }
