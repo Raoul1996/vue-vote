@@ -1,6 +1,19 @@
-# vue-map
+# vue-login-demo
 
-> A Vue.js project
+> 这是我第二次用vue写登录注册了，尽可能的好好写
+
+### 预期实现功能
+1. 使用 `element-ui` 进行布局
+2. 使用 `vuex` 进行跨组件状态管理
+3. 使用 `express` 作为开发环境的服务器
+4. 使用 `mongoDB` 作为数据库，学习使用 `Node`
+5. 将自己写的vue-map-demo整合进来
+6. 暂时没想好
+
+### 脚手架新增内容
+1. element-ui
+2. vuex
+3. express
 
 ## Build Setup
 
