@@ -1,3 +1,3 @@
-/**
- * Created by baoba on 2017/6/15.
- */
+export default function goto (that, path) {
+  that.$router.push(path)
+}

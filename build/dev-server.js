@@ -21,6 +21,77 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+// 解析req.body
+var bodyParser = require('body-parser')
+var multer = require('multer')
+var upload = multer() // 解析 multipart/form-data 类型数据
+app.use(bodyParser.json()) // 解析 application/json 类型数据
+app.use(bodyParser.urlencoded({extended: true})) // 解析 application/x-www-form-urlencoded 类型数据
+
+// mock server
+
+var apiRoutes = express.Router()
+// get method
+apiRoutes.get('/getUser', function (req, res) {
+  res.json({
+    'code': 0,
+    'data': {
+      'id': 1
+    }
+  })
+})
+// login api
+apiRoutes.post('/login', function (req, res) {
+  res.status(200).json(
+    {
+      'code': 0,
+      'data': {
+        'user': {
+          'userId': 21,
+          'mobile': '17732900750',
+          'sex': 'female'
+        },
+        'token': '9b6020276b244645a9a0adb130a694fd'
+      }
+    }
+  )
+
+})
+apiRoutes.post('/register', function (req, res) {
+  console.log(req.body)
+  let ok = req.body.mobile && req.body.password
+  if (ok) {
+    res.status(200).json({
+      'code': 0,
+      'data': {
+        'msg': 'login successful',
+        'mobile': req.body.mobile || '15033332222',
+        'password': req.body.password || '123456'
+      }
+    })
+  } else {
+    res.status(200).json({
+      'code': 10001,
+      'data': {
+        'msg': 'login error,please check your data'
+      }
+    })
+  }
+})
+// 500 middleware
+apiRoutes.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).json({
+    'code': 500
+  })
+})
+// 404 middleware
+apiRoutes.use(function (req, res) {
+  res.status(404).json(
+    {'code': 404}
+  )
+})
+app.use('/user', apiRoutes)
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -34,7 +105,7 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({action: 'reload'})
     cb()
   })
 })
@@ -43,7 +114,7 @@ compiler.plugin('compilation', function (compilation) {
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })

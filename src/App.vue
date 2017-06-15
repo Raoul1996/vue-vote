@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <router-link to="components">
-      <el-button>components</el-button>
-    </router-link>
-    <router-link to="hello">
-      <el-button>hello</el-button>
+      <el-button class="components" >components</el-button>
     </router-link>
     <router-view></router-view>
     <!--<amap></amap>-->
@@ -30,11 +27,12 @@
     -moz-osx-font-smoothing grayscale
     text-align center
     color #2c3e50
-    margin-top 60px
-    .amap-wrapper {
-      width 500px
-      height 500px
-      margin 0 auto
+    /*margin-top 60px*/
+    .components{
+      /*position absolute*/
+      /*left 20px*/
+      /*top 50px*/
+      /*z-index 10*/
     }
 
   }
