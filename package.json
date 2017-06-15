@@ -75,5 +75,8 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": "index.js",
+  "repository": "git@github.com:Fushengshe/relogin-vue-fe.git",
+  "license": "MIT"
 }
