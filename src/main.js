@@ -17,7 +17,7 @@ Vue.use(Input)
 router.beforeEach((to, from, next) => {
   // 模拟登陆状态
   let isLogin = store.state.login
-  if (to.path === '/register' || '/forget') {
+  if (to.path === ('/register' || '/forget')) {
     next()
   } else if (!isLogin) {
     if (to.path !== '/login') {

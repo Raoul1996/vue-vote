@@ -59,9 +59,9 @@
       }
       return {
         ruleFormForget: {
-          username: '15033517219',
-          newPass: '123456',
-          checkPass: '123456'
+          username: '',
+          newPass: '',
+          checkPass: ''
         },
         rules2: {
           username: [

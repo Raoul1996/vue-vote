@@ -50,8 +50,8 @@
       }
       return {
         ruleFormLogin: {
-          username: '15033517219',
-          pass: '123456'
+          username: '',
+          pass: ''
         },
         rulesLogin: {
           pass: [

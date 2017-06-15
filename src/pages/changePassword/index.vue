@@ -65,10 +65,10 @@
       }
       return {
         ruleFormChange: {
-          username: '15033517219',
-          oldPass: '123456',
-          pass: '1234567',
-          checkPass: '1234567'
+          username: '',
+          oldPass: '',
+          pass: '',
+          checkPass: ''
         },
         rulesChange: {
           username: [

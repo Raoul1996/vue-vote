@@ -59,9 +59,9 @@
       }
       return {
         ruleFormRegister: {
-          username: '15033517219',
-          pass: '123456',
-          checkPass: '123456'
+          username: '',
+          pass: '',
+          checkPass: ''
         },
         rules2: {
           pass: [
@@ -85,7 +85,7 @@
             let data = await sendRegister(username, pass)
             if (data.code === ERR_OK) {
               Message.success('Register successful')
-              goto(this, 'hello')
+              goto(this, 'login')
             } else {
               Message.error('Register error')
             }
