@@ -60,7 +60,14 @@
           username: [
             {validator: checkUsername, trigger: 'blur'}
           ]
-        }
+        },
+        msgFlag: true
+      }
+    },
+    mounted () {
+      if (this.msgFlag) {
+        Message.info('Please Login')
+        this.msgFlag = !this.msgFlag
       }
     },
     methods: {
