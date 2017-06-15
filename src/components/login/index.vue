@@ -16,10 +16,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  /* eslint-disable no-unused-vars */
   import { Message } from 'element-ui'
   import { sendLogin } from '../../service/getData'
   import { setStore } from '../../config/localStorage'
   import goto from '../../config/goto'
+  import { mapActions, mapMutations } from 'vuex'
   const ERR_OK = 0
   export default {
     name: 'login',
@@ -54,17 +56,22 @@
       }
     },
     methods: {
+      ...mapActions([
+        'USER_LOGIN'
+      ]),
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
             const {username, pass} = this.ruleFormLogin
             let data = await sendLogin(username, pass)
-//            console.log(data)
+            console.log(data)
             if (data.code === ERR_OK) {
               Message.success('login successful')
+              this.login = true
+              this.USER_LOGIN(true)
               setStore('token', data.data.token)
-              setTimeout(goto(this, 'hello'), 2000)
+              goto(this, 'hello')
             } else {
               Message.error('Login error')
             }

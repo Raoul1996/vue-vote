@@ -1,3 +1,8 @@
-/**
- * Created by baoba on 2017/6/15.
- */
+export default {
+  getLoginStatus: (state) => {
+    const login = state.login
+    return {
+      login: login
+    }
+  }
+}

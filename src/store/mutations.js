@@ -14,5 +14,8 @@ export default {
     } else {
       state.userInfo = null
     }
+  },
+  [USER_LOGIN] (state, info) {
+    state.login = info
   }
 }

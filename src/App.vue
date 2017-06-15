@@ -6,19 +6,18 @@
     <transition :name="transitionName">
       <router-view></router-view>
     </transition>
-    <div v-if="loginStatus">
-      已经登录
-      <el-button @click="cleanLocalStorage">清空localStorange</el-button>
+    <div v-if="login">
+      已经登录{{login}}
+      <el-button @click="Logout">登出</el-button>
     </div>
     <div v-else>
-      没有登录
+      没有登录{{login}}
     </div>
   </div>
 </template>
-
 <script>
-  import ElButton from '../node_modules/element-ui/packages/button/src/button'
   import { getStore, removeStore } from '../src/config/localStorage'
+  import { mapState, mapActions } from 'vuex'
   export default {
     name: 'app',
     data () {
@@ -28,20 +27,20 @@
         loginStatus: getStore('token')
       }
     },
-//    watch: {
-//      '$route' (to, form) {
-//        const toDepth = to.path.split('/').length
-//        const fromDepth = form.path.split('/').length
-//        this.slideFade = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-//      }
-//    },
-    methods: {
-      cleanLocalStorage () {
-        removeStore('token')
-        window.history.go(0)
-      }
+    computed: {
+      ...mapState([
+        'login'
+      ])
     },
-    components: {ElButton}
+    methods: {
+      ...mapActions([
+        'USER_LOGIN'
+      ]),
+      Logout () {
+        removeStore('token')
+        this.USER_LOGIN(false)
+      }
+    }
   }
 </script>
 
