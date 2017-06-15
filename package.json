@@ -18,6 +18,7 @@
     "vuex": "^2.3.1"
   },
   "devDependencies": {
+    "amdefine": "^1.0.1",
     "autoprefixer": "^6.7.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",

@@ -1,44 +1,39 @@
 <template>
   <div id="app">
-    <router-link to="components">
-      <el-button class="components">components</el-button>
-    </router-link>
+    <el-button class="nav" @click="handleClick">Random Router</el-button>
     <transition :name="transitionName">
       <router-view></router-view>
     </transition>
-    <div v-if="login">
-      已经登录{{login}}
-      <el-button @click="Logout">登出</el-button>
-    </div>
-    <div v-else>
-      没有登录{{login}}
-    </div>
+    <login-status></login-status>
   </div>
 </template>
 <script>
-  import { getStore, removeStore } from '../src/config/localStorage'
-  import { mapState, mapActions } from 'vuex'
+  import LoginStatus from './components/loginStatus'
+  import goto from './config/goto'
   export default {
+    components: {LoginStatus},
     name: 'app',
     data () {
       return {
         msg: 'this is the components',
         transitionName: 'slide-fade',
-        loginStatus: getStore('token')
+        flag: true,
+        routes: ['', 'hello', 'login', 'register', 'change-password', 'forget']
       }
     },
-    computed: {
-      ...mapState([
-        'login'
-      ])
-    },
     methods: {
-      ...mapActions([
-        'USER_LOGIN'
-      ]),
-      Logout () {
-        removeStore('token')
-        this.USER_LOGIN(false)
+      getRandom (range) {
+        return Math.floor(Math.random() * range)
+      },
+      handleClick () {
+        let random = this.getRandom(6)
+        console.log(random)
+        if (this.flag) {
+          goto(this, this.routes[random])
+        } else {
+          goto(this, 'nav')
+        }
+        this.flag = !this.flag
       }
     }
   }

@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import components from '../components/components'
-import Login from '../components/login'
-import Register from '../components/register'
-import ChangePassword from '../components/changePassword'
-import Forget from '../components/forget'
+import Hello from '@/pages/Hello'
+import Nav from '../components/nav'
+import Login from '../pages/login'
+import Register from '../pages/register'
+import ChangePassword from '../pages/changePassword'
+import Forget from '../pages/forget'
 Vue.use(Router)
 
 export default new Router({
@@ -21,9 +21,9 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/components',
-      name: 'components',
-      component: components
+      path: '/nav',
+      name: 'Nav',
+      component: Nav
     },
     {
       path: '/login',
