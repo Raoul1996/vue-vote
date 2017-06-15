@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <h1 class="title">Register</h1>
-    <el-form :model="ruleFormRegister" :rules="rules2" ref="ruleFormRegister" class="demo-ruleForm">
+    <el-form :model="ruleFormRegister" :rules="rules2" ref="ruleFormRegister" class="demo-ruleForm register-form">
       <el-form-item label="username" prop="username">
         <el-input v-model="ruleFormRegister.username" placeholder="Pick a username"></el-input>
       </el-form-item>
@@ -14,7 +14,9 @@
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleFormRegister')">Sign up for vue-login</el-button>
+        <el-button class="register-button" size="middle" type="primary" @click="submitForm('ruleFormRegister')">
+          Sign up for vue-login
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -100,7 +102,18 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .register {
-    width 50%
+    width 30%
+    min-width 400px
     margin 0 auto
+    .register-form {
+      background-color #ffffff
+      margin-top 30px
+      padding 20px 50px
+      border-radius 5px
+      border 1px solid #d8dee2
+      .register-button {
+        width 100%
+      }
+    }
   }
 </style>

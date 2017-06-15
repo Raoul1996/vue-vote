@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <el-button class="nav" @click="handleClick">Random Router</el-button>
+    <img class="logo" src="./assets/logo.png" alt="" width="50" height="50">
+    <!--<el-button class="nav" @click="handleClick">Random Router</el-button>-->
     <transition :name="transitionName">
       <router-view></router-view>
     </transition>
@@ -40,11 +41,15 @@
 
 <style lang="stylus">
   #app {
+    .logo{
+      margin-top 20px
+    }
     font-family 'Avenir', Helvetica, Arial, sans-serif
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
     text-align center
     color #2c3e50
+
     .slide-fade-enter-active {
       transition: all .3s ease;
     }

@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
@@ -16,7 +17,9 @@ Vue.use(Input)
 router.beforeEach((to, from, next) => {
   // 模拟登陆状态
   let isLogin = store.state.login
-  if (!isLogin) {
+  if (to.path === '/register' || '/forget') {
+    next()
+  } else if (!isLogin) {
     if (to.path !== '/login') {
       return next({path: '/login'})
     } else {

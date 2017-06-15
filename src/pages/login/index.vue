@@ -1,17 +1,25 @@
 <template>
   <div class="login">
-    <h1 class="title">Login</h1>
-    <el-form :model="ruleFormLogin" :rules="rules2" ref="ruleFormLogin" class="demo-ruleForm">
+    <h1 class="title">Sign in to Vue-login</h1>
+    <el-form :model="ruleFormLogin" :rules="rulesLogin" ref="ruleFormLogin" class="demo-ruleForm login-form">
       <el-form-item label="username" prop="username">
         <el-input v-model="ruleFormLogin.username"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="pass">
         <el-input type="password" v-model="ruleFormLogin.pass" auto-complete="off"></el-input>
+        <router-link to="forget" class="forget">Forgot password?</router-link>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleFormLogin')">Sign in</el-button>
+        <el-button type="primary" class="login-button" size="middle" @click="submitForm('ruleFormLogin')">Sign in
+        </el-button>
       </el-form-item>
     </el-form>
+    <div class="register-form">
+      New to Vue-login?
+      <router-link to="register" class="register">
+        Create an account.
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -45,7 +53,7 @@
           username: '15033517219',
           pass: '123456'
         },
-        rules2: {
+        rulesLogin: {
           pass: [
             {validator: validatePass, trigger: 'blur'}
           ],
@@ -88,7 +96,32 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .login {
-    width 50%
+    width 30%
+    min-width 400px
     margin 0 auto
+    .login-form {
+      background-color #ffffff
+      margin-top 10px
+      padding 20px 50px
+      border-radius 5px
+      border 1px solid #d8dee2
+      .forget {
+        float right
+      }
+      .login-button {
+        width 100%
+      }
+    }
+    .forget, .register {
+      text-decoration none
+      color #1c8de0
+      font-size 1em
+    }
+    .register-form{
+      margin-top 30px
+      padding 10px 50px
+      border-radius 5px
+      border 1px solid #d8dee2
+    }
   }
 </style>
