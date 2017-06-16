@@ -11,6 +11,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/login',
+      name: 'Login',
+      meta: {
+        requireAuth: false
+      },
+      component: Login
+    },
+    {
       path: '/',
       // redirect: 'components'
       component: Login
@@ -18,31 +26,41 @@ export default new Router({
     {
       path: '/hello',
       name: 'Hello',
+      meta: {
+        requireAuth: true
+      },
       component: Hello
     },
     {
       path: '/nav',
       name: 'Nav',
+      meta: {
+        requireAuth: true
+      },
       component: Nav
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
     },
     {
       path: '/register',
       name: 'Register',
+      meta: {
+        requireAuth: false
+      },
       component: Register
     },
     {
       path: '/change-password',
       name: 'ChangePassword',
+      meta: {
+        requireAuth: true
+      },
       component: ChangePassword
     },
     {
       path: '/forget',
       name: 'Forget',
+      meta: {
+        requireAuth: false
+      },
       component: Forget
     }
   ]

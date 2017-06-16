@@ -15,23 +15,20 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
 router.beforeEach((to, from, next) => {
-  // 模拟登陆状态
-  let isLogin = store.state.login
-  if (to.path === ('/register' || '/forget')) {
-    next()
-  } else if (!isLogin) {
-    if (to.path !== '/login') {
-      return next({path: '/login'})
-    } else {
+  if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+    if (store.state.token) {  // 通过vuex state获取当前的token是否存在
       next()
+    } else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      })
     }
   } else {
-    if (to.path === '/login') {
-      return next({path: '/'})
-    }
     next()
   }
 })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

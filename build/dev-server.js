@@ -64,9 +64,9 @@ apiRoutes.post('/register', function (req, res) {
     res.status(200).json({
       'code': 0,
       'data': {
-        'msg': 'login successful',
-        'mobile': req.body.mobile || '15033332222',
-        'password': req.body.password || '123456'
+        'msg': 'register successful',
+        'mobile': req.body.mobile,
+        'password': req.body.password
       }
     })
   } else {
