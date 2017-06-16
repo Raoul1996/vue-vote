@@ -7,7 +7,7 @@
 
 <script type="text/ecmascript-6">
   import { removeStore } from '../config/localStorage'
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapMutations } from 'vuex'
   import goto from '../config/goto'
   import { Message } from 'element-ui'
   export default {
@@ -26,9 +26,13 @@
       ...mapActions([
         'USER_LOGIN'
       ]),
+      ...mapMutations([
+        'SET_TOKEN'
+      ]),
       Logout () {
         removeStore('token')
         this.USER_LOGIN(false)
+        this.SET_TOKEN(null)
         Message.info('logout successful')
         goto(this, '/login')
       }

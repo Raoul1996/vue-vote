@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { USER_LOGIN, OUT_LOGIN, GET_USERINFO } from './mutation-types'
+import { USER_LOGIN, OUT_LOGIN, GET_USERINFO, SET_TOKEN } from './mutation-types'
 import { getStore, setStore } from '../config/localStorage'
 export default {
   [GET_USERINFO] (state, info) {
@@ -17,5 +17,8 @@ export default {
   },
   [USER_LOGIN] (state, info) {
     state.login = info
+  },
+  [SET_TOKEN] (state, info) {
+    state.token = info
   }
 }

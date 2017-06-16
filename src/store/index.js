@@ -6,7 +6,8 @@ import getters from './getters'
 Vue.use(Vuex)
 const state = {
   login: false, // 登录状态
-  userInfo: null // 用户信息
+  userInfo: null, // 用户信息
+  token: null
 }
 export default new Vuex.Store({
   state,

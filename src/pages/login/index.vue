@@ -29,7 +29,7 @@
   import { sendLogin } from '../../service/getData'
   import { setStore } from '../../config/localStorage'
   import goto from '../../config/goto'
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions, mapState, mapMutations } from 'vuex'
   const ERR_OK = 0
   export default {
     name: 'login',
@@ -74,6 +74,9 @@
       ...mapActions([
         'USER_LOGIN'
       ]),
+      ...mapMutations([
+        'SET_TOKEN'
+      ]),
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
@@ -83,9 +86,9 @@
             console.log(data)
             if (data.code === ERR_OK) {
               Message.success('login successful')
-              this.login = true
               this.USER_LOGIN(true)
               setStore('token', data.data.token)
+              this.SET_TOKEN(data.data.token)
               goto(this, 'hello')
             } else {
               Message.error('Login error')
@@ -124,7 +127,7 @@
       color #1c8de0
       font-size 1em
     }
-    .register-form{
+    .register-form {
       margin-top 30px
       padding 10px 50px
       border-radius 5px
