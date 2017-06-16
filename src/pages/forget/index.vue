@@ -23,7 +23,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Message } from 'element-ui'
   import { resetPassword } from '../../service/getData'
   import goto from '../../config/goto'
   const ERR_OK = 0
@@ -84,13 +83,13 @@
             const {username, newPass, checkPass} = this.ruleFormForget
             let data = await resetPassword(username, newPass)
             if (data.code === ERR_OK) {
-              Message.success('Reset Password successful')
+              this.$message.success('Reset Password successful')
               goto(this, 'login')
             } else {
-              Message.error('Reset Password error')
+              this.$message.error('Reset Password error')
             }
           } else {
-            Message.error('submit error')
+            this.$message.error('submit error')
             return false
           }
         })

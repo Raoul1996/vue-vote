@@ -23,18 +23,21 @@
         </el-button>
       </el-form-item>
     </el-form>
+    <div>{{token}}</div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { Message } from 'element-ui'
   import { changePassword } from '../../service/getData'
   import { removeStore } from '../../config/localStorage'
-  import { mapActions } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
+  import store from '../../store'
   import goto from '../../config/goto'
   const ERR_OK = 0
   export default {
     name: 'change',
+    // 提供store接口
+    store,
     data () {
       let checkUsername = (rule, value, callback) => {
         if (!value) {
@@ -86,6 +89,11 @@
         }
       }
     },
+    computed: {
+      ...mapState([
+        'token'
+      ])
+    },
     methods: {
       ...mapActions([
         'USER_LOGIN'
@@ -95,17 +103,19 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const {username, oldPass, pass, checkPass} = this.ruleFormChange
-            let data = await changePassword(username, oldPass, pass)
+            console.log(store.state)
+            let data = await changePassword(username, oldPass, pass, store.state.token)
+            console.log(data)
             if (data.code === ERR_OK) {
               removeStore('token')
               this.USER_LOGIN(false)
-              Message.success('Change Password successful')
+              this.$message.success('Change Password successful')
               goto(this, 'login')
             } else {
-              Message.error('Change Password error')
+              this.$message.error('Change Password error')
             }
           } else {
-            Message.error('submit error')
+            this.$message.error('submit error')
             return false
           }
         })

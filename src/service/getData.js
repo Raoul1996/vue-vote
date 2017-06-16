@@ -24,11 +24,11 @@ export const sendRegister = (mobile, password, gender) => fetch(Api.register, {
 /**
  * 改密码
  */
-export const changePassword = (mobile, oldpassword, newpassword, confirmpassword, captcha_code) => fetch(Api.password, {
+export const changePassword = (mobile, oldpassword, newpassword, token, captcha_code) => fetch(Api.password, {
   mobile,
   oldpassword,
   newpassword,
-  confirmpassword,
+  token,
   captcha_code
 }, 'POST')
 /**

@@ -9,7 +9,6 @@
   import { removeStore } from '../config/localStorage'
   import { mapState, mapActions, mapMutations } from 'vuex'
   import goto from '../config/goto'
-  import { Message } from 'element-ui'
   export default {
     name: 'loginStatus',
     data () {
@@ -33,7 +32,7 @@
         removeStore('token')
         this.USER_LOGIN(false)
         this.SET_TOKEN(null)
-        Message.info('logout successful')
+        this.$message.info('logout successful')
         goto(this, '/login')
       }
     }

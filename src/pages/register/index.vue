@@ -23,7 +23,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Message } from 'element-ui'
   import { sendRegister } from '../../service/getData'
   import goto from '../../config/goto'
   const ERR_OK = 0
@@ -84,13 +83,13 @@
             const {username, pass, checkPass} = this.ruleFormRegister
             let data = await sendRegister(username, pass)
             if (data.code === ERR_OK) {
-              Message.success('Register successful')
+              this.$message.success('Register successful')
               goto(this, 'login')
             } else {
-              Message.error('Register error')
+              this.$message.error('Register error')
             }
           } else {
-            Message.error('submit error')
+            this.$message.error('submit error')
             return false
           }
         })

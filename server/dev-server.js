@@ -1,36 +1,83 @@
-require('./check-versions')()
+require('../build/check-versions')()
 
-var config = require('../config')
+let config = require('../config/index')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-var opn = require('opn')
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+let opn = require('opn')
+let path = require('path')
+let express = require('express')
+let webpack = require('webpack')
+let proxyMiddleware = require('http-proxy-middleware')
+let webpackConfig = require('../build/webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+let port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
-var autoOpenBrowser = !!config.dev.autoOpenBrowser
+let autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+let proxyTable = config.dev.proxyTable
 
-var app = express()
+let app = express()
+// set jwtTokenSecret
+const SECRET_STRING = 'vue-login-demo'
+app.set('jwtTokenSecret', SECRET_STRING)
 // 解析req.body
-var bodyParser = require('body-parser')
-var multer = require('multer')
-var upload = multer() // 解析 multipart/form-data 类型数据
+let bodyParser = require('body-parser')
+let moment = require('moment')
+let jwt = require('jwt-simple')
+let multer = require('multer')
+let upload = multer() // 解析 multipart/form-data 类型数据
 app.use(bodyParser.json()) // 解析 application/json 类型数据
 app.use(bodyParser.urlencoded({extended: true})) // 解析 application/x-www-form-urlencoded 类型数据
+// jwtauth middleware
+let jwtauth = function (req, res, next) {
+// coding goes here
+  let token = (req.body && req.body.token) || (req.query && req.query.token) || req.headers['x-access-token']
+  // console.log('in middleware')
+  // console.log(token)
+  if (token) {
+    // console.log('has token')
+    try {
+      let decoded = jwt.decode(token, 'vue-login-demo')
+      // handle token here
+      // console.log('decode successful')
+      // console.log(decoded)
+      if (decoded.exp <= Date.now()) {
+        res.end('token has expired', 400)
+      }
+      // console.log('token is ok')
+      // UserModel.findOne({_id: decoded.iss},function (err, user) {
+      //   req.user = user
+      // })
+      // console.log('user is ok')
+      next()
+    } catch (err) {
+      // console.log(' has a err')
+      res.status(200).json({
+        'code': 20001,
+        'data': {
+          'msg': 'token err'
+        }
+      })
+    }
+  } else {
+    // console.log(' has a err')
+    res.status(200).json({
+      'code': 20002,
+      'data': {
+        'msg': 'please upload the token'
+      }
+    })
+    // next()
+  }
+}
 
 // mock server
 
-var apiRoutes = express.Router()
+let apiRoutes = express.Router()
 // get method
 apiRoutes.get('/getUser', function (req, res) {
   res.json({
@@ -40,25 +87,38 @@ apiRoutes.get('/getUser', function (req, res) {
     }
   })
 })
+// decode token
+apiRoutes.all('/password', [jwtauth])
 // login api
 apiRoutes.post('/login', function (req, res) {
-  res.status(200).json(
-    {
+  let ok = req.body.mobile && req.body.password
+  if (ok) {
+    let expires = moment().add(7, 'days').valueOf()
+    let token = jwt.encode({
+      iss: req.body.mobile,
+      exp: expires
+    }, app.get('jwtTokenSecret'))
+    res.status(200).json({
       'code': 0,
       'data': {
         'user': {
           'userId': 21,
-          'mobile': '17732900750',
-          'sex': 'female'
+          'mobile': req.body.mobile
         },
-        'token': '9b6020276b244645a9a0adb130a694fd'
+        'token': token
       }
-    }
-  )
-
+    })
+  } else {
+    res.status(200).json({
+      'code': 10001,
+      'data': {
+        'msg': 'login error,please check your data'
+      }
+    })
+  }
 })
 apiRoutes.post('/register', function (req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   let ok = req.body.mobile && req.body.password
   if (ok) {
     res.status(200).json({
@@ -79,7 +139,7 @@ apiRoutes.post('/register', function (req, res) {
   }
 })
 apiRoutes.post('/forget', function (req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   let ok = req.body.mobile && req.body.newpassword
   if (ok) {
     res.status(200).json({
@@ -100,7 +160,7 @@ apiRoutes.post('/forget', function (req, res) {
   }
 })
 apiRoutes.post('/password', function (req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   let ok = req.body.mobile && req.body.oldpassword && req.body.newpassword
   if (ok) {
     res.status(200).json({
@@ -135,14 +195,14 @@ apiRoutes.use(function (req, res) {
   )
 })
 app.use('/user', apiRoutes)
-var compiler = webpack(webpackConfig)
+let compiler = webpack(webpackConfig)
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
+let devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler, {
+let hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
 })
 // force page reload when html-webpack-plugin template changes
@@ -155,7 +215,7 @@ compiler.plugin('compilation', function (compilation) {
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
-  var options = proxyTable[context]
+  let options = proxyTable[context]
   if (typeof options === 'string') {
     options = {target: options}
   }
@@ -173,13 +233,13 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
+let uri = 'http://localhost:' + port
 
-var _resolve
-var readyPromise = new Promise(resolve => {
+let _resolve
+let readyPromise = new Promise(resolve => {
   _resolve = resolve
 })
 
@@ -193,7 +253,7 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port)
+let server = app.listen(port)
 
 module.exports = {
   ready: readyPromise,

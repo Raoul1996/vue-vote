@@ -7,13 +7,20 @@ import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
-import { Button, Select, Form, FormItem, Input } from 'element-ui'
+import { Button, Select, Form, FormItem, Input, MessageBox, Message, Loading } from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.prototype.$loading = Loading.service
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$notify = Notification
+Vue.prototype.$message = Message
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
     if (store.state.token) {  // 通过vuex state获取当前的token是否存在

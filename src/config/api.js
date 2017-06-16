@@ -1,5 +1,6 @@
 // const __APIHOST__ = 'http://192.168.1.217:8080/user'
 const __APIHOST__ = 'http://localhost:8080/user'
+// const __APIHOST__ = 'http://localhost:3000/api'
 /* 加入了其他的url */
 const __APIVOTE__ = 'http://192.168.1.217:8080/vote'
 

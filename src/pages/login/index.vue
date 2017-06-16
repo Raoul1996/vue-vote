@@ -25,7 +25,6 @@
 
 <script type="text/ecmascript-6">
   /* eslint-disable no-unused-vars */
-  import { Message } from 'element-ui'
   import { sendLogin } from '../../service/getData'
   import { setStore } from '../../config/localStorage'
   import goto from '../../config/goto'
@@ -66,7 +65,7 @@
     },
     mounted () {
       if (this.msgFlag) {
-        Message.info('Please Login')
+        this.$message.info('Please Login')
         this.msgFlag = !this.msgFlag
       }
     },
@@ -85,16 +84,18 @@
             let data = await sendLogin(username, pass)
             console.log(data)
             if (data.code === ERR_OK) {
-              Message.success('login successful')
+              this.$message.success('login successful')
               this.USER_LOGIN(true)
+              // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.data.token)
+              console.log(data.data.token)
               this.SET_TOKEN(data.data.token)
               goto(this, 'hello')
             } else {
-              Message.error('Login error')
+              this.$message.error('Login error')
             }
           } else {
-            Message.error('submit error')
+            this.$message.error('submit error')
             return false
           }
         })
