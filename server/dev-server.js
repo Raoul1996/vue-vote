@@ -1,5 +1,7 @@
 require('../build/check-versions')()
-
+const ERR = 401
+const NOT_FOUND = 10001
+const ERR_OK = 200
 let config = require('../config/index')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
@@ -29,10 +31,15 @@ let bodyParser = require('body-parser')
 let moment = require('moment')
 let jwt = require('jwt-simple')
 let multer = require('multer')
+/* eslint-disable no-unused-vars */
 let upload = multer() // 解析 multipart/form-data 类型数据
 app.use(bodyParser.json()) // 解析 application/json 类型数据
 app.use(bodyParser.urlencoded({extended: true})) // 解析 application/x-www-form-urlencoded 类型数据
-// jwtauth middleware
+// these part is the mongodb
+let connectDB = require('./database/connect')
+let User = require('./database/models')
+connectDB()
+// jwtauth middleware, this middleware should be exported, but the jwtTokenSecret will have to set twice.
 let jwtauth = function (req, res, next) {
 // coding goes here
   let token = (req.body && req.body.token) || (req.query && req.query.token) || req.headers['x-access-token']
@@ -56,7 +63,7 @@ let jwtauth = function (req, res, next) {
       next()
     } catch (err) {
       // console.log(' has a err')
-      res.status(200).json({
+      res.status(ERR_OK).json({
         'code': 20001,
         'data': {
           'msg': 'token err'
@@ -65,7 +72,7 @@ let jwtauth = function (req, res, next) {
     }
   } else {
     // console.log(' has a err')
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 20002,
       'data': {
         'msg': 'please upload the token'
@@ -91,25 +98,54 @@ apiRoutes.get('/getUser', function (req, res) {
 apiRoutes.all('/password', [jwtauth])
 // login api
 apiRoutes.post('/login', function (req, res) {
-  let ok = req.body.mobile && req.body.password
-  if (ok) {
-    let expires = moment().add(7, 'days').valueOf()
-    let token = jwt.encode({
-      iss: req.body.mobile,
-      exp: expires
-    }, app.get('jwtTokenSecret'))
-    res.status(200).json({
-      'code': 0,
-      'data': {
-        'user': {
-          'userId': 21,
-          'mobile': req.body.mobile
-        },
-        'token': token
+  let mobile = req.body.mobile
+  let password = req.body.password
+  if (mobile && password) {
+    User.findOne({mobile: mobile}, (err, user) => {
+      if (err) {
+        return res.status(ERR).json({
+          'code': NOT_FOUND,
+          'data': {
+            'msg': 'user not found'
+          }
+        })
       }
+      if (!user) {
+        return res.status(ERR).json({
+          'code': NOT_FOUND,
+          'data': {
+            'msg': 'incorrect username'
+          }
+        })
+      }
+      if (user.password !== password) {
+        return res.status(ERR).json({
+          'code': NOT_FOUND,
+          'data': {
+            'msg': 'incorrect password'
+          }
+        })
+      }
+      // User has authenticated ok
+      let expires = moment().add(7, 'days').valueOf()
+      let token = jwt.encode({
+        iss: req.body.mobile,
+        exp: expires
+      }, app.get('jwtTokenSecret'))
+      res.status(ERR_OK).json({
+        'code': 0,
+        'data': {
+          'user': {
+            'userId': 21,
+            'mobile': req.body.mobile
+          },
+          'token': token
+        }
+      })
     })
+
   } else {
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 10001,
       'data': {
         'msg': 'login error,please check your data'
@@ -121,7 +157,19 @@ apiRoutes.post('/register', function (req, res) {
   // console.log(req.body)
   let ok = req.body.mobile && req.body.password
   if (ok) {
-    res.status(200).json({
+    let userInfo = {
+      mobile: req.body.mobile,
+      password: req.body.password
+    }
+    let users = new User(userInfo)
+    console.log('create UsersObj successful')
+    users.save(function (err) {
+      if (err) {
+        console.log(`save error,${err}`)
+      }
+      console.log('save successful')
+    })
+    res.status(ERR_OK).json({
       'code': 0,
       'data': {
         'msg': 'register successful',
@@ -130,7 +178,7 @@ apiRoutes.post('/register', function (req, res) {
       }
     })
   } else {
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 10001,
       'data': {
         'msg': 'register error,please check your data'
@@ -142,7 +190,7 @@ apiRoutes.post('/forget', function (req, res) {
   // console.log(req.body)
   let ok = req.body.mobile && req.body.newpassword
   if (ok) {
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 0,
       'data': {
         'msg': 'reset password successful',
@@ -151,7 +199,7 @@ apiRoutes.post('/forget', function (req, res) {
       }
     })
   } else {
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 10001,
       'data': {
         'msg': 'reset password error,please check your data'
@@ -163,7 +211,7 @@ apiRoutes.post('/password', function (req, res) {
   // console.log(req.body)
   let ok = req.body.mobile && req.body.oldpassword && req.body.newpassword
   if (ok) {
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 0,
       'data': {
         'msg': 'change password successful',
@@ -173,7 +221,7 @@ apiRoutes.post('/password', function (req, res) {
       }
     })
   } else {
-    res.status(200).json({
+    res.status(ERR_OK).json({
       'code': 10001,
       'data': {
         'msg': 'change password error,please check your data'

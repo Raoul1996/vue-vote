@@ -30,6 +30,8 @@
   import goto from '../../config/goto'
   import { mapActions, mapState, mapMutations } from 'vuex'
   const ERR_OK = 0
+  const ERR_USER = 10001
+  const ERR_PASS = 10002
   export default {
     name: 'login',
     data () {
@@ -54,7 +56,8 @@
         },
         rulesLogin: {
           pass: [
-            {validator: validatePass, trigger: 'blur'}
+            {validator: validatePass, trigger: 'blur'},
+            {}
           ],
           username: [
             {validator: checkUsername, trigger: 'blur'}
@@ -82,17 +85,17 @@
             /* eslint-disable no-unused-vars */
             const {username, pass} = this.ruleFormLogin
             let data = await sendLogin(username, pass)
-            console.log(data)
+//            console.log(data)
             if (data.code === ERR_OK) {
               this.$message.success('login successful')
               this.USER_LOGIN(true)
               // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.data.token)
-              console.log(data.data.token)
+//              console.log(data.data.token)
               this.SET_TOKEN(data.data.token)
               goto(this, 'hello')
             } else {
-              this.$message.error('Login error')
+              this.$message.error(data.data.msg)
             }
           } else {
             this.$message.error('submit error')

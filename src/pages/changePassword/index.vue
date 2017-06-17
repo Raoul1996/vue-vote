@@ -103,9 +103,9 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const {username, oldPass, pass, checkPass} = this.ruleFormChange
-            console.log(store.state)
+//            console.log(store.state)
             let data = await changePassword(username, oldPass, pass, store.state.token)
-            console.log(data)
+//            console.log(data)
             if (data.code === ERR_OK) {
               removeStore('token')
               this.USER_LOGIN(false)
