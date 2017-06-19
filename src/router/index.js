@@ -6,6 +6,7 @@ import Login from '../pages/login'
 import Register from '../pages/register'
 import ChangePassword from '../pages/changePassword'
 import Forget from '../pages/forget'
+import NotFound from '../pages/NotFound.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -62,6 +63,11 @@ export default new Router({
         requireAuth: false
       },
       component: Forget
+    },
+    {
+      path: '*',
+      name: 'notFound',
+      component: NotFound
     }
   ]
 })
