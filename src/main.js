@@ -7,13 +7,14 @@ import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
-import { Button, Select, Form, FormItem, Input, MessageBox, Message, Loading } from 'element-ui'
+import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.prototype.$store = store
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert

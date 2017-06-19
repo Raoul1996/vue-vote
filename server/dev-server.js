@@ -96,6 +96,7 @@ apiRoutes.get('/getUser', function (req, res) {
 })
 // decode token
 apiRoutes.all('/password', [jwtauth])
+apiRoutes.all('/user', [jwtauth])
 // login api
 apiRoutes.post('/login', function (req, res) {
   let mobile = req.body.mobile
@@ -143,7 +144,6 @@ apiRoutes.post('/login', function (req, res) {
         }
       })
     })
-
   } else {
     res.status(ERR_OK).json({
       'code': 10001,
@@ -153,28 +153,51 @@ apiRoutes.post('/login', function (req, res) {
     })
   }
 })
+apiRoutes.get('/user', function (req, res) {
+  User.find({}, (err, user) => {
+    if (err) console.log(err)
+    res.status(200).json({
+      data: user
+    })
+  })
+})
 apiRoutes.post('/register', function (req, res) {
   // console.log(req.body)
-  let ok = req.body.mobile && req.body.password
-  if (ok) {
-    let userInfo = {
-      mobile: req.body.mobile,
-      password: req.body.password
-    }
-    let users = new User(userInfo)
-    console.log('create UsersObj successful')
-    users.save(function (err) {
+  let mobile = req.body.mobile
+  let password = req.body.password
+  if (mobile && password) {
+    let users = new User({mobile, password})
+    User.findOne({mobile: mobile}, (err, user) => {
       if (err) {
-        console.log(`save error,${err}`)
+        return res.status(ERR).json({
+          'code': NOT_FOUND,
+          'data': {
+            'msg': 'register err'
+          }
+        })
       }
-      console.log('save successful')
-    })
-    res.status(ERR_OK).json({
-      'code': 0,
-      'data': {
-        'msg': 'register successful',
-        'mobile': req.body.mobile,
-        'password': req.body.password
+      if (user) {
+        return res.status(ERR).json({
+          'code': 20001,
+          'data': {
+            'msg': 'user exist'
+          }
+        })
+      } else {
+        users.save(function (err) {
+          if (err) {
+            console.log(`save error,${err}`)
+          }
+          console.log('save successful')
+        })
+        res.status(ERR_OK).json({
+          'code': 0,
+          'data': {
+            'msg': 'register successful',
+            'mobile': req.body.mobile,
+            'password': req.body.password
+          }
+        })
       }
     })
   } else {

@@ -86,7 +86,7 @@
               this.$message.success('Register successful')
               goto(this, 'login')
             } else {
-              this.$message.error('Register error')
+              this.$message.error(data.data.msg)
             }
           } else {
             this.$message.error('submit error')

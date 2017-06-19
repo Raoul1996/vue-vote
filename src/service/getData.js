@@ -1,11 +1,13 @@
 import fetch from '../config/fetch'
 import Api from '../config/api'
-import { getStore } from '../config/localStorage'
+import {getStore} from '../config/localStorage'
+import store from '../store'
 /**
  * 获取用户信息
  */
 
 export const getUser = () => fetch(Api.getUser, {user_id: getStore('user_id')})
+export const user = () => fetch(Api.getUser, {token: store.state.token})
 
 /**
  * 手机号登录
@@ -34,7 +36,7 @@ export const changePassword = (mobile, oldpassword, newpassword, token, captcha_
 /**
  * 重置密码
  */
-export const resetPassword = (mobile,  newpassword, confirmpassword, captcha_code) => fetch(Api.forget, {
+export const resetPassword = (mobile, newpassword, confirmpassword, captcha_code) => fetch(Api.forget, {
   mobile,
   newpassword,
   confirmpassword,
