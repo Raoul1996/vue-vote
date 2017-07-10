@@ -7,6 +7,7 @@ import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
+import axios from './axios'
 import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(Button)
@@ -39,9 +40,9 @@ router.beforeEach((to, from, next) => {
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  axios,
   router,
   store,
-  template: '<App/>',
-  components: {App}
+  render: h => h(App)
 })
+  .$mount('#app')

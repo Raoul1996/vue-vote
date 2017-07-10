@@ -23,7 +23,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { sendRegister } from '../../service/getData'
+  // this is the fetch api
+  // import { sendRegister } from '../../service/getData'
+  // now Let's try to use axios api~
+  import api from '@/axios'
   import goto from '../../config/goto'
   const ERR_OK = 0
   export default {
@@ -80,14 +83,17 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const {username, pass, checkPass} = this.ruleFormRegister
-            let data = await sendRegister(username, pass)
-            if (data.code === ERR_OK) {
-              this.$message.success('Register successful')
-              goto(this, 'login')
-            } else {
-              this.$message.error(data.data.msg)
-            }
+            // the opt object is the request body.
+            const opt = this.ruleFormRegister
+            api.userRegister(opt).then(({data}) => {
+              console.log(data)
+              if (data.code === ERR_OK) {
+                this.$message.success('Register successful')
+                goto(this, 'login')
+              } else {
+                this.$message.error(data.data.msg)
+              }
+            })
           } else {
             this.$message.error('submit error')
             return false
