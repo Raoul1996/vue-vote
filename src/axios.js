@@ -40,18 +40,26 @@ instance.interceptors.response.use(config => {
 })
 const api = {
   // config the api routers
-  // TODO: but I can't find the baseURL.
   userRegister (data) {
     return instance.post('api/register', data)
   },
   userLogin (data) {
     return instance.post('api/login', data)
   },
+  userLogout (data) {
+    return instance.post('api/logout', data)
+  },
   getUser (data) {
-    return instance.post('api/user', data)
+    return instance.get('api/user', data)
   },
   delUser (data) {
     return instance.post('api/del', data)
+  },
+  forgetPassword (data) {
+    return instance.post('api/forget', data)
+  },
+  resetPassword (data) {
+    return instance.post('api/password', data)
   }
 }
 export default api

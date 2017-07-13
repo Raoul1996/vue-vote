@@ -2,15 +2,15 @@
   <div class="register">
     <h1 class="title">Register</h1>
     <el-form :model="ruleFormRegister" :rules="rules2" ref="ruleFormRegister" class="demo-ruleForm register-form">
-      <el-form-item label="username" prop="username">
-        <el-input v-model="ruleFormRegister.username" placeholder="Pick a username"></el-input>
+      <el-form-item label="mobile" prop="mobile">
+        <el-input v-model="ruleFormRegister.mobile" placeholder="Pick a mobile"></el-input>
       </el-form-item>
-      <el-form-item label="password" prop="pass">
-        <el-input type="password" v-model="ruleFormRegister.pass" auto-complete="off"
+      <el-form-item label="password" prop="password">
+        <el-input type="password" v-model="ruleFormRegister.password" auto-complete="off"
                   placeholder="Create a password"></el-input>
       </el-form-item>
-      <el-form-item label="confirm" prop="checkPass">
-        <el-input type="password" v-model="ruleFormRegister.checkPass" auto-complete="off"
+      <el-form-item label="confirm" prop="checkPassword">
+        <el-input type="password" v-model="ruleFormRegister.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
@@ -23,8 +23,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  // this is the fetch api
-  // import { sendRegister } from '../../service/getData'
   // now Let's try to use axios api~
   import api from '@/axios'
   import goto from '../../config/goto'
@@ -44,8 +42,8 @@
         if (value === '') {
           callback(new Error('请输入密码'))
         } else {
-          if (this.ruleFormRegister.checkPass !== '') {
-            this.$refs.ruleFormRegister.validateField('checkPass')
+          if (this.ruleFormRegister.checkPassword !== '') {
+            this.$refs.ruleFormRegister.validateField('checkPassword')
           }
           callback()
         }
@@ -53,7 +51,7 @@
       let validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleFormRegister.pass) {
+        } else if (value !== this.ruleFormRegister.password) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -61,18 +59,18 @@
       }
       return {
         ruleFormRegister: {
-          username: '',
-          pass: '',
-          checkPass: ''
+          mobile: '',
+          password: '',
+          checkPassword: ''
         },
         rules2: {
-          pass: [
+          password: [
             {validator: validatePass, trigger: 'blur'}
           ],
-          checkPass: [
+          checkPassword: [
             {validator: validatePass2, trigger: 'blur'}
           ],
-          username: [
+          mobile: [
             {validator: checkUsername, trigger: 'blur'}
           ]
         }
@@ -86,7 +84,6 @@
             // the opt object is the request body.
             const opt = this.ruleFormRegister
             api.userRegister(opt).then(({data}) => {
-              console.log(data)
               if (data.code === ERR_OK) {
                 this.$message.success('Register successful')
                 goto(this, 'login')

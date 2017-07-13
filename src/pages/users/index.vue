@@ -10,7 +10,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {user} from '../../service/getData'
+  //  import {user} from '../../service/getData'
+  import api from '@/axios'
   export default {
     name: 'template',
     data () {
@@ -24,8 +25,9 @@
     },
     methods: {
       async getUserMsg () {
-        let data = await user()
-        this.users = data.data
+        await api.getUser().then(({data}) => {
+          this.users = data.data
+        })
       }
     }
   }
@@ -39,7 +41,7 @@
       .users-list {
         flex 1
         padding 0
-        .users-item{
+        .users-item {
           list-style none
         }
       }

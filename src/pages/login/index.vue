@@ -2,12 +2,12 @@
   <div class="login">
     <h1 class="title">Sign in to Vue-login</h1>
     <el-form :model="ruleFormLogin" :rules="rulesLogin" ref="ruleFormLogin" class="demo-ruleForm login-form">
-      <el-form-item label="username" prop="username">
-        <el-input v-model="ruleFormLogin.username"></el-input>
+      <el-form-item label="mobile" prop="mobile">
+        <el-input v-model="ruleFormLogin.mobile"></el-input>
       </el-form-item>
-      <el-form-item label="password" prop="pass">
-        <el-input type="password" v-model="ruleFormLogin.pass" auto-complete="off"></el-input>
-        <router-link to="forget" class="forget">Forgot password?</router-link>
+      <el-form-item label="passwordword" prop="password">
+        <el-input type="passwordword" v-model="ruleFormLogin.password" auto-complete="off"></el-input>
+        <router-link to="forget" class="forget">Forgot passwordword?</router-link>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" class="login-button" size="middle" @click="submitForm('ruleFormLogin')">Sign in
@@ -25,10 +25,10 @@
 
 <script type="text/ecmascript-6">
   /* eslint-disable no-unused-vars */
-  import { sendLogin } from '../../service/getData'
-  import { setStore } from '../../config/localStorage'
+  import api from '@/axios'
+  import {setStore} from '../../config/localStorage'
   import goto from '../../config/goto'
-  import { mapActions, mapState, mapMutations } from 'vuex'
+  import {mapActions, mapState, mapMutations} from 'vuex'
   const ERR_OK = 0
   const ERR_USER = 10001
   const ERR_PASS = 10002
@@ -51,15 +51,15 @@
       }
       return {
         ruleFormLogin: {
-          username: '',
-          pass: ''
+          mobile: '',
+          password: ''
         },
         rulesLogin: {
-          pass: [
+          password: [
             {validator: validatePass, trigger: 'blur'},
             {}
           ],
-          username: [
+          mobile: [
             {validator: checkUsername, trigger: 'blur'}
           ]
         },
@@ -83,20 +83,21 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const {username, pass} = this.ruleFormLogin
-            let data = await sendLogin(username, pass)
+//            const {mobile, password} = this.ruleFormLogin
+            const opt = this.ruleFormLogin
+            api.userLogin(opt).then(({data}) => {
+              if (data.code === ERR_OK) {
+                this.$message.success('login successful')
+                this.USER_LOGIN(true)
+                // 这里我还是选择把token放到了本地，虽然可能不会去使用
+                setStore('token', data.data.token)
+                this.SET_TOKEN(data.data.token)
+                goto(this, 'hello')
+              } else {
+                this.$message.error(data.data.msg)
+              }
+            })
 //            console.log(data)
-            if (data.code === ERR_OK) {
-              this.$message.success('login successful')
-              this.USER_LOGIN(true)
-              // 这里我还是选择把token放到了本地，虽然可能不会去使用
-              setStore('token', data.data.token)
-//              console.log(data.data.token)
-              this.SET_TOKEN(data.data.token)
-              goto(this, 'hello')
-            } else {
-              this.$message.error(data.data.msg)
-            }
           } else {
             this.$message.error('submit error')
             return false

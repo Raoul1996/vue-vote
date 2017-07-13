@@ -2,19 +2,19 @@
   <div class="change">
     <h1 class="title">Change Password</h1>
     <el-form :model="ruleFormChange" :rules="rulesChange" ref="ruleFormChange" class="demo-ruleForm change-form">
-      <el-form-item label="username" prop="username">
-        <el-input v-model="ruleFormChange.username" placeholder="Your username"></el-input>
+      <el-form-item label="mobile" prop="mobile">
+        <el-input v-model="ruleFormChange.mobile" placeholder="Your mobile"></el-input>
       </el-form-item>
-      <el-form-item label="oldPassword" prop="oldPass">
-        <el-input type="password" v-model="ruleFormChange.oldPass" auto-complete="off"
+      <el-form-item label="oldPassword" prop="oldPassword">
+        <el-input type="password" v-model="ruleFormChange.oldPassword" auto-complete="off"
                   placeholder="Create a new password"></el-input>
       </el-form-item>
-      <el-form-item label="newPassword" prop="pass">
-        <el-input type="password" v-model="ruleFormChange.pass" auto-complete="off"
+      <el-form-item label="newPassword" prop="password">
+        <el-input type="password" v-model="ruleFormChange.newPassword" auto-complete="off"
                   placeholder="Create a new password"></el-input>
       </el-form-item>
-      <el-form-item label="confirm" prop="checkPass">
-        <el-input type="password" v-model="ruleFormChange.checkPass" auto-complete="off"
+      <el-form-item label="confirm" prop="checkPassword">
+        <el-input type="password" v-model="ruleFormChange.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
@@ -28,9 +28,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { changePassword } from '../../service/getData'
-  import { removeStore } from '../../config/localStorage'
-  import { mapActions, mapState } from 'vuex'
+  import api from '@/axios'
+  import {removeStore} from '../../config/localStorage'
+  import {mapActions, mapState} from 'vuex'
   import store from '../../store'
   import goto from '../../config/goto'
   const ERR_OK = 0
@@ -51,8 +51,8 @@
         if (value === '') {
           callback(new Error('请输入密码'))
         } else {
-          if (this.ruleFormChange.checkPass !== '') {
-            this.$refs.ruleFormChange.validateField('checkPass')
+          if (this.ruleFormChange.checkPassword !== '') {
+            this.$refs.ruleFormChange.validateField('checkPassword')
           }
           callback()
         }
@@ -60,7 +60,7 @@
       let validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleFormChange.pass) {
+        } else if (value !== this.ruleFormChange.newPassword) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -68,22 +68,22 @@
       }
       return {
         ruleFormChange: {
-          username: '',
-          oldPass: '',
-          pass: '',
-          checkPass: ''
+          mobile: '',
+          oldPassword: '',
+          newPassword: '',
+          checkPassword: ''
         },
         rulesChange: {
-          username: [
+          mobile: [
             {validator: checkUsername, trigger: 'blur'}
           ],
-          oldPass: [
+          oldPassword: [
             {validator: validatePass, trigger: 'blur'}
           ],
-          pass: [
+          newPassword: [
             {validator: validatePass, trigger: 'blur'}
           ],
-          checkPass: [
+          checkPassword: [
             {validator: validatePass2, trigger: 'blur'}
           ]
         }
@@ -102,18 +102,20 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const {username, oldPass, pass, checkPass} = this.ruleFormChange
+//            const {mobile, oldPassword, newPassword, checkPassword} = this.ruleFormChange
+            const opt = this.ruleFormChange
 //            console.log(store.state)
-            let data = await changePassword(username, oldPass, pass, store.state.token)
+            api.resetPassword(opt).then(({data}) => {
 //            console.log(data)
-            if (data.code === ERR_OK) {
-              removeStore('token')
-              this.USER_LOGIN(false)
-              this.$message.success('Change Password successful')
-              goto(this, 'login')
-            } else {
-              this.$message.error('Change Password error')
-            }
+              if (data.code === ERR_OK) {
+                removeStore('token')
+                this.USER_LOGIN(false)
+                this.$message.success('Change Password successful')
+                goto(this, 'login')
+              } else {
+                this.$message.error('Change Password error')
+              }
+            })
           } else {
             this.$message.error('submit error')
             return false

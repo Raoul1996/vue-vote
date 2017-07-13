@@ -2,15 +2,15 @@
   <div class="forget">
     <h1 class="title">Reset Password</h1>
     <el-form :model="ruleFormForget" :rules="rules2" ref="ruleFormForget" class="demo-ruleForm forget-form">
-      <el-form-item label="username" prop="username">
-        <el-input v-model="ruleFormForget.username" placeholder="Your username"></el-input>
+      <el-form-item label="mobile" prop="mobile">
+        <el-input v-model="ruleFormForget.mobile" placeholder="Your mobile"></el-input>
       </el-form-item>
-      <el-form-item label="newPassword" prop="newPass">
-        <el-input type="password" v-model="ruleFormForget.newPass" auto-complete="off"
+      <el-form-item label="newPassword" prop="newPassword">
+        <el-input type="password" v-model="ruleFormForget.newPassword" auto-complete="off"
                   placeholder="Create a new password"></el-input>
       </el-form-item>
-      <el-form-item label="confirm" prop="checkPass">
-        <el-input type="password" v-model="ruleFormForget.checkPass" auto-complete="off"
+      <el-form-item label="confirm" prop="checkPassword">
+        <el-input type="password" v-model="ruleFormForget.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { resetPassword } from '../../service/getData'
+  import api from '@/axios'
   import goto from '../../config/goto'
   const ERR_OK = 0
   export default {
@@ -41,8 +41,8 @@
         if (value === '') {
           callback(new Error('请输入密码'))
         } else {
-          if (this.ruleFormForget.checkPass !== '') {
-            this.$refs.ruleFormForget.validateField('checkPass')
+          if (this.ruleFormForget.checkPassword !== '') {
+            this.$refs.ruleFormForget.validateField('checkPassword')
           }
           callback()
         }
@@ -50,7 +50,7 @@
       let validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleFormForget.newPass) {
+        } else if (value !== this.ruleFormForget.newPassword) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -58,18 +58,18 @@
       }
       return {
         ruleFormForget: {
-          username: '',
-          newPass: '',
-          checkPass: ''
+          mobile: '',
+          newPassword: '',
+          checkPassword: ''
         },
         rules2: {
-          username: [
+          mobile: [
             {validator: checkUsername, trigger: 'blur'}
           ],
-          newPass: [
+          newPassword: [
             {validator: validatePass, trigger: 'blur'}
           ],
-          checkPass: [
+          checkPassword: [
             {validator: validatePass2, trigger: 'blur'}
           ]
         }
@@ -80,14 +80,15 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const {username, newPass, checkPass} = this.ruleFormForget
-            let data = await resetPassword(username, newPass)
-            if (data.code === ERR_OK) {
-              this.$message.success('Reset Password successful')
-              goto(this, 'login')
-            } else {
-              this.$message.error('Reset Password error')
-            }
+            const opt = this.ruleFormForget
+            api.forgetPassword(opt).then(({data}) => {
+              if (data.code === ERR_OK) {
+                this.$message.success('Reset Password successful')
+                goto(this, 'login')
+              } else {
+                this.$message.error('Reset Password error')
+              }
+            })
           } else {
             this.$message.error('submit error')
             return false
