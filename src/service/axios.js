@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
-import router from './router'
-import store from './store'
-import * as types from './store/mutation-types'
-import API from './config/api'
+import router from '../router/index'
+import store from '../store/index'
+import * as types from '../store/mutation-types'
+import API from '../config/api'
 import { Message, Alert } from 'element-ui'
-import codeMap from './config/codeMap'
+import codeMap from '../config/codeMap'
 
 const TIMEOUT = 5000
 const ERR_OK = 0

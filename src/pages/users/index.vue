@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6">
   //  import {user} from '../../service/getData'
-  import api from '@/axios'
+  import api from '@/service/axios'
   export default {
     name: 'template',
     data () {

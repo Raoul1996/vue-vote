@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img class="logo" src="./assets/logo.png" alt="" width="50" height="50">
+    <!--<img class="logo" src="./assets/logo.png" alt="" width="50" height="50">-->
     <!--<el-button class="nav" @click="handleClick">Random Router</el-button>-->
     <transition :name="transitionName">
       <router-view></router-view>
@@ -40,9 +40,16 @@
 </script>
 
 <style lang="stylus">
+  @import "normalize.css/normalize.css"
+  ul,li{
+    margin 0
+    padding 0
+    list-style none
+  }
   #app {
+    margin-top 88px
     .logo{
-      margin-top 20px
+      /*margin-top 88px*/
     }
     font-family 'Avenir', Helvetica, Arial, sans-serif
     -webkit-font-smoothing antialiased

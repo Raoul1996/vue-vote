@@ -27,7 +27,7 @@
 
 <script type="text/ecmascript-6">
   /* eslint-disable no-unused-vars */
-  import api from '@/axios'
+  import api from 'service/axios'
   import { setStore } from '../../config/localStorage'
   import goto from '../../config/goto'
   import { mapActions, mapState, mapMutations } from 'vuex'
@@ -90,7 +90,7 @@
               // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.token)
               this.SET_TOKEN(data.token)
-              goto(this, 'hello')
+              goto(this, 'vote')
             })
 //            console.log(data)
           } else {
@@ -116,6 +116,8 @@
       border-radius 5px
       border 1px solid #d8dee2
       .forget {
+        margin-top -1em
+        margin-bottom -1em
         float right
       }
       .login-button {

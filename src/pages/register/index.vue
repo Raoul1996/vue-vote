@@ -24,7 +24,7 @@
 
 <script type="text/ecmascript-6">
   // now Let's try to use axios api~
-  import api from '@/axios'
+  import api from '@/service/axios'
 
   import goto from '../../config/goto'
   export default {

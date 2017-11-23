@@ -28,7 +28,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '@/axios'
+  import api from '@/service/axios'
   import { removeStore } from '../../config/localStorage'
   import { mapActions, mapState } from 'vuex'
   import store from '../../store'

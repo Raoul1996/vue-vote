@@ -7,14 +7,31 @@ import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
-import axios from './axios'
-import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
+import axios from './service/axios'
+import {
+  Button,
+  Select,
+  Form,
+  FormItem,
+  Input,
+  Row,
+  Card,
+  Col,
+  MessageBox,
+  Message,
+  Loading,
+  Notification
+} from 'element-ui'
+
 Vue.config.productionTip = false
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Card)
 Vue.prototype.$store = store
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox

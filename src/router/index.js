@@ -2,14 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/pages/Hello'
 import store from '../store'
-
-const Users = () => import('../pages/users')
-const Nav = () => import('../components/nav')
-const Login = () => import('../pages/login')
-const Register = () => import('../pages/register')
-const ChangePassword = () => import('../pages/changePassword')
-const Forget = () => import('../pages/forget')
-const NotFound = () => import('../pages/NotFound.vue')
+// 配置路由懒加载
+const Users = () => import('pages/users')
+const Nav = () => import('components/nav')
+const Login = () => import('pages/login')
+const Register = () => import('pages/register')
+const ChangePassword = () => import('pages/changePassword')
+const Forget = () => import('pages/forget')
+const Vote = () => import('pages/vote.vue')
+const NotFound = () => import('pages/NotFound.vue')
 
 Vue.use(Router)
 /**
@@ -30,6 +31,14 @@ const router = new Router({
       path: '/',
       // redirect: 'components'
       component: Login
+    },
+    {
+      path: '/vote',
+      name: 'vote',
+      meta: {
+        requireAuth: false
+      },
+      component: Vote
     },
     {
       path: '/hello',

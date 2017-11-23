@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '@/axios'
+  import api from '@/service/axios'
   import goto from '../../config/goto'
 
   export default {
