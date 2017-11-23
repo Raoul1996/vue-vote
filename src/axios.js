@@ -24,9 +24,23 @@ instance.defaults.headers.post['Content-Type'] = 'application/json'
 // TODO: what the config object meaning? where can I found it?
 axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(config => {
-  if (localStorage.getItem('token')) {
-    config.headers.Authorization = `token ${localStorage.getItem('token')}`
-      .replace(/(^")|("$)/g, '')
+  console.log(config)
+  const {data} = config
+  let token = null
+  if (data && data.token) {
+    token = data.token
+  }
+  // 在发送请求之前，如果不明确 token 为 false 的话，就会添加 Authorization 头
+  // 这里不能使用 !token === false, 因为 !undefined === false
+  if (token !== false) {
+    if (localStorage.getItem('token')) {
+      // 在这里添加 Authorization 请求头，目的是携带 token 给后端
+      config.headers.Authorization = `token ${localStorage.getItem('token')}`
+        .replace(/(^")|("$)/g, '')
+    } else {
+      Message.error(`${codeMap[20004].toString() || 'unKnowError'}: ${20004}`)
+      return Promise.reject(config)
+    }
   }
   return config
 }, err => {
@@ -42,12 +56,12 @@ instance.interceptors.response.use((config) => {
   const {data, data: {code}} = config
   if (code !== ERR_OK) {
     Message.error(`${codeMap[code].toString() || 'unKnowError'}: ${code}`)
-    Promise.reject(code, config)
+    return Promise.reject(config)
   } else {
     return data
   }
 }, err => {
-  Promise.reject(err)
+  return Promise.reject(err)
 })
 
 const requestService = {

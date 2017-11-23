@@ -35,7 +35,7 @@ const router = new Router({
       path: '/hello',
       name: 'Hello',
       meta: {
-        requireAuth: true
+        requireAuth: false
       },
       component: Users
     },
@@ -43,7 +43,7 @@ const router = new Router({
       path: '/nav',
       name: 'Nav',
       meta: {
-        requireAuth: true
+        requireAuth: false
       },
       component: Nav
     },
@@ -59,7 +59,7 @@ const router = new Router({
       path: '/change-password',
       name: 'ChangePassword',
       meta: {
-        requireAuth: true
+        requireAuth: false
       },
       component: ChangePassword
     },

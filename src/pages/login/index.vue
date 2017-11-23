@@ -31,6 +31,7 @@
   import { setStore } from '../../config/localStorage'
   import goto from '../../config/goto'
   import { mapActions, mapState, mapMutations } from 'vuex'
+
   export default {
     name: 'login',
     data () {
@@ -83,7 +84,7 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const opt = this.ruleFormLogin
-            api.userLogin(opt).then(({data}) => {
+            api.userLogin({...opt, token: false}).then(({data}) => {
               this.$message.success('login successful')
               this.USER_LOGIN(true)
               // 这里我还是选择把token放到了本地，虽然可能不会去使用

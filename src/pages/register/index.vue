@@ -27,8 +27,6 @@
   import api from '@/axios'
 
   import goto from '../../config/goto'
-
-  const ERR_OK = 0
   export default {
     name: 'register',
     data () {
