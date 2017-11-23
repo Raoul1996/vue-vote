@@ -4,9 +4,13 @@ import router from './router'
 import store from './store'
 import * as types from './store/mutation-types'
 import API from './config/api'
-// this is the default config
+import { Message, Alert } from 'element-ui'
+import codeMap from './config/codeMap'
 
-axios.default.timeout = 5000
+const TIMEOUT = 5000
+const ERR_OK = 0
+// this is the default config
+axios.default.timeout = TIMEOUT
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 // create a instance
 
@@ -31,20 +35,34 @@ instance.interceptors.request.use(config => {
 })
 
 // config the response interceptors
-
+// 在这里配置后端的拦截器
 axios.interceptors.response.use = instance.interceptors.response.use
-instance.interceptors.response.use(config => {
-  return config
+instance.interceptors.response.use((config) => {
+  // data 即为后端返回的数据
+  const {data, data: {code}} = config
+  if (code !== ERR_OK) {
+    Message.error(`${codeMap[code].toString() || 'unKnowError'}: ${code}`)
+    Promise.reject(code, config)
+  } else {
+    return data
+  }
 }, err => {
   Promise.reject(err)
 })
-const api = {
+
+const requestService = {
   // config the api routers
   userRegister (data) {
     return instance.post(API.register, data)
   },
   userLogin (data) {
-    return instance.post(API.login, data)
+    return instance.post(API.login, data).then(
+      (response) => {
+        const {data: {token}} = response
+        // TODO: 在这里集中处理 Token
+        return response
+      }
+    )
   },
   userLogout (data) {
     return instance.post(API.logout, data)
@@ -62,4 +80,4 @@ const api = {
     return instance.post(API.password, data)
   }
 }
-export default api
+export default requestService

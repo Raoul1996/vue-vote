@@ -29,11 +29,10 @@
 
 <script type="text/ecmascript-6">
   import api from '@/axios'
-  import {removeStore} from '../../config/localStorage'
-  import {mapActions, mapState} from 'vuex'
+  import { removeStore } from '../../config/localStorage'
+  import { mapActions, mapState } from 'vuex'
   import store from '../../store'
   import goto from '../../config/goto'
-  const ERR_OK = 0
   export default {
     name: 'change',
     // 提供store接口
@@ -104,17 +103,12 @@
             /* eslint-disable no-unused-vars */
 //            const {mobile, oldPassword, newPassword, checkPassword} = this.ruleFormChange
             const opt = this.ruleFormChange
-//            console.log(store.state)
             api.resetPassword(opt).then(({data}) => {
 //            console.log(data)
-              if (data.code === ERR_OK) {
-                removeStore('token')
-                this.USER_LOGIN(false)
-                this.$message.success('Change Password successful')
-                goto(this, 'login')
-              } else {
-                this.$message.error('Change Password error')
-              }
+              removeStore('token')
+              this.USER_LOGIN(false)
+              this.$message.success('Change Password successful')
+              goto(this, 'login')
             })
           } else {
             this.$message.error('submit error')

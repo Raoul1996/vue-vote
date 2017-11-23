@@ -27,6 +27,7 @@
   import api from '@/axios'
 
   import goto from '../../config/goto'
+
   const ERR_OK = 0
   export default {
     name: 'register',
@@ -85,12 +86,8 @@
             // the opt object is the request body.
             const opt = this.ruleFormRegister
             api.userRegister(opt).then(({data}) => {
-              if (data.code === ERR_OK) {
-                this.$message.success('Register successful')
-                goto(this, 'login')
-              } else {
-                this.$message.error(data.data.msg)
-              }
+              this.$message.success('Register successful')
+              goto(this, 'login')
             })
           } else {
             this.$message.error('submit error')

@@ -26,7 +26,7 @@
     methods: {
       async getUserMsg () {
         await api.getUser().then(({data}) => {
-          this.users = data.data
+          this.users = data
         })
       }
     }

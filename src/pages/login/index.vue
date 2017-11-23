@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <h1 class="title">Sign in to Voter</h1>
-    <el-form :model="ruleFormLogin" :rules="rulesLogin" ref="ruleFormLogin" class="demo-ruleForm login-form">
+    <el-form :model="ruleFormLogin" :rules="rulesLogin" ref="ruleFormLogin" class="login-form">
       <el-form-item label="mobile" prop="mobile">
         <el-input v-model="ruleFormLogin.mobile"></el-input>
       </el-form-item>
@@ -31,10 +31,6 @@
   import { setStore } from '../../config/localStorage'
   import goto from '../../config/goto'
   import { mapActions, mapState, mapMutations } from 'vuex'
-
-  const ERR_OK = 0
-  const ERR_USER = 10001
-  const ERR_PASS = 10002
   export default {
     name: 'login',
     data () {
@@ -86,19 +82,14 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-//            const {mobile, password} = this.ruleFormLogin
             const opt = this.ruleFormLogin
             api.userLogin(opt).then(({data}) => {
-              if (data.code === ERR_OK) {
-                this.$message.success('login successful')
-                this.USER_LOGIN(true)
-                // 这里我还是选择把token放到了本地，虽然可能不会去使用
-                setStore('token', data.data.token)
-                this.SET_TOKEN(data.data.token)
-                goto(this, 'hello')
-              } else {
-                this.$message.error(data.data.msg)
-              }
+              this.$message.success('login successful')
+              this.USER_LOGIN(true)
+              // 这里我还是选择把token放到了本地，虽然可能不会去使用
+              setStore('token', data.token)
+              this.SET_TOKEN(data.token)
+              goto(this, 'hello')
             })
 //            console.log(data)
           } else {
