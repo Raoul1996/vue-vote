@@ -9,6 +9,7 @@ const userApiMaker = (path) => {
 export default {
   host: userApiMaker(''),
   register: userApiMaker('register'),
+  vote: userApiMaker('vote'),
   login: userApiMaker('login'),
   logout: userApiMaker('logout'),
   me: userApiMaker('me'),

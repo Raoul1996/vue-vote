@@ -6,10 +6,10 @@
         <el-button style="float: right; padding: 3px 0" type="text" @click="alertMessage">{{button}}</el-button>
       </div>
       <div class="content">
-        <div>这里放元信息{{content}}</div>
+        <div>{{voteType}}</div>
       </div>
       <div class="bottom">
-        <div class="time">{{currentDate}}</div>
+        <div class="time">{{start}} ---- {{end}}</div>
       </div>
     </el-card>
   </div>
@@ -21,16 +21,25 @@
   export default {
     name: 'card',
     props: {
-      'content': {
-        type: String,
+      'vote': {
+        type: Object,
         require: true
       }
     },
     data () {
+      const {id = '', title = '', startAt = '', endAt = '', type = ''} = this.vote
       return {
-        title: 'this is the card title',
-        button: 'share',
-        currentDate: format(new Date(), 'YYYY/DD/MM HH:mm')
+        id: id,
+        title: title,
+        button: id,
+        type: type,
+        start: format(startAt, 'YYYY/DD/MM HH:mm'),
+        end: format(endAt, 'YYYY/DD/MM HH:mm')
+      }
+    },
+    computed: {
+      voteType: function () {
+        return this.type === 1 ? '单选' : '多选'
       }
     },
     mounted () {
@@ -50,32 +59,33 @@
   .card {
     text-align left
     .time {
-      font-size: 13px;
-      color: #999;
+      font-size 13px
+      color #999
     }
     .bottom {
-      margin-top: 13px;
-      line-height: 12px;
+      margin-top 13px
+      /*border-top 1px solid #e6ebf5*/
+      line-height 12px
     }
 
     .button {
-      padding: 0;
-      float: right;
+      padding 0
+      float right
     }
 
     .image {
-      width: 100%;
-      display: block;
+      width 100%
+      display block
     }
 
     .clearfix:before,
     .clearfix:after {
-      display: table;
-      content: "";
+      display table
+      content ""
     }
 
     .clearfix:after {
-      clear: both
+      clear both
     }
   }
 </style>

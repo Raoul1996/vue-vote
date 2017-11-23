@@ -92,6 +92,9 @@ const requestService = {
   },
   resetPassword (data) {
     return instance.post(API.password, data)
+  },
+  getVote (data) {
+    return instance.get(API.vote, data)
   }
 }
 export default requestService

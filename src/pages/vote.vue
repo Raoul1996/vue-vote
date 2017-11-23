@@ -2,8 +2,8 @@
   <div class="vote">
     {{msg}}
     <ul class="vote-list">
-      <li class="vote-item" v-for="(o, index) in votes" :key="o">
-        <Card :content="o"></Card>
+      <li class="vote-item" v-for="(o, index) in list" :key="index">
+        <Card :vote="o"></Card>
       </li>
     </ul>
   </div>
@@ -11,13 +11,25 @@
 
 <script>
   import Card from '../components/Card.vue'
+  import api from 'service/axios'
 
   export default {
     name: 'vote',
     data () {
       return {
-        votes: 7,
+        list: '',
         msg: 'this is the side project based on vue'
+      }
+    },
+    mounted () {
+      this.getVote()
+    },
+    methods: {
+      getVote () {
+        api.getVote().then(({data}) => {
+          const {list} = data
+          this.list = list
+        })
       }
     },
     components: {

@@ -56,8 +56,7 @@
         },
         rulesLogin: {
           password: [
-            {validator: validatePass, trigger: 'blur'},
-            {}
+            {validator: validatePass, trigger: 'blur'}
           ],
           mobile: [
             {validator: checkUsername, trigger: 'blur'}
