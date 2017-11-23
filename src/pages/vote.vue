@@ -27,19 +27,33 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .vote {
+  // 三列布局
+  .vote-list {
+    margin 0 auto
+    max-width: 1035px
+    display flex
+    flex-wrap wrap
+    .vote-item {
+      display inline-block
+      margin 20px
+      width 300px
+    }
+  }
+//两列布局
+  @media screen and (max-width: 1018px) and (min-width: 690px) {
     .vote-list {
-      margin 0 auto
-      max-width: calc((300px + 40px) * 3)
-      display flex
-      flex-wrap wrap
+      width 690px
+    }
+  }
+// 单列布局
+  @media screen and (max-width: 690px) {
+    .vote-list {
+      width 440px
       .vote-item {
-        display inline-block
-        margin 20px
-        width 300px
+        margin 20px auto
       }
     }
-
   }
+
 
 </style>
