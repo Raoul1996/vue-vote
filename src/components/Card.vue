@@ -6,7 +6,7 @@
         <el-button style="float: right; padding: 3px 0" type="text" @click="alertMessage">{{button}}</el-button>
       </div>
       <div class="content">
-        <div >这里放元信息</div>
+        <div>这里放元信息{{content}}</div>
       </div>
       <div class="bottom">
         <div class="time">{{currentDate}}</div>
@@ -17,8 +17,15 @@
 
 <script>
   import format from 'date-fns/format'
+
   export default {
     name: 'card',
+    props: {
+      'content': {
+        type: String,
+        require: true
+      }
+    },
     data () {
       return {
         title: 'this is the card title',
