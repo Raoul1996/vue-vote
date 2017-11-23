@@ -31,8 +31,7 @@
   .vote-list {
     margin 0 auto
     max-width: 1035px
-    display flex
-    flex-wrap wrap
+    column-count 3
     .vote-item {
       display inline-block
       margin 20px
@@ -43,12 +42,14 @@
   @media screen and (max-width: 1018px) and (min-width: 690px) {
     .vote-list {
       width 690px
+      column-count 2
     }
   }
 // 单列布局
   @media screen and (max-width: 690px) {
     .vote-list {
       width 440px
+      column-count 1
       .vote-item {
         margin 20px auto
       }

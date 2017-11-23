@@ -3,10 +3,10 @@
     <el-card :body-style="{ padding: '20px' }">
       <div slot="header" class="clearfix">
         <span>{{title}}</span>
-        <el-button style="float: right; padding: 3px 0" type="text">{{button}}</el-button>
+        <el-button style="float: right; padding: 3px 0" type="text" @click="alertMessage">{{button}}</el-button>
       </div>
       <div class="content">
-        <div @click="alertMessage">这里放元信息</div>
+        <div >这里放元信息</div>
       </div>
       <div class="bottom">
         <div class="time">{{currentDate}}</div>
@@ -17,7 +17,6 @@
 
 <script>
   import format from 'date-fns/format'
-
   export default {
     name: 'card',
     data () {
