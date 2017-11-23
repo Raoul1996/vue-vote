@@ -2,8 +2,8 @@
   <div class="login">
     <h1 class="title">Sign in to Voter</h1>
     <el-form :model="ruleFormLogin" :rules="rulesLogin" ref="ruleFormLogin" class="login-form">
-      <el-form-item label="mobile" prop="mobile">
-        <el-input v-model="ruleFormLogin.mobile"></el-input>
+      <el-form-item label="identifier" prop="identifier">
+        <el-input v-model="ruleFormLogin.identifier"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="password">
         <el-input type="password" v-model="ruleFormLogin.password" auto-complete="off"></el-input>
@@ -29,37 +29,29 @@
   /* eslint-disable no-unused-vars */
   import api from 'service/axios'
   import { setStore } from '../../config/localStorage'
-  import goto from '../../config/goto'
+  import { lazyGoto, goto } from '@/utils'
   import { mapActions, mapState, mapMutations } from 'vuex'
 
   export default {
     name: 'login',
     data () {
-      let checkUsername = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('用户名不能为空'))
-        } else {
-          callback()
-        }
-      }
-      let validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'))
-        } else {
-          callback()
-        }
-      }
       return {
         ruleFormLogin: {
-          mobile: '',
-          password: ''
+          identifier: null,
+          password: '123456',
+          // 使用的是 web 端
+          client: 1,
+          token: false
         },
         rulesLogin: {
           password: [
-            {validator: validatePass, trigger: 'blur'}
+            {require: true, message: '请填写密码', trigger: 'blur'},
+            {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
-          mobile: [
-            {validator: checkUsername, trigger: 'blur'}
+          identifier: [
+            {require: true, message: '请填写手机号码', trigger: 'blur'},
+            {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
+//            {type: 'number', message: '手机号码只有数字'}
           ]
         },
         msgFlag: true
@@ -83,13 +75,13 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const opt = this.ruleFormLogin
-            api.userLogin({...opt, token: false}).then(({data}) => {
+            api.userLogin(opt).then(({data}) => {
               this.$message.success('login successful')
               this.USER_LOGIN(true)
               // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.token)
               this.SET_TOKEN(data.token)
-              goto(this, 'vote')
+              lazyGoto(this, 'vote')
             })
 //            console.log(data)
           } else {

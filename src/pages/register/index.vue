@@ -1,7 +1,10 @@
 <template>
   <div class="register">
     <h1 class="title">Register</h1>
-    <el-form :model="ruleFormRegister" :rules="rules2" ref="ruleFormRegister" class="demo-ruleForm register-form">
+    <el-form :model="ruleFormRegister" :rules="rules" ref="ruleFormRegister" class="register-form">
+      <el-form-item label="name" prop="name">
+        <el-input v-model="ruleFormRegister.name" placeholder="Pick a name"></el-input>
+      </el-form-item>
       <el-form-item label="mobile" prop="mobile">
         <el-input v-model="ruleFormRegister.mobile" placeholder="Pick a mobile"></el-input>
       </el-form-item>
@@ -26,32 +29,13 @@
   // now Let's try to use axios api~
   import api from '@/service/axios'
 
-  import goto from '../../config/goto'
+  import { sleep, goto } from '@/utils'
+
   export default {
     name: 'register',
     data () {
-      let checkUsername = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('用户名不能为空'))
-        }
-        setTimeout(() => {
-          callback()
-        }, 1000)
-      }
       let validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'))
-        } else {
-          if (this.ruleFormRegister.checkPassword !== '') {
-            this.$refs.ruleFormRegister.validateField('checkPassword')
-          }
-          callback()
-        }
-      }
-      let validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleFormRegister.password) {
+        if (value !== this.ruleFormRegister.password) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -59,19 +43,28 @@
       }
       return {
         ruleFormRegister: {
+          name: '',
           mobile: '',
           password: '',
-          checkPassword: ''
+          checkPassword: '',
+          token: false
         },
-        rules2: {
-          password: [
-            {validator: validatePass, trigger: 'blur'}
-          ],
-          checkPassword: [
-            {validator: validatePass2, trigger: 'blur'}
+        rules: {
+          name: [
+            {require: true, message: '请取一个用户名', trigger: 'blur'}
           ],
           mobile: [
-            {validator: checkUsername, trigger: 'blur'}
+            {require: true, message: '请填写手机号码', trigger: 'blur'},
+            {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
+//            {type: 'number', message: '手机号码只有数字'}
+          ],
+          password: [
+            {require: true, message: '请填写密码', trigger: 'blur'},
+            {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
+          ],
+          checkPassword: [
+            {require: true, message: '请填写密码', trigger: 'blur'},
+            {validator: validatePass, trigger: 'blur'}
           ]
         }
       }
@@ -83,8 +76,9 @@
             /* eslint-disable no-unused-vars */
             // the opt object is the request body.
             const opt = this.ruleFormRegister
-            api.userRegister(opt).then(({data}) => {
+            api.userRegister(opt).then(async ({data}) => {
               this.$message.success('Register successful')
+              await sleep(1000)
               goto(this, 'login')
             })
           } else {

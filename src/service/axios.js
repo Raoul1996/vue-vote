@@ -24,15 +24,15 @@ instance.defaults.headers.post['Content-Type'] = 'application/json'
 // TODO: what the config object meaning? where can I found it?
 axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(config => {
-  console.log(config)
   const {data} = config
   let token = null
-  if (data && data.token) {
+  if (data && (data.token !== undefined)) {
     token = data.token
   }
   // 在发送请求之前，如果不明确 token 为 false 的话，就会添加 Authorization 头
   // 这里不能使用 !token === false, 因为 !undefined === false
   if (token !== false) {
+    console.log('addHeader')
     if (localStorage.getItem('token')) {
       // 在这里添加 Authorization 请求头，目的是携带 token 给后端
       config.headers.Authorization = `token ${localStorage.getItem('token')}`
