@@ -1,6 +1,49 @@
-# message
+# vue-vote (side project)
 
 > A Vue.js project
+
+## folder tree
+```
+├── App.vue 
+├── assets
+│   └── logo.png
+├── components
+│   ├── Card.vue
+│   ├── HelloWorld.vue
+│   ├── loginStatus.vue
+│   └── nav.vue
+├── config
+│   ├── api.js
+│   ├── codeMap.js
+│   ├── env.js
+│   ├── fetch.js
+│   ├── goto.js
+│   ├── localStorage.js
+│   └── rem.js
+├── main.js
+├── pages
+│   ├── Hello.vue
+│   ├── NotFound.vue
+│   ├── forget.vue
+│   ├── login.vue
+│   ├── register.vue
+│   ├── update.vue
+│   ├── user.vue
+│   └── vote.vue
+├── router
+│   └── index.js
+├── service
+│   ├── axios.js
+│   └── getData.js
+├── store
+│   ├── actions.js
+│   ├── getters.js
+│   ├── index.js
+│   ├── mutation-types.js
+│   └── mutations.js
+└── utils.js
+```
+
 
 ## Build Setup
 
