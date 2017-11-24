@@ -20,6 +20,6 @@ export default {
   getUser: userApiMaker('user'),
   forget: userApiMaker('forget'),
   name: userApiMaker('nickname'),
-  password: userApiMaker('password'),
+  password: ApiMaker('user/update/password'),
   test: userApiMaker('test')
 }

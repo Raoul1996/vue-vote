@@ -17,6 +17,7 @@
 
 <script>
   import format from 'date-fns/format'
+  import { lazyGoto } from '@/utils'
 
   export default {
     name: 'card',
@@ -48,7 +49,7 @@
     methods: {
       alertMessage () {
         this.$message.success('you click me')
-        console.log(10086)
+        lazyGoto(this, 'login')
       }
     }
   }

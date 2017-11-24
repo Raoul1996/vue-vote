@@ -65,8 +65,8 @@ const router = new Router({
       component: Register
     },
     {
-      path: '/change-password',
-      name: 'ChangePassword',
+      path: '/update',
+      name: 'update',
       meta: {
         requireAuth: false
       },

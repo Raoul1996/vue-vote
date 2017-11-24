@@ -1,4 +1,5 @@
 const codeMap = {
+  500: 'NetWork Error',
   10001: 'password error',
   10002: 'account error',
   20004: 'need login',

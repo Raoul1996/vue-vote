@@ -28,9 +28,7 @@
 <script type="text/ecmascript-6">
   // now Let's try to use axios api~
   import api from '@/service/axios'
-
-  import { sleep, goto } from '@/utils'
-
+  import { lazyGoto } from '../../utils'
   export default {
     name: 'register',
     data () {
@@ -56,7 +54,6 @@
           mobile: [
             {require: true, message: '请填写手机号码', trigger: 'blur'},
             {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
-//            {type: 'number', message: '手机号码只有数字'}
           ],
           password: [
             {require: true, message: '请填写密码', trigger: 'blur'},
@@ -78,8 +75,7 @@
             const opt = this.ruleFormRegister
             api.userRegister(opt).then(async ({data}) => {
               this.$message.success('Register successful')
-              await sleep(1000)
-              goto(this, 'login')
+              await lazyGoto(this, 'login')
             })
           } else {
             this.$message.error('submit error')

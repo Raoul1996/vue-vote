@@ -9,6 +9,7 @@ const state = {
   userInfo: null, // 用户信息
   token: null
 }
+console.log(state)
 export default new Vuex.Store({
   state,
   getters,

@@ -1,7 +1,7 @@
 <template>
   <div class="forget">
     <h1 class="title">Reset Password</h1>
-    <el-form :model="ruleFormForget" :rules="rules2" ref="ruleFormForget" class="demo-ruleForm forget-form">
+    <el-form :model="ruleFormForget" :rules="rules" ref="ruleFormForget" class="demo-ruleForm forget-form">
       <el-form-item label="mobile" prop="mobile">
         <el-input v-model="ruleFormForget.mobile" placeholder="Your mobile"></el-input>
       </el-form-item>
@@ -24,33 +24,13 @@
 
 <script type="text/ecmascript-6">
   import api from '@/service/axios'
-  import goto from '../../config/goto'
+  import { lazyGoto } from '../../utils'
 
   export default {
     name: 'forget',
     data () {
-      let checkUsername = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('用户名不能为空'))
-        }
-        setTimeout(() => {
-          callback()
-        }, 1000)
-      }
       let validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'))
-        } else {
-          if (this.ruleFormForget.checkPassword !== '') {
-            this.$refs.ruleFormForget.validateField('checkPassword')
-          }
-          callback()
-        }
-      }
-      let validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleFormForget.newPassword) {
+        if (value !== this.ruleFormRegister.password) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -62,15 +42,18 @@
           newPassword: '',
           checkPassword: ''
         },
-        rules2: {
+        rules: {
           mobile: [
-            {validator: checkUsername, trigger: 'blur'}
+            {require: true, message: '请填写手机号码', trigger: 'blur'},
+            {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
           ],
           newPassword: [
-            {validator: validatePass, trigger: 'blur'}
+            {require: true, message: '请填写密码', trigger: 'blur'},
+            {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
           checkPassword: [
-            {validator: validatePass2, trigger: 'blur'}
+            {require: true, message: '请填写密码', trigger: 'blur'},
+            {validator: validatePass, trigger: 'blur'}
           ]
         }
       }
@@ -81,9 +64,9 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const opt = this.ruleFormForget
-            api.forgetPassword(opt).then(({data}) => {
+            api.forgetPassword(opt).then(async ({data}) => {
               this.$message.success('Reset Password successful')
-              goto(this, 'login')
+              await lazyGoto(this, 'login')
             })
           } else {
             this.$message.error('submit error')
