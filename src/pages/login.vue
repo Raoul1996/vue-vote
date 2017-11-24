@@ -28,7 +28,7 @@
 <script type="text/ecmascript-6">
   /* eslint-disable no-unused-vars */
   import api from 'service/axios'
-  import { setStore } from '../../config/localStorage'
+  import { setStore } from '../config/localStorage'
   import { lazyGoto, goto } from '@/utils'
   import { mapActions, mapState, mapMutations } from 'vuex'
 

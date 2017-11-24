@@ -3,12 +3,12 @@ import Router from 'vue-router'
 // import Hello from '@/pages/Hello'
 import store from '../store'
 // 配置路由懒加载
-const Users = () => import('pages/users')
-const Nav = () => import('components/nav')
-const Login = () => import('pages/login')
-const Register = () => import('pages/register')
-const ChangePassword = () => import('pages/changePassword')
-const Forget = () => import('pages/forget')
+const User = () => import('pages/user.vue')
+const Nav = () => import('components/nav.vue')
+const Login = () => import('pages/login.vue')
+const Register = () => import('pages/register.vue')
+const Update = () => import('pages/update.vue')
+const Forget = () => import('pages/forget.vue')
 const Vote = () => import('pages/vote.vue')
 const NotFound = () => import('pages/NotFound.vue')
 
@@ -41,12 +41,12 @@ const router = new Router({
       component: Vote
     },
     {
-      path: '/hello',
-      name: 'Hello',
+      path: '/user',
+      name: 'User',
       meta: {
-        requireAuth: false
+        requireAuth: true
       },
-      component: Users
+      component: User
     },
     {
       path: '/nav',
@@ -70,7 +70,7 @@ const router = new Router({
       meta: {
         requireAuth: false
       },
-      component: ChangePassword
+      component: Update
     },
     {
       path: '/forget',

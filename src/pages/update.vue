@@ -29,10 +29,10 @@
 
 <script type="text/ecmascript-6">
   import api from '@/service/axios'
-  import { removeStore } from '../../config/localStorage'
+  import { removeStore } from '../config/localStorage'
   import { mapActions, mapState } from 'vuex'
-  import store from '../../store'
-  import { lazyGoto } from '../../utils'
+  import store from '../store/index'
+  import { lazyGoto } from '../utils'
 
   export default {
     name: 'change',

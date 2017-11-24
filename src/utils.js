@@ -8,7 +8,6 @@ export function sleep (ms) {
 export function goto (that, path) {
   that.$router.push(path)
 }
-
 export async function lazyGoto (that, path, ms = 1000) {
   await sleep(ms)
   that.$router.push(path)

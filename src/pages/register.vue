@@ -1,21 +1,24 @@
 <template>
-  <div class="forget">
-    <h1 class="title">Reset Password</h1>
-    <el-form :model="ruleFormForget" :rules="rules" ref="ruleFormForget" class="demo-ruleForm forget-form">
-      <el-form-item label="mobile" prop="mobile">
-        <el-input v-model="ruleFormForget.mobile" placeholder="Your mobile"></el-input>
+  <div class="register">
+    <h1 class="title">Register</h1>
+    <el-form :model="ruleFormRegister" :rules="rules" ref="ruleFormRegister" class="register-form">
+      <el-form-item label="name" prop="name">
+        <el-input v-model="ruleFormRegister.name" placeholder="Pick a name"></el-input>
       </el-form-item>
-      <el-form-item label="newPassword" prop="newPassword">
-        <el-input type="password" v-model="ruleFormForget.newPassword" auto-complete="off"
-                  placeholder="Create a new password"></el-input>
+      <el-form-item label="mobile" prop="mobile">
+        <el-input v-model="ruleFormRegister.mobile" placeholder="Pick a mobile"></el-input>
+      </el-form-item>
+      <el-form-item label="password" prop="password">
+        <el-input type="password" v-model="ruleFormRegister.password" auto-complete="off"
+                  placeholder="Create a password"></el-input>
       </el-form-item>
       <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" v-model="ruleFormForget.checkPassword" auto-complete="off"
+        <el-input type="password" v-model="ruleFormRegister.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="forget-button" size="middle" type="warning" @click="submitForm('ruleFormForget')">
-          Reset Password
+        <el-button class="register-button" size="middle" type="primary" @click="submitForm('ruleFormRegister')">
+          Sign up for Voter
         </el-button>
       </el-form-item>
     </el-form>
@@ -23,11 +26,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // now Let's try to use axios api~
   import api from '@/service/axios'
-  import { lazyGoto } from '../../utils'
-
+  import { lazyGoto } from '../utils'
   export default {
-    name: 'forget',
+    name: 'register',
     data () {
       let validatePass = (rule, value, callback) => {
         if (value !== this.ruleFormRegister.password) {
@@ -37,17 +40,22 @@
         }
       }
       return {
-        ruleFormForget: {
+        ruleFormRegister: {
+          name: '',
           mobile: '',
-          newPassword: '',
-          checkPassword: ''
+          password: '',
+          checkPassword: '',
+          token: false
         },
         rules: {
+          name: [
+            {require: true, message: '请取一个用户名', trigger: 'blur'}
+          ],
           mobile: [
             {require: true, message: '请填写手机号码', trigger: 'blur'},
             {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
           ],
-          newPassword: [
+          password: [
             {require: true, message: '请填写密码', trigger: 'blur'},
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
@@ -63,9 +71,10 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const opt = this.ruleFormForget
-            api.forgetPassword(opt).then(async ({data}) => {
-              this.$message.success('Reset Password successful')
+            // the opt object is the request body.
+            const opt = this.ruleFormRegister
+            api.userRegister(opt).then(async ({data}) => {
+              this.$message.success('Register successful')
               await lazyGoto(this, 'login')
             })
           } else {
@@ -80,17 +89,17 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .forget {
+  .register {
     width 30%
     min-width 400px
     margin 0 auto
-    .forget-form {
+    .register-form {
       background-color #ffffff
       margin-top 30px
       padding 20px 50px
       border-radius 5px
       border 1px solid #d8dee2
-      .forget-button {
+      .register-button {
         width 100%
       }
     }
