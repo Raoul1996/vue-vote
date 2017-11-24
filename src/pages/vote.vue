@@ -26,7 +26,12 @@
     },
     methods: {
       getVote () {
-        api.getVote().then(({data}) => {
+        const query = {
+          page: 1,
+          size: 100,
+          time: 1
+        }
+        api.getVote(query).then(({data}) => {
           const {list} = data
           this.list = list
         })

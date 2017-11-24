@@ -6,7 +6,7 @@ import * as types from '../store/mutation-types'
 import API from '../config/api'
 import { Message, Alert } from 'element-ui'
 import codeMap from '../config/codeMap'
-import { sleep } from '../utils'
+import { query2url, sleep } from '../utils'
 
 const TIMEOUT = 5000
 const ERR_OK = 0
@@ -106,8 +106,8 @@ const requestService = {
   resetPassword (data) {
     return instance.post(API.password, data)
   },
-  getVote (data) {
-    return instance.get(API.vote, data)
+  getVote (query) {
+    return instance.get(query2url(API.vote, query))
   }
 }
 export default requestService

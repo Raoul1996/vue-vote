@@ -13,7 +13,7 @@ export default {
   host: userApiMaker(''),
   login: ApiMaker('user/login'),
   register: ApiMaker('user/register'),
-  vote: userApiMaker('vote'),
+  vote: ApiMaker('vote/list'),
   logout: userApiMaker('logout'),
   me: userApiMaker('me'),
   del: userApiMaker('del'),
