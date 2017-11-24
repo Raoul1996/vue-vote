@@ -11,6 +11,7 @@
 <script>
   import LoginStatus from './components/loginStatus'
   import goto from './config/goto'
+
   export default {
     components: {LoginStatus},
     name: 'app',
@@ -41,14 +42,17 @@
 
 <style lang="stylus">
   @import "normalize.css/normalize.css"
-  ul,li{
+  ul, li {
     margin 0
     padding 0
     list-style none
   }
+
   #app {
-    margin-top 88px
-    .logo{
+    margin 0 auto
+    padding-top 88px
+    height 100%
+    .logo {
       /*margin-top 88px*/
     }
     font-family 'Avenir', Helvetica, Arial, sans-serif
@@ -66,6 +70,19 @@
     .slide-fade-enter, .slide-fade-leave-active {
       transform: translateX(10px);
       opacity: 0;
+    }
+  }
+
+  @media screen and (max-width: 1018px) and (min-width: 690px) {
+    #app {
+      width 690px
+    }
+  }
+
+  // 单列布局
+  @media screen and (max-width: 690px) {
+    #app {
+      width 440px
     }
   }
 </style>
