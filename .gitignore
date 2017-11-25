@@ -1,4 +1,4 @@
-.DS_Store
+.DS_Store/
 node_modules/
 /dist/
 npm-debug.log*
@@ -16,3 +16,4 @@ selenium-debug.log
 *.njsproj
 *.sln
 fjpublish.config.js
+1e6d/

@@ -1,9 +1,9 @@
 <template>
-  <div class="card">
+  <div class="card" @click="alertMessage(id)">
     <el-card :body-style="{ padding: '20px' }">
       <div slot="header" class="clearfix">
         <span>{{title}}</span>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="alertMessage">{{button}}</el-button>
+        <!--<el-button style="float: right; padding: 3px 0" type="text">{{button}}</el-button>-->
       </div>
       <div class="content">
         <div>{{voteType}}</div>
@@ -17,7 +17,7 @@
 
 <script>
   import format from 'date-fns/format'
-  import { lazyGoto } from '@/utils'
+  import { goto } from '../utils'
 
   export default {
     name: 'card',
@@ -28,28 +28,35 @@
       }
     },
     data () {
-      const {id = '', title = '', startAt = '', endAt = '', type = ''} = this.vote
+      const {id = '', title = '', type = '', isPublic = 0} = this.vote
       return {
         id: id,
         title: title,
         button: id,
         type: type,
-        start: format(startAt, 'YYYY/DD/MM HH:mm'),
-        end: format(endAt, 'YYYY/DD/MM HH:mm')
+        // TODO:使用 Vuex 进行传参
+        isPublic: isPublic
       }
     },
     computed: {
       voteType: function () {
         return this.type === 1 ? '单选' : '多选'
+      },
+      start: function () {
+        return format(this.vote.startAt, 'YYYY/DD/MM HH:mm')
+      },
+      end: function () {
+        return format(this.vote.endAt, 'YYYY/DD/MM HH:mm')
       }
     },
     mounted () {
 //      this.alertMessage()
     },
     methods: {
-      alertMessage () {
-        this.$message.success('you click me')
-        lazyGoto(this, 'login')
+      alertMessage (id) {
+//        this.$message.success('you click me')
+//        console.log(id)
+        goto(this, `/vote/${id}?pub=${this.$data.isPublic}`)
       }
     }
   }

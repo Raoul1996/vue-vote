@@ -108,6 +108,9 @@ const requestService = {
   },
   getVote (query) {
     return instance.get(query2url(API.vote, query))
+  },
+  getDetail (query, param) {
+    return instance.get(query2url(API.detail, query, param))
   }
 }
 export default requestService

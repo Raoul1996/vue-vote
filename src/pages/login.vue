@@ -38,7 +38,7 @@
       return {
         login: {
           identifier: null,
-          password: '123456',
+          password: null,
           // 使用的是 web 端
           client: 1,
           token: false
@@ -75,7 +75,7 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const opt = this.login
-            api.userLogin(opt).then(({data}) => {
+            api.userLogin(opt).then((data) => {
               this.$message.success('login successful')
               this.USER_LOGIN(true)
               // 这里我还是选择把token放到了本地，虽然可能不会去使用

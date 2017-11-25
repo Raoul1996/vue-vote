@@ -10,6 +10,7 @@ const Register = () => import('pages/register.vue')
 const Update = () => import('pages/update.vue')
 const Forget = () => import('pages/forget.vue')
 const Vote = () => import('pages/vote.vue')
+const Content = () => import('pages/content.vue')
 const NotFound = () => import('pages/NotFound.vue')
 
 Vue.use(Router)
@@ -41,10 +42,18 @@ const router = new Router({
       component: Vote
     },
     {
+      path: '/vote/:id',
+      name: 'content',
+      meta: {
+        requireAuth: false
+      },
+      component: Content
+    },
+    {
       path: '/user',
       name: 'User',
       meta: {
-        requireAuth: true
+        requireAuth: false
       },
       component: User
     },

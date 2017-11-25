@@ -13,13 +13,14 @@ export default {
   host: userApiMaker(''),
   login: ApiMaker('user/login'),
   register: ApiMaker('user/register'),
+  password: ApiMaker('user/update/password'),
   vote: ApiMaker('vote/list'),
+  detail: ApiMaker('vote/detail'),
   logout: userApiMaker('logout'),
   me: userApiMaker('me'),
   del: userApiMaker('del'),
   getUser: userApiMaker('user'),
   forget: userApiMaker('forget'),
   name: userApiMaker('nickname'),
-  password: ApiMaker('user/update/password'),
   test: userApiMaker('test')
 }
