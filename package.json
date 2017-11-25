@@ -56,6 +56,7 @@
     "file-loader": "^1.1.4",
     "fjpublish": "^2.0.0",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "gh-pages": "^1.1.0",
     "html-webpack-plugin": "^2.30.1",
     "jest": "^21.2.0",
     "jest-serializer-vue": "^0.3.0",
