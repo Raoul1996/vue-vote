@@ -1,18 +1,18 @@
 <template>
   <div class="login">
     <h1 class="title">Sign in to Voter</h1>
-    <el-form :model="ruleFormLogin" :rules="rulesLogin" ref="ruleFormLogin" class="login-form">
+    <el-form :model="login" :rules="rules" ref="login" class="login-form">
       <el-form-item label="identifier" prop="identifier">
-        <el-input v-model="ruleFormLogin.identifier"></el-input>
+        <el-input v-model="login.identifier"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="password">
-        <el-input type="password" v-model="ruleFormLogin.password" auto-complete="off"></el-input>
+        <el-input @keyup.native.enter="submitForm('login')" type="password" v-model="login.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <router-link to="forget" class="forget">Forgot password?</router-link>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="login-button" size="middle" @click="submitForm('ruleFormLogin')">Sign in
+        <el-button type="primary" class="login-button" size="middle" @click="submitForm('login')">Sign in
         </el-button>
       </el-form-item>
     </el-form>
@@ -36,14 +36,14 @@
     name: 'login',
     data () {
       return {
-        ruleFormLogin: {
+        login: {
           identifier: null,
           password: '123456',
           // 使用的是 web 端
           client: 1,
           token: false
         },
-        rulesLogin: {
+        rules: {
           password: [
             {require: true, message: '请填写密码', trigger: 'blur'},
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
@@ -74,7 +74,7 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const opt = this.ruleFormLogin
+            const opt = this.login
             api.userLogin(opt).then(({data}) => {
               this.$message.success('login successful')
               this.USER_LOGIN(true)

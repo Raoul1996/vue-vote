@@ -1,23 +1,23 @@
 <template>
   <div class="register">
     <h1 class="title">Register</h1>
-    <el-form :model="ruleFormRegister" :rules="rules" ref="ruleFormRegister" class="register-form">
+    <el-form :model="register" :rules="rules" ref="register" class="register-form">
       <el-form-item label="name" prop="name">
-        <el-input v-model="ruleFormRegister.name" placeholder="Pick a name"></el-input>
+        <el-input v-model="register.name" placeholder="Pick a name"></el-input>
       </el-form-item>
       <el-form-item label="mobile" prop="mobile">
-        <el-input v-model="ruleFormRegister.mobile" placeholder="Pick a mobile"></el-input>
+        <el-input v-model="register.mobile" placeholder="Pick a mobile"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="password">
-        <el-input type="password" v-model="ruleFormRegister.password" auto-complete="off"
+        <el-input type="password" v-model="register.password" auto-complete="off"
                   placeholder="Create a password"></el-input>
       </el-form-item>
       <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" v-model="ruleFormRegister.checkPassword" auto-complete="off"
+        <el-input type="password" @keyup.native.enter="submitForm('register')" v-model="register.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="register-button" size="middle" type="primary" @click="submitForm('ruleFormRegister')">
+        <el-button class="register-button" size="middle" type="primary" @click="submitForm('register')">
           Sign up for Voter
         </el-button>
       </el-form-item>
@@ -33,14 +33,14 @@
     name: 'register',
     data () {
       let validatePass = (rule, value, callback) => {
-        if (value !== this.ruleFormRegister.password) {
+        if (value !== this.register.password) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
         }
       }
       return {
-        ruleFormRegister: {
+        register: {
           name: '',
           mobile: '',
           password: '',
@@ -72,7 +72,7 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             // the opt object is the request body.
-            const opt = this.ruleFormRegister
+            const opt = this.register
             api.userRegister(opt).then(async ({data}) => {
               this.$message.success('Register successful')
               await lazyGoto(this, 'login')

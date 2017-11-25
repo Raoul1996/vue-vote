@@ -1,20 +1,20 @@
 <template>
   <div class="forget">
     <h1 class="title">Reset Password</h1>
-    <el-form :model="ruleFormForget" :rules="rules" ref="ruleFormForget" class="demo-ruleForm forget-form">
+    <el-form :model="forget" :rules="rules" ref="forget" class="forget-form">
       <el-form-item label="mobile" prop="mobile">
-        <el-input v-model="ruleFormForget.mobile" placeholder="Your mobile"></el-input>
+        <el-input v-model="forget.mobile" placeholder="Your mobile"></el-input>
       </el-form-item>
       <el-form-item label="newPassword" prop="newPassword">
-        <el-input type="password" v-model="ruleFormForget.newPassword" auto-complete="off"
+        <el-input type="password" v-model="forget.newPassword" auto-complete="off"
                   placeholder="Create a new password"></el-input>
       </el-form-item>
       <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" v-model="ruleFormForget.checkPassword" auto-complete="off"
+        <el-input type="password" @keyup.native.enter="submitForm('forget')" v-model="forget.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="forget-button" size="middle" type="warning" @click="submitForm('ruleFormForget')">
+        <el-button class="forget-button" size="middle" type="warning" @click="submitForm('forget')">
           Reset Password
         </el-button>
       </el-form-item>
@@ -37,7 +37,7 @@
         }
       }
       return {
-        ruleFormForget: {
+        forget: {
           mobile: '',
           newPassword: '',
           checkPassword: ''
@@ -63,7 +63,7 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-            const opt = this.ruleFormForget
+            const opt = this.forget
             api.forgetPassword(opt).then(async ({data}) => {
               this.$message.success('Reset Password successful')
               await lazyGoto(this, 'login')

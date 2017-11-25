@@ -1,24 +1,24 @@
 <template>
   <div class="change">
     <h1 class="title">Change Password</h1>
-    <el-form :model="ruleFormChange" :rules="rules" ref="ruleFormChange" class="change-form">
+    <el-form :model="update" :rules="rules" ref="update" class="change-form">
       <!--<el-form-item label="mobile" prop="mobile">-->
-        <!--<el-input v-model="ruleFormChange.mobile" placeholder="Your mobile"></el-input>-->
+        <!--<el-input v-model="update.mobile" placeholder="Your mobile"></el-input>-->
       <!--</el-form-item>-->
       <el-form-item label="oldPassword" prop="oldPassword">
-        <el-input type="password" v-model="ruleFormChange.oldPassword" auto-complete="off"
+        <el-input type="password" v-model="update.oldPassword" auto-complete="off"
                   placeholder="Create a new password"></el-input>
       </el-form-item>
       <el-form-item label="newPassword" prop="password">
-        <el-input type="password" v-model="ruleFormChange.newPassword" auto-complete="off"
+        <el-input type="password" v-model="update.newPassword" auto-complete="off"
                   placeholder="Create a new password"></el-input>
       </el-form-item>
       <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" v-model="ruleFormChange.checkPassword" auto-complete="off"
+        <el-input type="password" @keyup.native.enter="submitForm('update')" v-model="update.checkPassword" auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="change-button" size="middle" type="danger" @click="submitForm('ruleFormChange')">
+        <el-button class="change-button" size="middle" type="danger" @click="submitForm('update')">
           Change Password
         </el-button>
       </el-form-item>
@@ -40,14 +40,14 @@
     store,
     data () {
       let validatePass = (rule, value, callback) => {
-        if (value !== this.ruleFormChange.newPassword) {
+        if (value !== this.update.newPassword) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
         }
       }
       return {
-        ruleFormChange: {
+        update: {
           mobile: '',
           oldPassword: '',
           newPassword: '',
@@ -86,8 +86,8 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-//            const {mobile, oldPassword, newPassword, checkPassword} = this.ruleFormChange
-            const opt = this.ruleFormChange
+//            const {mobile, oldPassword, newPassword, checkPassword} = this.update
+            const opt = this.update
             api.resetPassword(opt).then(async ({data}) => {
 //            console.log(data)
               removeStore('token')
