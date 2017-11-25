@@ -111,6 +111,9 @@ const requestService = {
   },
   getDetail (query, param) {
     return instance.get(query2url(API.detail, query, param))
+  },
+  submit (query, param, data) {
+    return instance.post(query2url(API.submit, query, param), data)
   }
 }
 export default requestService

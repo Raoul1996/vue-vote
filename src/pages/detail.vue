@@ -26,7 +26,8 @@
           </el-checkbox-group>
         </div>
       </div>
-      <el-button type="primary" :disabled="!enableClickButton" size="medium" @click="submitVote">提交</el-button>
+      <el-button type="primary" class="button" :disabled="!enableClickButton" size="medium" @click="submitVote">提交
+      </el-button>
     </div>
   </div>
 </template>
@@ -72,15 +73,20 @@
         const length = this.options.length
         if (length < maxChoose) {
           // do nothing
+          this.enableClickButton = false
         } else if (this.options.length === maxChoose) {
           this.enableClickButton = true
         } else if (this.options.length > maxChoose) {
-          this.$message.info(`最多选择${maxChoose}项`)
+          this.$message.info(`最多选择 ${maxChoose} 项`)
           this.options.pop()
         }
       },
       submitVote () {
-        console.log(this.options)
+        this.getVoteDetail(null, this.$route.params)
+        const opt = {options: this.options}
+        api.submit(null, this.$route.params, opt).then(data => {
+          console.log(data)
+        })
       },
       getVoteDetail (query, param) {
         console.log(this.$route.params)
@@ -103,8 +109,8 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .detail {
     margin 0 auto
-    width 30%
-    min-width 400px
+    width 40%
+    min-width 450px
     .content {
       background-color #ffffff
       margin-top 10px
@@ -127,13 +133,16 @@
         .option-list {
           display inline-block
           margin-left -3em
-          &-item {
+          .option-list-item {
+            padding 20px
             text-align left
-            font-size 20px
           }
         }
       }
-
+      .button {
+        margin 1em
+        width 50%
+      }
     }
 
   }

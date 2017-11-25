@@ -1,5 +1,4 @@
-// const __APIHOST__ = 'http://192.168.1.217:8080/user'
-// const __APIHOST__ = 'http://localhost:8081/user'
+// API HOST 是本地的 mock server
 const __APIHOST__ = 'http://localhost:3000/api'
 const __HOST__ = 'http://vote.helloyz.cn'
 
@@ -15,9 +14,8 @@ export default {
   register: ApiMaker('user/register'),
   password: ApiMaker('user/update/password'),
   vote: ApiMaker('vote/list'),
-  // vote: userApiMaker('vote'),
   detail: ApiMaker('vote/detail'),
-  // detail: userApiMaker('detail'),
+  submit: ApiMaker('vote/part'),
   logout: userApiMaker('logout'),
   me: userApiMaker('me'),
   del: userApiMaker('del'),
