@@ -5,15 +5,15 @@
     <transition :name="transitionName">
       <router-view></router-view>
     </transition>
-    <login-status></login-status>
+    <!--<login-status></login-status>-->
   </div>
 </template>
 <script>
-  import LoginStatus from './components/loginStatus'
-  import goto from './config/goto'
+//  import LoginStatus from './components/loginStatus'
+  import {goto} from './utils'
 
   export default {
-    components: {LoginStatus},
+//    components: {LoginStatus},
     name: 'app',
     data () {
       return {

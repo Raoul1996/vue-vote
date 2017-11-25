@@ -97,9 +97,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .login {
+    margin 0 auto
     width 30%
     min-width 400px
-    margin 0 auto
     .login-form {
       background-color #ffffff
       margin-top 10px

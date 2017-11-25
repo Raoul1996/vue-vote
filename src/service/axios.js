@@ -66,7 +66,7 @@ instance.interceptors.response.use((config) => {
   }
 }, err => {
   if (err && err['message']) {
-    Message.error(`${err.message}: ${500}`)
+    Message.error(`${err.message}`)
   } else {
     Message.error(err)
   }

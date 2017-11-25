@@ -10,7 +10,7 @@ const Register = () => import('pages/register.vue')
 const Update = () => import('pages/update.vue')
 const Forget = () => import('pages/forget.vue')
 const Vote = () => import('pages/vote.vue')
-const Content = () => import('pages/content.vue')
+const Content = () => import('pages/detail.vue')
 const NotFound = () => import('pages/NotFound.vue')
 
 Vue.use(Router)
