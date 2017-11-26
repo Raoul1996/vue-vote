@@ -3,26 +3,23 @@
     <!--<img class="logo" src="./assets/logo.png" alt="" width="50" height="50">-->
     <!--<el-button class="nav" @click="handleClick">Random Router</el-button>-->
     <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="create">创建投票</el-menu-item>
-      <el-submenu index="vote">
+      <el-menu-item index="/create">创建投票</el-menu-item>
+      <el-submenu index="/vote/:type">
         <template slot="title">查看投票</template>
-        <el-menu-item index="doing">正在进行</el-menu-item>
-        <el-menu-item index="will">即将开始</el-menu-item>
+        <el-menu-item index="/vote/doing">正在进行</el-menu-item>
+        <el-menu-item index="/vote/will">即将开始</el-menu-item>
       </el-submenu>
-      <el-menu-item index="profile">
+      <el-menu-item index="/profile">
         个人管理
       </el-menu-item>
     </el-menu>
     <div class="line"></div>
-
     <transition :name="transitionName">
       <router-view :key="$route.path"></router-view>
     </transition>
-    <!--<login-status></login-status>-->
   </div>
 </template>
 <script>
-  //  import LoginStatus from './components/loginStatus'
   import { goto } from './utils'
 
   export default {
@@ -30,14 +27,19 @@
     data () {
       return {
         transitionName: 'slide-fade',
-        activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex: '',
+        activeIndex2: ''
       }
+    },
+    beforeUpdate: function () {
+      const path = this.$route.matched[0].path
+      this.activeIndex = path
+      console.log(this.activeIndex)
+      console.log(path)
     },
     methods: {
       handleSelect (key, keyPath) {
-        if (keyPath.length > 1) goto(this, `/${keyPath[0]}/${key}`)
-        else goto(this, `/${key}`)
+        goto(this, key)
       }
     }
   }

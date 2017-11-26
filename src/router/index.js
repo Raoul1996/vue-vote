@@ -11,6 +11,7 @@ const Update = () => import('pages/update.vue')
 const Forget = () => import('pages/forget.vue')
 const Vote = () => import('pages/vote.vue')
 const Content = () => import('pages/detail.vue')
+const Create = () => import('pages/create.vue')
 
 Vue.use(Router)
 /**
@@ -22,6 +23,18 @@ const router = new Router({
     {
       path: '/',
       redirect: 'vote/doing'
+    },
+    {
+      path: '/vote',
+      redirect: 'vote/doing'
+    },
+    {
+      path: '/create',
+      name: 'Create',
+      meta: {
+        requireAuth: false
+      },
+      component: Create
     },
     {
       path: '/login',
@@ -38,10 +51,6 @@ const router = new Router({
         requireAuth: false
       },
       component: Vote
-    },
-    {
-      path: '/',
-      redirect: 'vote/doing'
     },
     {
       path: '/vote/:type/:id',

@@ -19,7 +19,7 @@ export default {
   logout: userApiMaker('logout'),
   me: userApiMaker('me'),
   del: userApiMaker('del'),
-  getUser: userApiMaker('user'),
+  info: ApiMaker('user/info'),
   forget: userApiMaker('forget'),
   name: userApiMaker('nickname'),
   test: userApiMaker('test')

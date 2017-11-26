@@ -95,7 +95,7 @@ const requestService = {
     return instance.post(API.logout, data)
   },
   getUser (data) {
-    return instance.get(API.getUser, data)
+    return instance.get(API.info, data)
   },
   delUser (data) {
     return instance.post(API.del, data)
