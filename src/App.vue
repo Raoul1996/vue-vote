@@ -1,19 +1,21 @@
 <template>
   <div id="app">
     <!--<img class="logo" src="./assets/logo.png" alt="" width="50" height="50">-->
-    <!--<el-button class="nav" @click="handleClick">Random Router</el-button>-->
-    <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="/create">创建投票</el-menu-item>
-      <el-submenu index="/vote/:type">
-        <template slot="title">查看投票</template>
-        <el-menu-item index="/vote/doing">正在进行</el-menu-item>
-        <el-menu-item index="/vote/will">即将开始</el-menu-item>
-      </el-submenu>
-      <el-menu-item index="/profile">
-        个人管理
-      </el-menu-item>
-    </el-menu>
-    <div class="line"></div>
+    <!--<el-button class="nav" @cl ick="handleClick">Random Router</el-button>-->
+    <div v-if="hiddenNav">
+      <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
+        <el-menu-item index="/create">创建投票</el-menu-item>
+        <el-submenu index="/vote/:type">
+          <template slot="title">查看投票</template>
+          <el-menu-item index="/vote/doing">正在进行</el-menu-item>
+          <el-menu-item index="/vote/will">即将开始</el-menu-item>
+        </el-submenu>
+        <el-menu-item index="/profile">
+          个人管理
+        </el-menu-item>
+      </el-menu>
+      <div class="line"></div>
+    </div>
     <transition :name="transitionName">
       <router-view :key="$route.path"></router-view>
     </transition>
@@ -28,14 +30,20 @@
       return {
         transitionName: 'slide-fade',
         activeIndex: '',
-        activeIndex2: ''
+        hide: false
+      }
+    },
+    computed: {
+      hiddenNav () {
+        const path = this.$route.path
+        const hideenList = ['/login', '/register', '/forget']
+        return (hideenList.indexOf(path) === -1)
       }
     },
     beforeUpdate: function () {
       const path = this.$route.matched[0].path
       this.activeIndex = path
-      console.log(this.activeIndex)
-      console.log(path)
+      console.log(this.hiddenNav)
     },
     methods: {
       handleSelect (key, keyPath) {

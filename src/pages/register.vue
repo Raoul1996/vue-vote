@@ -114,4 +114,9 @@
       }
     }
   }
+  @media screen and (max-width: 400px) {
+    .register {
+      min-width 300px
+    }
+  }
 </style>

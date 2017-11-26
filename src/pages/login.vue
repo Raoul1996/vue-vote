@@ -136,8 +136,15 @@
     .register-form {
       margin-top 30px
       padding 10px 50px
+
       border-radius 5px
       border 1px solid #d8dee2
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .login {
+      min-width 300px
     }
   }
 </style>

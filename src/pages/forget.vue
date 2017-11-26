@@ -103,4 +103,9 @@
       }
     }
   }
+  @media screen and (max-width: 400px) {
+    .forget {
+      min-width 300px
+    }
+  }
 </style>

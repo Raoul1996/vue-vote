@@ -130,4 +130,9 @@
       }
     }
   }
+  @media screen and (max-width: 400px) {
+    .update {
+      min-width 300px
+    }
+  }
 </style>

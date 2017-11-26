@@ -22,7 +22,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: 'vote/doing'
+      redirect: 'login'
     },
     {
       path: '/vote',
