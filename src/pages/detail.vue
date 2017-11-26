@@ -65,7 +65,10 @@
       if (this.$data.pub && this.$route.query) {
         this.getVoteDetail(null, this.$route.params['id'])
       } else {
-        this.$message.info('需要密码')
+        this.$message({
+          showClose: true,
+          message: '需要密码'
+        })
       }
     },
     methods: {
@@ -110,7 +113,7 @@
     margin 0 auto
     width 40%
     min-width 400px
-    .password-input{
+    .password-input {
       margin-top 60px
     }
     .content {

@@ -14,12 +14,7 @@ import {
   Form,
   FormItem,
   Input,
-  Row,
   Card,
-  Col,
-  Radio,
-  RadioButton,
-  RadioGroup,
   Checkbox,
   CheckboxGroup,
   Menu,
@@ -37,12 +32,7 @@ Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
-Vue.use(Row)
-Vue.use(Col)
 Vue.use(Card)
-Vue.use(Radio)
-Vue.use(RadioGroup)
-Vue.use(RadioButton)
 Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
 Vue.use(Menu)
