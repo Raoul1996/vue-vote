@@ -81,7 +81,11 @@
         } else if (this.options.length === maxChoose) {
           this.enableClickButton = true
         } else if (this.options.length > maxChoose) {
-          this.$message.info(`最多选择 ${maxChoose} 项`)
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: `最多选择 ${maxChoose} 项`
+          })
           this.options.pop()
         }
       },

@@ -65,11 +65,19 @@
             /* eslint-disable no-unused-vars */
             const opt = this.forget
             api.forgetPassword(opt).then(async ({data}) => {
-              this.$message.success('Reset Password successful')
+              this.$message({
+                type: 'success',
+                showClose: true,
+                message: 'Reset Password successful'
+              })
               await lazyGoto(this, 'login')
             })
           } else {
-            this.$message.error('submit error')
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: 'submit error'
+            })
             return false
           }
         })

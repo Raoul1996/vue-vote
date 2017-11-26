@@ -13,7 +13,8 @@
                   placeholder="Create a password"></el-input>
       </el-form-item>
       <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" @keyup.native.enter="submitForm('register')" v-model="register.checkPassword" auto-complete="off"
+        <el-input type="password" @keyup.native.enter="submitForm('register')" v-model="register.checkPassword"
+                  auto-complete="off"
                   placeholder="Confirm your password"></el-input>
       </el-form-item>
       <el-form-item>
@@ -29,6 +30,7 @@
   // now Let's try to use axios api~
   import api from '@/service/axios'
   import { lazyGoto } from '../utils'
+
   export default {
     name: 'register',
     data () {
@@ -74,11 +76,19 @@
             // the opt object is the request body.
             const opt = this.register
             api.userRegister(opt).then(async ({data}) => {
-              this.$message.success('Register successful')
+              this.$message({
+                type: 'success',
+                showClose: true,
+                message: 'Register successful'
+              })
               await lazyGoto(this, 'login')
             })
           } else {
-            this.$message.error('submit error')
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: 'submit error'
+            })
             return false
           }
         })

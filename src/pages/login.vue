@@ -6,7 +6,8 @@
         <el-input v-model="login.identifier"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="password">
-        <el-input @keyup.native.enter="submitForm('login')" type="password" v-model="login.password" auto-complete="off"></el-input>
+        <el-input @keyup.native.enter="submitForm('login')" type="password" v-model="login.password"
+                  auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <router-link to="forget" class="forget">Forgot password?</router-link>
@@ -59,7 +60,11 @@
     },
     mounted () {
       if (this.msgFlag) {
-        this.$message.info('Please Login')
+        this.$message({
+          showClose: true,
+          type: 'info',
+          message: 'Please Login'
+        })
         this.msgFlag = !this.msgFlag
       }
     },
@@ -76,7 +81,11 @@
             /* eslint-disable no-unused-vars */
             const opt = this.login
             api.userLogin(opt).then((data) => {
-              this.$message.success('login successful')
+              this.$message({
+                type: 'success',
+                showClose: true,
+                message: 'login successful'
+              })
               this.USER_LOGIN(true)
               // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.token)
@@ -85,7 +94,11 @@
             })
 //            console.log(data)
           } else {
-            this.$message.error('submit error')
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: 'submit error'
+            })
             return false
           }
         })

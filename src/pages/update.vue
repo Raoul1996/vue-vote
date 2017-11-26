@@ -92,11 +92,19 @@
 //            console.log(data)
               removeStore('token')
               this.USER_LOGIN(false)
-              this.$message.success('Change Password successful')
+              this.$message({
+                type: 'success',
+                showClose: true,
+                message: 'Change Password successful'
+              })
               await lazyGoto(this, 'login')
             })
           } else {
-            this.$message.error('submit error')
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: 'submit error'
+            })
             return false
           }
         })
