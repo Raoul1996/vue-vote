@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="alertMessage(id)">
+  <div class="card" @click="getDetail(id)">
     <el-card :body-style="{ padding: '20px' }">
       <div slot="header" class="clearfix">
         <span>{{title}}</span>
@@ -34,6 +34,7 @@
         title: title,
         button: id,
         type: type,
+        path: this.$route.path,
         // TODO:使用 Vuex 进行传参
         isPublic: isPublic
       }
@@ -49,14 +50,10 @@
         return format(this.vote.endAt, 'YYYY/DD/MM HH:mm')
       }
     },
-    mounted () {
-//      this.alertMessage()
-    },
     methods: {
-      alertMessage (id) {
-//        this.$message.success('you click me')
-//        console.log(id)
-        goto(this, `/vote/${id}?pub=${this.$data.isPublic}`)
+      getDetail (id) {
+        console.log(this.$route.path)
+        goto(this, `${this.path}/${id}?pub=${this.$data.isPublic}`)
       }
     }
   }

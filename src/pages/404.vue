@@ -6,10 +6,10 @@
 
 <script type="text/ecmascript-6">
   export default {
-    name: 'template',
+    name: '404',
     data () {
       return {
-        msg: 'this pages not fond!'
+        msg: 'this page not fond!'
       }
     }
   }

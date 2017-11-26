@@ -1,17 +1,20 @@
 # vue-vote (side project)
 
-> A Vue.js project
+> A Vue.js project, rebuild vote for my friend and myself. Do better and more beautiful.
 
-## folder tree
+## tree
 ```
-├── App.vue 
+.
+├── App.vue
 ├── assets
 │   └── logo.png
 ├── components
 │   ├── Card.vue
 │   ├── HelloWorld.vue
+│   ├── layout.vue
 │   ├── loginStatus.vue
-│   └── nav.vue
+│   ├── nav.vue
+│   └── verify.vue
 ├── config
 │   ├── api.js
 │   ├── codeMap.js
@@ -24,6 +27,7 @@
 ├── pages
 │   ├── Hello.vue
 │   ├── NotFound.vue
+│   ├── detail.vue
 │   ├── forget.vue
 │   ├── login.vue
 │   ├── register.vue
@@ -42,6 +46,9 @@
 │   ├── mutation-types.js
 │   └── mutations.js
 └── utils.js
+
+7 directories, 34 files
+
 ```
 
 

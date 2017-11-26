@@ -2,39 +2,42 @@
   <div id="app">
     <!--<img class="logo" src="./assets/logo.png" alt="" width="50" height="50">-->
     <!--<el-button class="nav" @click="handleClick">Random Router</el-button>-->
+    <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
+      <el-menu-item index="create">创建投票</el-menu-item>
+      <el-submenu index="vote">
+        <template slot="title">查看投票</template>
+        <el-menu-item index="doing">正在进行</el-menu-item>
+        <el-menu-item index="will">即将开始</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="profile">
+        个人管理
+      </el-menu-item>
+    </el-menu>
+    <div class="line"></div>
+
     <transition :name="transitionName">
-      <router-view></router-view>
+      <router-view :key="$route.path"></router-view>
     </transition>
     <!--<login-status></login-status>-->
   </div>
 </template>
 <script>
-//  import LoginStatus from './components/loginStatus'
-  import {goto} from './utils'
+  //  import LoginStatus from './components/loginStatus'
+  import { goto } from './utils'
 
   export default {
-//    components: {LoginStatus},
     name: 'app',
     data () {
       return {
-        msg: 'this is the components',
         transitionName: 'slide-fade',
-        flag: true,
-        routes: ['', 'hello', 'login', 'register', 'change-password', 'forget']
+        activeIndex: '1',
+        activeIndex2: '1'
       }
     },
     methods: {
-      getRandom (range) {
-        return Math.floor(Math.random() * range)
-      },
-      handleClick () {
-        let random = this.getRandom(this.routes.length)
-        if (this.flag) {
-          goto(this, this.routes[random])
-        } else {
-          goto(this, 'nav')
-        }
-        this.flag = !this.flag
+      handleSelect (key, keyPath) {
+        if (keyPath.length > 1) goto(this, `/${keyPath[0]}/${key}`)
+        else goto(this, `/${key}`)
       }
     }
   }
@@ -50,11 +53,8 @@
 
   #app {
     margin 0 auto
-    padding-top 88px
+    padding-top 0
     height 100%
-    .logo {
-      /*margin-top 88px*/
-    }
     font-family 'Avenir', Helvetica, Arial, sans-serif
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
@@ -80,9 +80,15 @@
   }
 
   // 单列布局
-  @media screen and (max-width: 690px) {
+  @media screen and (max-width: 690px) and (min-width: 400px) {
     #app {
-      width 440px
+      width 400px
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    #app {
+      width 100%
     }
   }
 </style>

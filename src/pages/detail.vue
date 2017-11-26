@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <div v-if="!pub">
+    <div v-if="!pub" class="password-input">
       <el-form :inline="true" :model="form" class="" @submit.native.prevent>
         <div class="el-form-item">
           <label class="el-form-item__label">{{name}}</label>
@@ -61,8 +61,9 @@
       }
     },
     mounted () {
+      console.log(this.$route.params)
       if (this.$data.pub && this.$route.query) {
-        this.getVoteDetail(null, this.$route.params)
+        this.getVoteDetail(null, this.$route.params['id'])
       } else {
         this.$message.info('需要密码')
       }
@@ -84,12 +85,11 @@
       submitVote () {
         this.getVoteDetail(null, this.$route.params)
         const opt = {options: this.options}
-        api.submit(null, this.$route.params, opt).then(data => {
-          console.log(data)
+        api.submit(null, this.$route.params['id'], opt).then(data => {
+//          console.log(data)
         })
       },
       getVoteDetail (query, param) {
-        console.log(this.$route.params)
         // 这里不知道后端发生了什么，拦截器失效了？
         api.getDetail(query, param).then(({data}) => {
           this.content = data
@@ -98,8 +98,7 @@
       },
       onSubmit () {
         const {password} = this.$data.form
-        console.log(password)
-        this.getVoteDetail({password: password}, this.$route.params)
+        this.getVoteDetail({password: password}, this.$route.params['id'])
       }
     }
   }
@@ -110,7 +109,10 @@
   .detail {
     margin 0 auto
     width 40%
-    min-width 450px
+    min-width 400px
+    .password-input{
+      margin-top 60px
+    }
     .content {
       background-color #ffffff
       margin-top 10px
@@ -144,6 +146,19 @@
         width 50%
       }
     }
+  }
 
+  @media screen and (max-width: 400px) {
+    .detail {
+      min-width 300px
+      .content {
+        .option {
+          text-align left
+          .option-list {
+            margin-left 0
+          }
+        }
+      }
+    }
   }
 </style>

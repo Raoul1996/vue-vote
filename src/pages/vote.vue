@@ -1,6 +1,5 @@
 <template>
   <div class="vote">
-    {{msg}}
     <ul class="vote-list">
       <li class="vote-item" v-for="(o, index) in list" :key="index">
         <Card :vote="o"></Card>
@@ -19,10 +18,10 @@
     data () {
       return {
         list: '',
-        msg: 'this is the side project based on vue'
+        type: this.$route.path.slice(1)
       }
     },
-    mounted () {
+    created () {
       this.getVote()
     },
     methods: {
@@ -30,7 +29,8 @@
         const query = {
           page: 1,
           size: 100,
-          time: 1
+          time: 1,
+          type: this.type
         }
         api.getVote(query).then(({data}) => {
           const {list} = data

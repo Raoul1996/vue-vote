@@ -16,11 +16,15 @@ export async function lazyGoto (that, path, ms = 1000) {
 
 export function query2url (url, query, params) {
   if (params) {
-    Object.keys(params).forEach(key => {
-      if (params[key]) {
-        url = url + '/' + params[key]
-      }
-    })
+    if (typeof params === 'object') {
+      Object.keys(params).forEach(key => {
+        if (params[key]) {
+          url = url + '/' + params[key]
+        }
+      })
+    } else {
+      url = url + '/' + params
+    }
   }
   let dataStr = '' // 数据拼接字符串
   if (query) {

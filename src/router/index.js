@@ -3,15 +3,14 @@ import Router from 'vue-router'
 // import Hello from '@/pages/Hello'
 import store from '../store'
 // 配置路由懒加载
-const User = () => import('pages/user.vue')
 const Nav = () => import('components/nav.vue')
 const Login = () => import('pages/login.vue')
 const Register = () => import('pages/register.vue')
+const profile = () => import('pages/profile.vue')
 const Update = () => import('pages/update.vue')
 const Forget = () => import('pages/forget.vue')
 const Vote = () => import('pages/vote.vue')
 const Content = () => import('pages/detail.vue')
-const NotFound = () => import('pages/NotFound.vue')
 
 Vue.use(Router)
 /**
@@ -21,6 +20,10 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      redirect: 'vote/doing'
+    },
+    {
       path: '/login',
       name: 'Login',
       meta: {
@@ -29,12 +32,7 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/',
-      // redirect: 'components'
-      component: Login
-    },
-    {
-      path: '/vote',
+      path: '/vote/:type',
       name: 'vote',
       meta: {
         requireAuth: false
@@ -42,7 +40,11 @@ const router = new Router({
       component: Vote
     },
     {
-      path: '/vote/:id',
+      path: '/',
+      redirect: 'vote/doing'
+    },
+    {
+      path: '/vote/:type/:id',
       name: 'content',
       meta: {
         requireAuth: false
@@ -50,12 +52,12 @@ const router = new Router({
       component: Content
     },
     {
-      path: '/user',
-      name: 'User',
+      path: '/profile',
+      name: 'Profile',
       meta: {
         requireAuth: false
       },
-      component: User
+      component: profile
     },
     {
       path: '/nav',
@@ -91,8 +93,8 @@ const router = new Router({
     },
     {
       path: '*',
-      name: 'notFound',
-      component: NotFound
+      name: '404',
+      component: () => import('pages/404.vue')
     }
   ]
 })
@@ -110,4 +112,8 @@ router.beforeResolve((to, from, next) => {
     next()
   }
 })
+// router.go({
+//   path: '/vote/doing',
+//   force: true
+// })
 export default router

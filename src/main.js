@@ -22,6 +22,9 @@ import {
   RadioGroup,
   Checkbox,
   CheckboxGroup,
+  Menu,
+  MenuItem,
+  Submenu,
   MessageBox,
   Message,
   Loading,
@@ -42,6 +45,9 @@ Vue.use(RadioGroup)
 Vue.use(RadioButton)
 Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
+Vue.use(Menu)
+Vue.use(MenuItem)
+Vue.use(Submenu)
 Vue.prototype.$store = store
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
