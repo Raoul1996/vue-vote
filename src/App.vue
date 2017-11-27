@@ -43,7 +43,7 @@
     beforeUpdate: function () {
       const path = this.$route.matched[0].path
       this.activeIndex = path
-      console.log(this.hiddenNav)
+//      console.log(this.hiddenNav)
     },
     methods: {
       handleSelect (key, keyPath) {

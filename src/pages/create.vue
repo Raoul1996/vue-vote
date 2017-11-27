@@ -6,7 +6,7 @@
         <el-form-item prop="pub" required>
           <el-switch v-model="create.pub" active-text="公开投票" inactive-text="私密投票"></el-switch>
         </el-form-item>
-        <el-form-item label="投票名称" prop="name">
+        <el-form-item label="投票名称" prop="name" required>
           <el-input v-model="create.name" placeholder="请填写投票名称"></el-input>
         </el-form-item>
         <el-form-item label="投票类型" prop="type">
@@ -14,6 +14,9 @@
             <el-option label="单选" value="single"></el-option>
             <el-option label="多选" value="muti"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="投票密码" prop="password" v-if="!create.pub">
+          <el-input v-model="create.password" placeholder="请填写投票密码"></el-input>
         </el-form-item>
       </div>
       <div class="create-card">
@@ -68,16 +71,21 @@
 <script>
   export default {
     data () {
+      const validatePass = (rule, value, callback) => {
+        if (value === null && !this.create.pub) {
+          callback(new Error('请输入密码'))
+        } else {
+          callback()
+        }
+      }
       return {
         create: {
           name: '',
+          password: null,
           type: '',
           startTime: '',
           endTime: '',
-          pub: false,
-//          type: [],
-          resource: '',
-          desc: '',
+          pub: true,
           options: [{
             value: ''
           }]
@@ -85,7 +93,7 @@
         rules: {
           name: [
             {required: true, message: '请输入投票名称', trigger: 'blur'},
-            {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+            {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
           ],
           type: [
             {required: true, message: '请选择投票类型', trigger: 'change'}
@@ -95,6 +103,9 @@
           ],
           endTime: [
             {type: 'date', required: true, message: '请选择结束时间', trigger: 'change'}
+          ],
+          password: [
+            {validator: validatePass, trigger: 'blur'}
           ]
         }
       }
@@ -104,15 +115,17 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!')
+            console.log(this.$data)
           } else {
             console.log('error submit!!')
+            console.log(this.create)
             return false
           }
         })
       },
-      resetForm (formName) {
-        this.$refs[formName].resetFields()
-      },
+//      resetForm (formName) {
+//        this.$refs[formName].resetFields()
+//      },
       removeOption (item) {
         let index = this.create.options.indexOf(item)
         if (index !== -1) {
