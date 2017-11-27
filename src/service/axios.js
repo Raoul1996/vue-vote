@@ -1,10 +1,6 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios'
-import router from '../router/index'
-import store from '../store/index'
-import * as types from '../store/mutation-types'
 import API from '../config/api'
-import { Message, Alert } from 'element-ui'
+import { Message } from 'element-ui'
 import codeMap from '../config/codeMap'
 import { query2url, sleep } from '../utils'
 
@@ -26,7 +22,6 @@ instance.defaults.headers.post['Content-Type'] = 'application/json'
 // TODO: what the config object meaning? where can I found it?
 axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(config => {
-  const {data} = config
   // let token = null
   // if (data && (data.token !== undefined)) {
   //   token = data.token
@@ -57,7 +52,11 @@ instance.interceptors.response.use((config) => {
   // data 即为后端返回的数据
   const {data, data: {code}} = config
   if (code !== ERR_OK) {
-    Message.error(`${codeMap[code].toString() || 'unKnowError'}: ${code}`)
+    Message({
+      type: 'error',
+      showClose: true,
+      message: `${codeMap[code].toString() || 'unKnowError'}: ${code}`
+    })
     return Promise.reject(config)
   } else if (code === NEED_LOGIN) {
     sleep(1000).then(async () => { await window.location.replace('/') })
@@ -66,9 +65,17 @@ instance.interceptors.response.use((config) => {
   }
 }, err => {
   if (err && err['message']) {
-    Message.error(`${err.message}`)
+    Message({
+      type: 'error',
+      showClose: true,
+      message: err.message
+    })
   } else {
-    Message.error(err)
+    Message({
+      type: 'error',
+      showClose: true,
+      message: err
+    })
   }
   // else {
   //   Message.error(`${codeMap[NEED_LOGIN].toString() || 'unKnowError'}: ${NEED_LOGIN}`)
@@ -85,7 +92,7 @@ const requestService = {
   userLogin (data) {
     return instance.post(API.login, data).then(
       (response) => {
-        const {data: {token}} = response
+        // const {data: {token}} = response
         // TODO: 在这里集中处理 Token
         return response
       }
