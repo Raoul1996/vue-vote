@@ -20,6 +20,14 @@ import {
   Menu,
   MenuItem,
   Submenu,
+  Col,
+  Row,
+  TimePicker,
+  Option,
+  DatePicker,
+  Switch,
+  RadioGroup,
+  Radio,
   MessageBox,
   Message,
   Loading,
@@ -27,6 +35,14 @@ import {
 } from 'element-ui'
 
 Vue.config.productionTip = false
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(Switch)
+Vue.use(Option)
+Vue.use(TimePicker)
+Vue.use(DatePicker)
+Vue.use(Col)
+Vue.use(Row)
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Form)

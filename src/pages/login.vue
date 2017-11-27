@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item label="password" prop="password">
         <el-input @keyup.native.enter="submitForm('login')" type="password" v-model="login.password"
-                  auto-complete="off"></el-input>
+                  auto-complete="on"></el-input>
       </el-form-item>
       <el-form-item>
         <router-link to="forget" class="forget">Forgot password?</router-link>
