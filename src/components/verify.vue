@@ -1,9 +1,6 @@
-<template>
-  <div class="Verify">
-    <el-form :inline="true" :model="form" class="">
-
-    </el-form>
-  </div>
+<template lang="pug">
+  .Verify
+    el-form(:inline="true", :model="form")
 </template>
 
 <script>

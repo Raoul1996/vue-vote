@@ -1,35 +1,22 @@
-<template>
-  <div class="detail">
-    <div v-if="!pub" class="password-input">
-      <el-form :inline="true" :model="form" class="" @submit.native.prevent>
-        <div class="el-form-item">
-          <label class="el-form-item__label">{{name}}</label>
-          <div class="el-form-item__content">
-            <el-input v-model="form.password" placeholder="请输入密码"></el-input>
-          </div>
-        </div>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">确定</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="content" v-else :content="content">
-      <h1 class="title">{{content.title}}（{{voteType}}）</h1>
-      <div class="end-time">截止时间：{{end}}</div>
-      <div class="option">
-        <div class="option-list">
-          <el-checkbox-group v-model="options" @change="optionsChange">
-            <div v-for="(o, index) in content.options" class="option-list-item">
-              <el-checkbox :label="o.id" :index="index">{{o.title}}
-              </el-checkbox>
-            </div>
-          </el-checkbox-group>
-        </div>
-      </div>
-      <el-button type="primary" class="button" :disabled="!enableClickButton" size="medium" @click="submitVote">提交
-      </el-button>
-    </div>
-  </div>
+<template lang="pug">
+  .detail
+    .password-input(v-if="!pub")
+      el-form(:inline="true", :model="form", @submit.native.prevent="")
+        .el-form-item
+          label.el-form-item__label {{name}}
+          .el-form-item__content
+            el-input(v-model="form.password", placeholder="请输入密码")
+        el-form-item
+          el-button(type="primary", @click="onSubmit") 确定
+    .content(v-else="", :content="content")
+      h1.title {{content.title}}（{{voteType}}）
+      .end-time 截止时间：{{end}}
+      .option
+        .option-list
+          el-checkbox-group(v-model="options", @change="optionsChange")
+            .option-list-item(v-for="(o, index) in content.options")
+              el-checkbox(:label="o.id", :index="index") {{o.title}}
+      el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote") 提交
 </template>
 
 <script>
@@ -98,7 +85,7 @@
       },
       getVoteDetail (query, param) {
         // 这里不知道后端发生了什么，拦截器失效了？
-        api.getDetail(query, param).then(({data}) => {
+        api.getDetail(query, param).then((data) => {
           this.content = data
           this.pub = true
         })

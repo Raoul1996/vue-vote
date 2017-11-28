@@ -1,11 +1,8 @@
-<template>
-  <div class="vote">
-    <ul class="vote-list">
-      <li class="vote-item" v-for="(o, index) in list" :key="index">
-        <Card :vote="o"></Card>
-      </li>
-    </ul>
-  </div>
+<template lang="pug">
+  .vote
+    ul.vote-list
+      li.vote-item(v-for="(o, index) in list", :key="index")
+        Card(:vote="o")
 </template>
 
 <script>

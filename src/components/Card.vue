@@ -1,20 +1,13 @@
-<template>
-  <div class="card" @click="getDetail(id)">
-    <el-card :body-style="{ padding: '20px' }">
-      <div slot="header" class="clearfix">
-        <span>{{title}}</span>
-        <!--<el-button style="float: right; padding: 3px 0" type="text">{{button}}</el-button>-->
-      </div>
-      <div class="content">
-        <div>{{voteType}}</div>
-      </div>
-      <div class="bottom">
-        <div class="time">{{start}} ---- {{end}}</div>
-      </div>
-    </el-card>
-  </div>
+<template lang="pug">
+  div.card(@click="getDetail(id)")
+    el-card(:body-style="{ padding: '20px' }")
+      div.clearfix(slot="header")
+        span {{title}}
+      div.content
+        div {{voteType}}
+      div.bottom
+        div.time {{start}} ---- {{end}}
 </template>
-
 <script>
   import format from 'date-fns/format'
   import { goto } from '../utils'

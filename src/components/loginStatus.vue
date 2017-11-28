@@ -1,8 +1,7 @@
-<template>
-  <div class="login-status">
-    <p>登录状态：{{login}}</p>
-    <el-button v-if="login" @click="Logout">登出</el-button>
-  </div>
+<template lang="pug">
+  .login-status
+    p 登录状态：{{login}}
+    el-button(v-if="login", @click="Logout") 登出
 </template>
 
 <script type="text/ecmascript-6">

@@ -1,7 +1,6 @@
-<template>
-  <div class="template">
-    <h1>{{msg}}</h1>
-  </div>
+<template lang="pug">
+  .not-found
+    h1 {{msg}}
 </template>
 
 <script type="text/ecmascript-6">

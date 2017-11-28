@@ -1,29 +1,20 @@
-<template>
-  <div class="login">
-    <h1 class="title">Sign in to Voter</h1>
-    <el-form :model="login" :rules="rules" ref="login" class="login-form">
-      <el-form-item label="identifier" prop="identifier">
-        <el-input v-model="login.identifier"></el-input>
-      </el-form-item>
-      <el-form-item label="password" prop="password">
-        <el-input @keyup.native.enter="submitForm('login')" type="password" v-model="login.password"
-                  auto-complete="on"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <router-link to="forget" class="forget">Forgot password?</router-link>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" class="login-button" size="middle" @click="submitForm('login')">Sign in
-        </el-button>
-      </el-form-item>
-    </el-form>
-    <div class="register-form">
-      New to Voter?
-      <router-link to="register" class="register">
-        Create an account.
-      </router-link>
-    </div>
-  </div>
+<template lang="pug">
+  .login
+    h1.title Sign in to Voter
+    el-form.login-form(:model="login", :rules="rules", ref="login")
+      el-form-item(label="identifier", prop="identifier")
+        el-input(v-model="login.identifier")
+      el-form-item(label="password", prop="password")
+        el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.password", auto-complete="on")
+      el-form-item
+        router-link.forget(to="forget") Forgot password?
+      el-form-item
+        el-button.login-button(type="primary", size="middle", @click="submitForm('login')")
+          | Sign in
+    .register-form
+      | New to Voter?
+      router-link.register(to="register")
+        | Create an account.
 </template>
 
 <script type="text/ecmascript-6">

@@ -1,30 +1,21 @@
-<template>
-  <div class="change">
-    <h1 class="title">Change Password</h1>
-    <el-form :model="update" :rules="rules" ref="update" class="change-form">
-      <!--<el-form-item label="mobile" prop="mobile">-->
-        <!--<el-input v-model="update.mobile" placeholder="Your mobile"></el-input>-->
-      <!--</el-form-item>-->
-      <el-form-item label="oldPassword" prop="oldPassword">
-        <el-input type="password" v-model="update.oldPassword" auto-complete="off"
-                  placeholder="Create a new password"></el-input>
-      </el-form-item>
-      <el-form-item label="newPassword" prop="password">
-        <el-input type="password" v-model="update.newPassword" auto-complete="off"
-                  placeholder="Create a new password"></el-input>
-      </el-form-item>
-      <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" @keyup.native.enter="submitForm('update')" v-model="update.checkPassword" auto-complete="off"
-                  placeholder="Confirm your password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button class="change-button" size="middle" type="danger" @click="submitForm('update')">
-          Change Password
-        </el-button>
-      </el-form-item>
-    </el-form>
-    <div>{{token}}</div>
-  </div>
+<template lang="pug">
+  .update
+    h1.title update Password
+    el-form.update-form(:model="update", :rules="rules", ref="update")
+      // <el-form-item label="mobile" prop="mobile">
+      // <el-input v-model="update.mobile" placeholder="Your mobile"></el-input>
+      // </el-form-item>
+      el-form-item(label="oldPassword", prop="oldPassword")
+        el-input(type="password", v-model="update.oldPassword", auto-complete="off", placeholder="Create a new password")
+      el-form-item(label="newPassword", prop="password")
+        el-input(type="password", v-model="update.newPassword", auto-complete="off", placeholder="Create a new password")
+      el-form-item(label="confirm", prop="checkPassword")
+        el-input(type="password", @keyup.native.enter="submitForm('update')", v-model="update.checkPassword", auto-complete="off", placeholder="Confirm your password")
+      el-form-item
+        el-button.update-button(size="middle", type="danger", @click="submitForm('update')")
+          | update Password
+    div {{token}}
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -35,7 +26,7 @@
   import { lazyGoto } from '../utils'
 
   export default {
-    name: 'change',
+    name: 'update',
     // 提供store接口
     store,
     data () {
@@ -95,7 +86,7 @@
               this.$message({
                 type: 'success',
                 showClose: true,
-                message: 'Change Password successful'
+                message: 'update Password successful'
               })
               await lazyGoto(this, 'login')
             })
@@ -115,17 +106,17 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .change {
+  .update {
     width 30%
     min-width 400px
     margin 0 auto
-    .change-form {
+    .update-form {
       background-color #ffffff
       margin-top 30px
       padding 20px 50px
       border-radius 5px
       border 1px solid #d8dee2
-      .change-button {
+      .update-button {
         width 100%
       }
     }

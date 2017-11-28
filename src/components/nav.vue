@@ -1,24 +1,17 @@
-<template>
-  <div class="components">
-    <router-link to="/">
-      <el-button type="primary">Index</el-button>
-    </router-link>
-    <router-link to="hello">
-      <el-button>hello</el-button>
-    </router-link>
-    <router-link to="login">
-      <el-button>login</el-button>
-    </router-link>
-    <router-link to="register">
-      <el-button>register</el-button>
-    </router-link>
-    <router-link to="change-password">
-      <el-button>changePassword</el-button>
-    </router-link>
-    <router-link to="forget">
-      <el-button>forget</el-button>
-    </router-link>
-  </div>
+<template lang="pug">
+  .components
+    router-link(to="/")
+      el-button(type="primary") Index
+    router-link(to="hello")
+      el-button hello
+    router-link(to="login")
+      el-button login
+    router-link(to="register")
+      el-button register
+    router-link(to="change-password")
+      el-button changePassword
+    router-link(to="forget")
+      el-button forget
 </template>
 
 <script type="text/ecmascript-6">

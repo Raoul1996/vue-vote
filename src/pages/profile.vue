@@ -1,10 +1,8 @@
-<template>
-  <div class="users">
-    <ul class="users-list">
-      <li class="users-item">{{users.name}}</li>
-      <li class="users-item">{{users.mobile}}</li>
-    </ul>
-  </div>
+<template lang="pug">
+  .users
+    ul.users-list
+      li.users-item {{users.name}}
+      li.users-item {{users.mobile}}
 </template>
 
 <script type="text/ecmascript-6">

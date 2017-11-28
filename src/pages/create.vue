@@ -1,71 +1,37 @@
-<template>
-  <div class="create">
-    <h1 class="title">创建投票</h1>
-    <el-form :model="create" :rules="rules" ref="create" label-position="left">
-      <div class="create-card">
-        <el-form-item prop="pub" required>
-          <el-switch v-model="create.pub" active-text="公开投票" inactive-text="私密投票"></el-switch>
-        </el-form-item>
-        <el-form-item label="投票名称" prop="name" required>
-          <el-input v-model="create.name" placeholder="请填写投票名称"></el-input>
-        </el-form-item>
-        <el-form-item label="投票类型" prop="type">
-          <el-select v-model="create.type" placeholder="请选择投票类型">
-            <el-option label="单选" value="single"></el-option>
-            <el-option label="多选" value="muti"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="投票密码" prop="password" v-if="!create.pub">
-          <el-input v-model="create.password" placeholder="请填写投票密码"></el-input>
-        </el-form-item>
-      </div>
-      <div class="create-card">
-        <el-form-item label="开始时间" required>
-          <el-form-item prop="startTime">
-            <el-date-picker
-              v-model="create.startTime"
-              type="datetime"
-              placeholder="选择日期时间">
-            </el-date-picker>
-          </el-form-item>
-        </el-form-item>
-        <el-form-item label="结束时间" required>
-          <el-form-item prop="endTime">
-            <el-date-picker
-              v-model="create.endTime"
-              type="datetime"
-              placeholder="选择日期时间">
-            </el-date-picker>
-          </el-form-item>
-
-        </el-form-item>
-      </div>
-      <div class="create-card">
-        <el-form-item
-          v-for="(option, index) in create.options"
-          :label="'选项' + (index + 1)"
-          :key="option.key"
-          :prop="'options.' + index + '.value'"
-          :rules="{required: true, message: '选项内容不能为空', trigger: 'blur'}"
-        >
-          <div class="options">
-            <el-input class="option-item" v-model="option.value"></el-input>
-            <el-button class="option-button" @click.prevent="removeOption(option)">删除</el-button>
-          </div>
-        </el-form-item>
-        <el-form-item>
-          <el-button class="el-button add-button" @click="addOption">新增选项</el-button>
-          <!--<el-button @click="resetForm('create')">重置</el-button>-->
-        </el-form-item>
-      </div>
-      <el-form-item>
-        <div class="submit-button-wrapper">
-          <el-button class="el-button" @click="submitForm('create')" type="primary">立即创建</el-button>
-        </div>
-        <!--<el-button @click="resetForm('create')">重置</el-button>-->
-      </el-form-item>
-    </el-form>
-  </div>
+<template lang="pug">
+  .create
+    h1.title 创建投票
+    el-form(:model="create", :rules="rules", ref="create", label-position="left")
+      .create-card
+        el-form-item(prop="pub", required="")
+          el-switch(v-model="create.pub", active-text="公开投票", inactive-text="私密投票")
+        el-form-item(label="投票名称", prop="name", required="")
+          el-input(v-model="create.name", placeholder="请填写投票名称")
+        el-form-item(label="投票类型", prop="type")
+          el-select(v-model="create.type", placeholder="请选择投票类型")
+            el-option(label="单选", value="single")
+            el-option(label="多选", value="muti")
+        el-form-item(label="投票密码", prop="password", v-if="!create.pub")
+          el-input(v-model="create.password", placeholder="请填写投票密码")
+      .create-card
+        el-form-item(label="开始时间", required="")
+          el-form-item(prop="startTime")
+            el-date-picker(v-model="create.startTime", type="datetime", placeholder="选择日期时间")
+        el-form-item(label="结束时间", required="")
+          el-form-item(prop="endTime")
+            el-date-picker(v-model="create.endTime", type="datetime", placeholder="选择日期时间")
+      .create-card
+        el-form-item(v-for="(option, index) in create.options", :label="'选项' + (index + 1)", :key="option.key", :prop="'options.' + index + '.value'", :rules="{required: true, message: '选项内容不能为空', trigger: 'blur'}")
+          .options
+            el-input.option-item(v-model="option.value")
+            el-button.option-button(@click.prevent="removeOption(option)") 删除
+        el-form-item
+          el-button.el-button.add-button(@click="addOption") 新增选项
+          // <el-button @click="resetForm('create')">重置</el-button>
+      el-form-item
+        .submit-button-wrapper
+          el-button.el-button(@click="submitForm('create')", type="primary") 立即创建
+        // <el-button @click="resetForm('create')">重置</el-button>
 </template>
 
 <script>

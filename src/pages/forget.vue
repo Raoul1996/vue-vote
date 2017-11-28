@@ -1,25 +1,15 @@
-<template>
-  <div class="forget">
-    <h1 class="title">Reset Password</h1>
-    <el-form :model="forget" :rules="rules" ref="forget" class="forget-form">
-      <el-form-item label="mobile" prop="mobile">
-        <el-input v-model="forget.mobile" placeholder="Your mobile"></el-input>
-      </el-form-item>
-      <el-form-item label="newPassword" prop="newPassword">
-        <el-input type="password" v-model="forget.newPassword" auto-complete="off"
-                  placeholder="Create a new password"></el-input>
-      </el-form-item>
-      <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" @keyup.native.enter="submitForm('forget')" v-model="forget.checkPassword" auto-complete="off"
-                  placeholder="Confirm your password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button class="forget-button" size="middle" type="warning" @click="submitForm('forget')">
-          Reset Password
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+<template lang="pug">
+  .forget
+    h1.title Reset Password
+    el-form.forget-form(:model="forget", :rules="rules", ref="forget")
+      el-form-item(label="mobile", prop="mobile")
+        el-input(v-model="forget.mobile", placeholder="Your mobile")
+      el-form-item(label="newPassword", prop="newPassword")
+        el-input(type="password", v-model="forget.newPassword", auto-complete="off", placeholder="Create a new password")
+      el-form-item(label="confirm", prop="checkPassword")
+        el-input(type="password", @keyup.native.enter="submitForm('forget')", v-model="forget.checkPassword", auto-complete="off", placeholder="Confirm your password")
+      el-form-item
+        el-button.forget-button(size="middle", type="warning", @click="submitForm('forget')") Reset Password
 </template>
 
 <script type="text/ecmascript-6">

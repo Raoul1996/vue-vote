@@ -1,29 +1,18 @@
-<template>
-  <div class="register">
-    <h1 class="title">Register</h1>
-    <el-form :model="register" :rules="rules" ref="register" class="register-form">
-      <el-form-item label="name" prop="name">
-        <el-input v-model="register.name" placeholder="Pick a name"></el-input>
-      </el-form-item>
-      <el-form-item label="mobile" prop="mobile">
-        <el-input v-model="register.mobile" placeholder="Pick a mobile"></el-input>
-      </el-form-item>
-      <el-form-item label="password" prop="password">
-        <el-input type="password" v-model="register.password" auto-complete="off"
-                  placeholder="Create a password"></el-input>
-      </el-form-item>
-      <el-form-item label="confirm" prop="checkPassword">
-        <el-input type="password" @keyup.native.enter="submitForm('register')" v-model="register.checkPassword"
-                  auto-complete="off"
-                  placeholder="Confirm your password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button class="register-button" size="middle" type="primary" @click="submitForm('register')">
-          Sign up for Voter
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+<template lang="pug">
+  .register
+    h1.title Register
+    el-form.register-form(:model="register", :rules="rules", ref="register")
+      el-form-item(label="name", prop="name")
+        el-input(v-model="register.name", placeholder="Pick a name")
+      el-form-item(label="mobile", prop="mobile")
+        el-input(v-model="register.mobile", placeholder="Pick a mobile")
+      el-form-item(label="password", prop="password")
+        el-input(type="password", v-model="register.password", auto-complete="off", placeholder="Create a password")
+      el-form-item(label="confirm", prop="checkPassword")
+        el-input(type="password", @keyup.native.enter="submitForm('register')", v-model="register.checkPassword", auto-complete="off", placeholder="Confirm your password")
+      el-form-item
+        el-button.register-button(size="middle", type="primary", @click="submitForm('register')")
+          | Sign up for Voter
 </template>
 
 <script type="text/ecmascript-6">
