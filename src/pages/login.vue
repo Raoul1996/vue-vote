@@ -87,6 +87,7 @@
                 message: 'login successful'
               })
               this.USER_LOGIN(true)
+//              console.log(data)
               // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.token)
               this.SET_TOKEN(data.token)

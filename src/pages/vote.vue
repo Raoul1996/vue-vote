@@ -32,7 +32,7 @@
           time: 1,
           type: this.type
         }
-        api.getVote(query).then(({data}) => {
+        api.getVote(query).then((data) => {
           const {list} = data
           this.list = list
         })

@@ -15,6 +15,7 @@ export default {
   password: ApiMaker('user/update/password'),
   vote: ApiMaker('vote/list'),
   detail: ApiMaker('vote/detail'),
+  create: ApiMaker('vote/create'),
   submit: ApiMaker('vote/part'),
   logout: userApiMaker('logout'),
   me: userApiMaker('me'),

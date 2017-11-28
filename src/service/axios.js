@@ -61,7 +61,9 @@ instance.interceptors.response.use((config) => {
   } else if (code === NEED_LOGIN) {
     sleep(1000).then(async () => { await window.location.replace('/') })
   } else {
-    return data
+    // console.log(data)
+    // console.log(data['data'])
+    return data['data']
   }
 }, err => {
   if (err && err['message']) {
@@ -115,6 +117,9 @@ const requestService = {
   },
   getVote (query) {
     return instance.get(query2url(API.vote, query))
+  },
+  createVote (data) {
+    return instance.post(API.create, data)
   },
   getDetail (query, param) {
     return instance.get(query2url(API.detail, query, param))

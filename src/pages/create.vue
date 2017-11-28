@@ -69,6 +69,8 @@
 </template>
 
 <script>
+  import api from '../service/axios'
+
   export default {
     data () {
       const validatePass = (rule, value, callback) => {
@@ -114,11 +116,14 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!')
-            console.log(this.$data)
+            const opt = this.create
+            api.createVote(opt).then((data) => {})
           } else {
-            console.log('error submit!!')
-            console.log(this.create)
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: 'submit error'
+            })
             return false
           }
         })
