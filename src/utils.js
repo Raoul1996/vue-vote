@@ -1,3 +1,4 @@
+'use strict'
 /**
  * 延时函数
  * @param ms 延时时间
