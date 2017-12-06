@@ -1,8 +1,8 @@
-# vue-vote (side project)
+# Vote——一款在线投票系统 (side project)
 
-> A Vue.js project, rebuild vote for my friend and myself. Do better and more beautiful.
+> 使用 vue 重构了 vote 这个项目，实践各种好玩（有意思）的东西
 
-## tree
+## 文件结构
 ```
 .
 ├── App.vue
@@ -19,8 +19,6 @@
 │   ├── api.js
 │   ├── codeMap.js
 │   ├── env.js
-│   ├── fetch.js
-│   ├── goto.js
 │   ├── localStorage.js
 │   └── rem.js
 ├── main.js
@@ -38,8 +36,7 @@
 ├── router
 │   └── index.js
 ├── service
-│   ├── axios.js
-│   └── getData.js
+│   └── axios.js
 ├── store
 │   ├── actions.js
 │   ├── getters.js
@@ -48,16 +45,23 @@
 │   └── mutations.js
 └── utils.js
 
-7 directories, 35 files
-
+7 directories, 32 files
 
 ```
-## Use What?
+## 已经使用了些什么？
 
-1. pug [html2pug](http://html2jade.vida.io/)
-2. element-ui
+1. 使用 pug 模板简化代码（练习jade）[html2pug](http://html2jade.vida.io/)
+2. 使用 element-ui 进行快速开发
+3. 使用 [Travis CI](https://travis-ci.org/Raoul1996/vue-vote/) 进行自动化编译、打包、以及部署到服务器
+4. 使用 [codeclimate](https://codeclimate.com) 进行代码风格检查：[![Maintainability](https://api.codeclimate.com/v1/badges/59307323ff524655d132/maintainability)](https://codeclimate.com/github/Raoul1996/vue-side-project/maintainability)
 
-## Build Setup
+## 将会使用些什么？
+1. 使用 `vuex` 进行状态集中管理（还没做呢）
+2. 使用自己写的后台，目前拟使用 koa2 框架，MySQL 数据库（因为现在的后台有问题，总返回 500）
+3. 还有各种使用好玩的技能
+
+
+## 如何启动
 
 ``` bash
 # install dependencies
