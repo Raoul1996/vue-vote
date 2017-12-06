@@ -8,7 +8,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_09c5eaff0959_key -iv $encrypted_09c5eaff0959_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
-- echo -e "Host ${HOST} \n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host 123.207.252.230 \n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - cat ~/.ssh/config
 install:
 - npm install
@@ -26,13 +26,13 @@ after_script:
 after_success:
 - cd ./${DIST_BRANCH}
 - pwd
-- tar -jcf ${PACKAGE_NAME} *
-- scp ${PACKAGE_NAME} ubuntu@${HOST}:~/
-- ssh ubuntu@${HOST} 'mkdir -p ${DEPLOY_DIR} && mv ./${PACKAGE_NAME}
-  ${DEPLOY_DIR} && cd ${DEPLOY_DIR} && tar -jxf ${PACKAGE_NAME}
- && rm -rf ${PACKAGE_NAME}'
+- tar -jcf vote.tar.bz2 *
+- scp vote.tar.bz2 ubuntu@123.207.252.230:~/
+- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ./vote.tar.bz2
+  /usr/share/nginx/html/votes && cd /usr/share/nginx/html/votes && tar -jxf vote.tar.bz2
+ && rm -rf vote.tar.bz2'
 branches:
   only:
-  - ${DIST_BRANCH}
+  - master
 env:
   global:
