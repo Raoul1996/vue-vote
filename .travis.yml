@@ -2,27 +2,34 @@ language: node_js
 node_js:
 - '6'
 directories:
-    - node_modules
-# S: Build Lifecycle
+- node_modules
+before_install:
+- openssl aes-256-cbc -K $encrypted_09c5eaff0959_key -iv $encrypted_09c5eaff0959_iv
+  -in id_ci.enc -out ~\/.ssh/id_ci -d
+- chmod 600 ~/.ssh/id_rsa
+- echo -e "Host 123.207.252.230 \n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
-  - npm install
+- npm install
 before_script:
-# 无其他依赖项所以执行npm run build 构建就行了
 script:
-  - npm run build
+- npm run build
 after_script:
-  - cd ./dist
-  - git init
-  - git config user.name "${U_NAME}"
-  - git config user.email "${U_EMAIL}"
-  - git add .
-  - git commit -m "自动构建尝试"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
-# E: Build LifeCycle
+- cd ./dist
+- git init
+- git config user.name "${U_NAME}"
+- git config user.email "${U_EMAIL}"
+- git add .
+- git commit -m "自动构建"
+- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+after_success:
+# - npm prune --production # 删除devDependencies
+- tar -jcf vote.tar.bz2 * # 打包并压缩代码
+- scp vote.tar.bz2 ubuntu@123.207.252.230:~/ # 复制到生产服务器上
+- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ./vote.tar.bz2 /usr/share/nginx/html/votes && cd /usr/share/nginx/html/votes && tar -jxf vote.tar.bz2 -C vote-code && mv ./vote-code/* ./ && rm -rf ./vote-code' # 解压
+#- ssh ubuntu@123.207.252.230 'cd indoor-server && pm2 startOrReload pm2.json'
 branches:
   only:
-    - dist
+  - dist
 env:
- global:
-   # 我将其添加到了travis-ci的环境变量中
-   #- GH_REF: github.com/Raoul1996/vue-vote.git
+  global:
+
