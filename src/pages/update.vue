@@ -1,7 +1,7 @@
 <template lang="pug">
   .update
     h1.title update Password
-    el-form.update-form(:model="update", :rules="rules", ref="update")
+    el-form.card-border(:model="update", :rules="rules", ref="update")
       // <el-form-item label="mobile" prop="mobile">
       // <el-input v-model="update.mobile" placeholder="Your mobile"></el-input>
       // </el-form-item>
@@ -110,17 +110,11 @@
     width 30%
     min-width 400px
     margin 0 auto
-    .update-form {
-      background-color #ffffff
-      margin-top 30px
-      padding 20px 50px
-      border-radius 5px
-      border 1px solid #d8dee2
-      .update-button {
-        width 100%
-      }
+    .update-button {
+      width 100%
     }
   }
+
   @media screen and (max-width: 400px) {
     .update {
       min-width 300px

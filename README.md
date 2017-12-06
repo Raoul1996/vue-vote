@@ -25,14 +25,15 @@
 │   └── rem.js
 ├── main.js
 ├── pages
+│   ├── 404.vue
 │   ├── Hello.vue
-│   ├── NotFound.vue
+│   ├── create.vue
 │   ├── detail.vue
 │   ├── forget.vue
 │   ├── login.vue
+│   ├── profile.vue
 │   ├── register.vue
 │   ├── update.vue
-│   ├── user.vue
 │   └── vote.vue
 ├── router
 │   └── index.js
@@ -47,10 +48,14 @@
 │   └── mutations.js
 └── utils.js
 
-7 directories, 34 files
+7 directories, 35 files
+
 
 ```
+## Use What?
 
+1. pug [html2pug](http://html2jade.vida.io/)
+2. element-ui
 
 ## Build Setup
 

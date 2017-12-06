@@ -1,7 +1,7 @@
 <template lang="pug">
   .register
     h1.title Register
-    el-form.register-form(:model="register", :rules="rules", ref="register")
+    el-form.card-border(:model="register", :rules="rules", ref="register")
       el-form-item(label="name", prop="name")
         el-input(v-model="register.name", placeholder="Pick a name")
       el-form-item(label="mobile", prop="mobile")
@@ -92,17 +92,11 @@
     width 30%
     min-width 400px
     margin 0 auto
-    .register-form {
-      background-color #ffffff
-      margin-top 30px
-      padding 20px 50px
-      border-radius 5px
-      border 1px solid #d8dee2
-      .register-button {
-        width 100%
-      }
+    .register-button {
+      width 100%
     }
   }
+
   @media screen and (max-width: 400px) {
     .register {
       min-width 300px

@@ -1,14 +1,14 @@
 <template lang="pug">
   .detail
     .password-input(v-if="!pub")
-      el-form(:inline="true", :model="form", @submit.native.prevent="")
+      el-form(:inline="true", :model="form", @submit.native.prevent="true")
         .el-form-item
           label.el-form-item__label {{name}}
           .el-form-item__content
             el-input(v-model="form.password", placeholder="请输入密码")
         el-form-item
           el-button(type="primary", @click="onSubmit") 确定
-    .content(v-else="", :content="content")
+    .card-border(v-else="", :content="content")
       h1.title {{content.title}}（{{voteType}}）
       .end-time 截止时间：{{end}}
       .option
@@ -16,7 +16,8 @@
           el-checkbox-group(v-model="options", @change="optionsChange")
             .option-list-item(v-for="(o, index) in content.options")
               el-checkbox(:label="o.id", :index="index") {{o.title}}
-      el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote") 提交
+      el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote")
+        | 提交
 </template>
 
 <script>
@@ -107,39 +108,33 @@
     .password-input {
       margin-top 60px
     }
-    .content {
-      background-color #ffffff
-      margin-top 10px
-      padding 20px 50px
-      border-radius 5px
-      border 1px solid #d8dee2
-      .title {
-        font-size 1.5em
-      }
-      .end-time {
-        font-size 14px
-        text-align right
-        color #247cff
-      }
-      .option {
-        text-align center
-        margin 1em auto
-        min-width 300px
-        width 60%
-        .option-list {
-          display inline-block
-          margin-left -3em
-          .option-list-item {
-            padding 20px
-            text-align left
-          }
+    .title {
+      font-size 1.5em
+    }
+    .end-time {
+      font-size 14px
+      text-align right
+      color #247cff
+    }
+    .option {
+      text-align center
+      margin 1em auto
+      min-width 300px
+      width 60%
+      .option-list {
+        display inline-block
+        margin-left -3em
+        .option-list-item {
+          padding 20px
+          text-align left
         }
       }
-      .button {
-        margin 1em
-        width 50%
-      }
     }
+    .button {
+      margin 1em
+      width 50%
+    }
+
   }
 
   @media screen and (max-width: 400px) {

@@ -13,12 +13,17 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  externals: {
+    'vue': "Vue"
+    // 'vue-router':"vue-router"
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+      : config.dev.assetsPublicPath,
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

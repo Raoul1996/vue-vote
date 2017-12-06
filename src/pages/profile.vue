@@ -1,5 +1,7 @@
 <template lang="pug">
-  .users
+  .users.card-border
+    .avatar
+      img(src='https://avatars3.githubusercontent.com/u/18366474?s=400&u=9d001b5e917bfdeeb99c66051ffe9d6c827797ae&v=4')
     ul.users-list
       li.users-item {{users.name}}
       li.users-item {{users.mobile}}
@@ -37,10 +39,22 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .users {
+    display flex
+    .avatar {
+      width 80px
+      height 80px
+      img {
+        max-width 100%
+      }
+    }
     .users-list {
-      flex 1
+      display flex
+      flex-direction column
+      justify-content space-around
+      align-items baseline
       padding 0
       .users-item {
+        line-height 40px
         list-style none
       }
     }

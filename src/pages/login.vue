@@ -1,7 +1,7 @@
 <template lang="pug">
   .login
     h1.title Sign in to Voter
-    el-form.login-form(:model="login", :rules="rules", ref="login")
+    el-form.card-border(:model="login", :rules="rules", ref="login")
       el-form-item(label="identifier", prop="identifier")
         el-input(v-model="login.identifier")
       el-form-item(label="password", prop="password")
@@ -105,20 +105,13 @@
     margin 0 auto
     width 30%
     min-width 400px
-    .login-form {
-      background-color #ffffff
-      margin-top 10px
-      padding 20px 50px
-      border-radius 5px
-      border 1px solid #d8dee2
-      .forget {
-        margin-top -1em
-        margin-bottom -1em
-        float right
-      }
-      .login-button {
-        width 100%
-      }
+    .forget {
+      margin-top -1em
+      margin-bottom -1em
+      float right
+    }
+    .login-button {
+      width 100%
     }
     .forget, .register {
       text-decoration none

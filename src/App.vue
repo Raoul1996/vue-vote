@@ -88,11 +88,26 @@
       width 690px
     }
   }
-
   // 单列布局
-  @media screen and (max-width: 690px) and (min-width: 400px) {
+  @media screen and (max-width: 690px) and (min-width: 500px) {
     #app {
-      width 400px
+      width 500px
+    }
+  }
+  @media screen and (max-width: 500px) and (min-width: 400px) {
+    #app {
+      width: 400px
+    }
+
+    .el-picker-panel .el-date-picker .el-popper {
+      width 100%
+    }
+
+    .create {
+      min-width 400px
+      .create-card {
+        padding 20px 20px
+      }
     }
   }
 

@@ -3,15 +3,15 @@ import Router from 'vue-router'
 // import Hello from '@/pages/Hello'
 import store from '../store'
 // 配置路由懒加载
-const Nav = () => import('components/nav.vue')
-const Login = () => import('pages/login.vue')
-const Register = () => import('pages/register.vue')
-const profile = () => import('pages/profile.vue')
-const Update = () => import('pages/update.vue')
-const Forget = () => import('pages/forget.vue')
-const Vote = () => import('pages/vote.vue')
-const Content = () => import('pages/detail.vue')
-const Create = () => import('pages/create.vue')
+const Nav = () => import(/* webpackChunkName: "content" */ 'components/nav.vue')
+const Login = () => import(/* webpackChunkName: "user" */ 'pages/login.vue')
+const Register = () => import(/* webpackChunkName: "user" */ 'pages/register.vue')
+const profile = () => import(/* webpackChunkName: "user" */ 'pages/profile.vue')
+const Update = () => import(/* webpackChunkName: "user" */ 'pages/update.vue')
+const Forget = () => import(/* webpackChunkName: "user" */ 'pages/forget.vue')
+const Vote = () => import(/* webpackChunkName: "vote" */ 'pages/vote.vue')
+const Content = () => import(/* webpackChunkName: "vote" */ 'pages/detail.vue')
+const Create = () => import(/* webpackChunkName: "vote" */ 'pages/create.vue')
 
 Vue.use(Router)
 /**
