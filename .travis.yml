@@ -1,4 +1,7 @@
- directories:
+language: node_js
+node_js:
+- '6'
+directories:
     - node_modules
 # S: Build Lifecycle
 install:
@@ -13,7 +16,7 @@ after_script:
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
   - git add .
-  - git commit -m "Update tools"
+  - git commit -m "自动构建尝试"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" dist:${P_BRANCH}
 # E: Build LifeCycle
 branches:
