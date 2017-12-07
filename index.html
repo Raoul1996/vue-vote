@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><style>.card-border {
+      background-color: #ffffff;
+      margin-top: 30px;
+      padding: 20px 50px;
+      border-radius: 5px;
+      border: 1px solid #d8dee2;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      position: relative;
+      margin: 200px auto;
+    }
+
+    .double-bounce1, .double-bounce2 {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #2db7f5;
+      opacity: 0.6;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      -webkit-animation: bounce 2.0s infinite ease-in-out;
+      animation: bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+      -webkit-animation-delay: -1.0s;
+      animation-delay: -1.0s;
+    }
+
+    @-webkit-keyframes bounce {
+      0%, 100% {
+        -webkit-transform: scale(0.0)
+      }
+      50% {
+        -webkit-transform: scale(1.0)
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      }
+      50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }</style><title>voter</title><script src=https://cdn.bootcss.com/vue/2.5.9/vue.min.js></script><link href=/static/css/app.238946b8a3b6b1e25cbe1ef5ba76de37.css rel=stylesheet></head><body><div id=app><div class=spinner><div class=double-bounce1></div><div class=double-bounce2></div></div></div><script type=text/javascript src=/static/js/manifest.e32da7c749a7ca75ad0a.js></script><script type=text/javascript src=/static/js/vendor.f3e0771266a65a83d50b.js></script><script type=text/javascript src=/static/js/app.ee1a5e1e71a6b8e13c29.js></script></body></html>
