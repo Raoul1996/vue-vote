@@ -19,7 +19,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from 'src/service/axios'
   import { removeStore } from '../config/localStorage'
   import { mapActions, mapState } from 'vuex'
   import store from '../store/index'
@@ -79,7 +78,7 @@
             /* eslint-disable no-unused-vars */
 //            const {mobile, oldPassword, newPassword, checkPassword} = this.update
             const opt = this.update
-            api.resetPassword(opt).then(async ({data}) => {
+            this.$api.resetPassword(opt).then(async ({data}) => {
 //            console.log(data)
               removeStore('token')
               this.USER_LOGIN(false)

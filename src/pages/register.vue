@@ -17,7 +17,6 @@
 
 <script type="text/ecmascript-6">
   // now Let's try to use axios api~
-  import api from 'src/service/axios'
   import { lazyGoto } from '../utils'
 
   export default {
@@ -64,7 +63,7 @@
             /* eslint-disable no-unused-vars */
             // the opt object is the request body.
             const opt = this.register
-            api.userRegister(opt).then(async ({data}) => {
+            this.$api.userRegister(opt).then(async ({data}) => {
               this.$message({
                 type: 'success',
                 showClose: true,

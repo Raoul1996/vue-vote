@@ -7,7 +7,6 @@
 
 <script>
   import Card from '../components/Card.vue'
-  import api from 'service/axios'
   import Layout from '../components/layout.vue'
 
   export default {
@@ -29,7 +28,7 @@
           time: 1,
           type: this.type
         }
-        api.getVote(query).then((data) => {
+        this.$api.getVote(query).then((data) => {
           const {list} = data
           this.list = list
         })

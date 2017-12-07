@@ -8,8 +8,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '../service/axios'
-
   export default {
     name: 'template',
     data () {
@@ -28,7 +26,7 @@
     },
     methods: {
       getUserMsg () {
-        api.getUser().then(({user}) => {
+        this.$api.getUser().then(({user}) => {
           this.users = user
         })
       }

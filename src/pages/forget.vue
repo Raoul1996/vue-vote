@@ -13,7 +13,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from 'src/service/axios'
   import { lazyGoto } from '../utils'
 
   export default {
@@ -54,7 +53,7 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const opt = this.forget
-            api.forgetPassword(opt).then(async ({data}) => {
+            this.api.forgetPassword(opt).then(async ({data}) => {
               this.$message({
                 type: 'success',
                 showClose: true,

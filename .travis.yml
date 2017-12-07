@@ -42,7 +42,7 @@ after_script:
 after_success:
 # 移动到打包好的目录中
 - cd ./dist
-# 压缩，为长传准备
+# 压缩，为上传准备
 - tar -jcf vote.tar.bz2 *
 # scp
 - scp vote.tar.bz2 ubuntu@123.207.252.230:~/
