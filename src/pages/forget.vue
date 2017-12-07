@@ -13,7 +13,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '@/service/axios'
+  import api from 'src/service/axios'
   import { lazyGoto } from '../utils'
 
   export default {

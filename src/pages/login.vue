@@ -1,7 +1,7 @@
 <template lang="pug">
   .login
     h1.title Sign in to Voter
-    el-form.card-border(:model="login", :rules="rules", ref="login")
+    el-form.card-border(v-bind:model="login", ref="login", v-bind:rules="rules")
       el-form-item(label="identifier", prop="identifier")
         el-input(v-model="login.identifier")
       el-form-item(label="password", prop="password")
@@ -19,9 +19,8 @@
 
 <script type="text/ecmascript-6">
   /* eslint-disable no-unused-vars */
-  import api from 'service/axios'
   import { setStore } from '../config/localStorage'
-  import { lazyGoto, goto } from '@/utils'
+  import { lazyGoto, goto } from 'src/utils'
   import { mapActions, mapState, mapMutations } from 'vuex'
 
   export default {
@@ -71,18 +70,16 @@
           if (valid) {
             /* eslint-disable no-unused-vars */
             const opt = this.login
-            api.userLogin(opt).then((data) => {
+            this.$api.userLogin(opt).then(async (data) => {
               this.$message({
                 type: 'success',
                 showClose: true,
                 message: 'login successful'
               })
               this.USER_LOGIN(true)
-//              console.log(data)
-              // 这里我还是选择把token放到了本地，虽然可能不会去使用
               setStore('token', data.token)
               this.SET_TOKEN(data.token)
-              lazyGoto(this, 'vote')
+              await lazyGoto(this, 'vote')
             })
 //            console.log(data)
           } else {

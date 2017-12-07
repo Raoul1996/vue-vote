@@ -1,7 +1,7 @@
 <template lang="pug">
   .register
     h1.title Register
-    el-form.card-border(:model="register", :rules="rules", ref="register")
+    el-form.card-border(v-bind:model="register", v-bind:rules="rules", ref="register")
       el-form-item(label="name", prop="name")
         el-input(v-model="register.name", placeholder="Pick a name")
       el-form-item(label="mobile", prop="mobile")
@@ -17,7 +17,7 @@
 
 <script type="text/ecmascript-6">
   // now Let's try to use axios api~
-  import api from '@/service/axios'
+  import api from 'src/service/axios'
   import { lazyGoto } from '../utils'
 
   export default {

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Login from '@/pages/login.vue'
+import Login from 'src/pages/login.vue'
 
 describe('Login', () => {
   it('should render correct contents', () => {
