@@ -1,8 +1,10 @@
-# Vote——一款在线投票系统 (side project)
-
-> 使用 vue 重构了 vote 这个项目，实践各种好玩（有意思）的东西
+# Vue-vote——一款在线投票系统 (side project)
 
 [![Build Status](https://travis-ci.org/Raoul1996/vue-vote.svg?branch=master)](https://travis-ci.org/Raoul1996/vue-vote)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b68da294651f58e8d2f7/maintainability)](https://codeclimate.com/github/Raoul1996/vue-vote/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b68da294651f58e8d2f7/test_coverage)](https://codeclimate.com/github/Raoul1996/vue-vote/test_coverage)
+
+> 使用 Vue 重构了 Vote 项目，实践各种好玩（有意思）的东西
 
 ## 文件结构
 ```
@@ -54,8 +56,8 @@
 
 1. 使用 pug 模板简化代码（练习jade）[html2pug](http://html2jade.vida.io/)
 2. 使用 element-ui 进行快速开发
-3. 使用 [Travis CI](https://travis-ci.org/Raoul1996/vue-vote/) 进行自动化编译、打包、以及部署到服务器
-4. 使用 [codeclimate](https://codeclimate.com) 进行代码风格检查：[![Maintainability](https://api.codeclimate.com/v1/badges/59307323ff524655d132/maintainability)](https://codeclimate.com/github/Raoul1996/vue-side-project/maintainability)
+3. 使用 Travis CI 进行自动化编译、打包、以及部署到服务器
+4. 使用 codeclimate 进行代码检查
 
 ## 将会使用些什么？
 1. 使用 `vuex` 进行状态集中管理（还没做呢）
