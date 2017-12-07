@@ -33,12 +33,12 @@ script:
 # 6. 最后执行
 after_script:
 # push 代码到 dist 分支
-- git init
-- git config user.name "${U_NAME}"
-- git config user.email "${U_EMAIL}"
-- git add .
-- git commit -m "${COMMIT_MSG}"
-- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+#- git init
+#- git config user.name "${U_NAME}"
+#- git config user.email "${U_EMAIL}"
+#- git add .
+#- git commit -m "${COMMIT_MSG}"
+#- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
 after_success:
 # 移动到打包好的目录中
 - cd ./dist
