@@ -2,6 +2,8 @@
 
 > 使用 vue 重构了 vote 这个项目，实践各种好玩（有意思）的东西
 
+[![Build Status](https://travis-ci.org/Raoul1996/vue-vote.svg?branch=master)](https://travis-ci.org/Raoul1996/vue-vote)
+
 ## 文件结构
 ```
 .

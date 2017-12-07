@@ -17,7 +17,7 @@
     props: {
       'vote': {
         type: Object,
-        require: true
+        required: true
       }
     },
     data () {

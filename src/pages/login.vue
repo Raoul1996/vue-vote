@@ -36,11 +36,11 @@
         },
         rules: {
           password: [
-            {require: true, message: '请填写密码', trigger: 'blur'},
+            {required: true, message: '请填写密码', trigger: 'blur'},
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
           identifier: [
-            {require: true, message: '请填写手机号码', trigger: 'blur'},
+            {required: true, message: '请填写手机号码', trigger: 'blur'},
             {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
 //            {type: 'number', message: '手机号码只有数字'}
           ]

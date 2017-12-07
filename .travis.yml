@@ -1,22 +1,38 @@
+# web前端项目 Travis CI 自动部署到服务器配置文件
+# edit by raoul1996
+# 项目使用的语言
 language: node_js
+# 语言的版本
 node_js:
 - '8'
 directories:
 - node_modules
+# 1. 在 install 之前执行的脚本
 before_install:
+# 创建 .ssh 目录，在用户目录下
 - mkdir -p  ~/.ssh/
+# 这里需要在开发机（本地）用 travis 的命令行工具登陆 github，创建解密钥用的 key
 - openssl aes-256-cbc -K $encrypted_09c5eaff0959_key -iv $encrypted_09c5eaff0959_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
+# 降低目录权限
 - chmod 600 ~/.ssh/id_rsa
+# 将目标服务器（将要部署的服务器）的 ip 添加到 config 中，使其支持免密登陆
 - echo -e "Host 123.207.252.230 \n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- cat ~/.ssh/config
+
+# 2. 安装项目依赖
 install:
 - npm install
+# 3. 在执行 script 中脚本之前执行
 before_script:
+# 4. 执行 script 中的脚本
 script:
+# 这里一般会进行 test 或者代码覆盖率什么的，但是暂时先不用
+# 编译项目到 dist 文件夹
 - npm run build
+# 5. 执行 script 脚本成功之后执行
+# 6. 最后执行
 after_script:
-- cd ./${DIST_BRANCH}
+# push 代码到 dist 分支
 - git init
 - git config user.name "${U_NAME}"
 - git config user.email "${U_EMAIL}"
@@ -24,10 +40,13 @@ after_script:
 - git commit -m "${COMMIT_MSG}"
 - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
 after_success:
-- cd ./${DIST_BRANCH}
-- pwd
+# 移动到打包好的目录中
+- cd ./dist
+# 压缩，为长传准备
 - tar -jcf vote.tar.bz2 *
+# scp
 - scp vote.tar.bz2 ubuntu@123.207.252.230:~/
+# unzip
 - ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ./vote.tar.bz2
   /usr/share/nginx/html/votes && cd /usr/share/nginx/html/votes && tar -jxf vote.tar.bz2
  && rm -rf vote.tar.bz2'
