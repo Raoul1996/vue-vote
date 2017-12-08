@@ -14,7 +14,6 @@
         el-button.register-button(size="middle", type="primary", @click="submitForm('register')")
           | Sign up for Voter
 </template>
-
 <script type="text/ecmascript-6">
   // now Let's try to use axios api~
   import { lazyGoto } from '../utils'

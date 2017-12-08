@@ -2,8 +2,8 @@
   .login
     h1.title Sign in to Voter
     el-form.card-border(v-bind:model="login", ref="login", v-bind:rules="rules")
-      el-form-item(label="identifier", prop="identifier")
-        el-input(v-model="login.identifier")
+      el-form-item(label="mobile", prop="mobile")
+        el-input(v-model="login.mobile")
       el-form-item(label="password", prop="password")
         el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.password", auto-complete="on")
       el-form-item
@@ -28,7 +28,7 @@
     data () {
       return {
         login: {
-          identifier: null,
+          mobile: null,
           password: null,
           // 使用的是 web 端
           client: 1,
@@ -39,7 +39,7 @@
             {required: true, message: '请填写密码', trigger: 'blur'},
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
-          identifier: [
+          mobile: [
             {required: true, message: '请填写手机号码', trigger: 'blur'},
             {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
 //            {type: 'number', message: '手机号码只有数字'}

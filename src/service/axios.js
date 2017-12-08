@@ -55,7 +55,7 @@ instance.interceptors.response.use((config) => {
     Message({
       type: 'error',
       showClose: true,
-      message: `${codeMap[code].toString() || 'unKnowError'}: ${code}`
+      message: `${(codeMap[code] || 'unKnowError').toString()}: ${code}`
     })
     return Promise.reject(config)
   } else if (code === NEED_LOGIN) {
