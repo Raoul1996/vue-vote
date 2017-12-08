@@ -2,9 +2,9 @@
   .users.card-border
     .avatar
       img(src='https://avatars3.githubusercontent.com/u/18366474?s=400&u=9d001b5e917bfdeeb99c66051ffe9d6c827797ae&v=4')
-    ul.users-list
-      li.users-item {{users.name}}
-      li.users-item {{users.mobile}}
+    ul.users-list(v-for="(o, index) in users", :key="index")
+      li.users-item {{o.name}}
+      li.users-item {{o.mobile}}
 </template>
 
 <script type="text/ecmascript-6">
@@ -26,8 +26,9 @@
     },
     methods: {
       getUserMsg () {
-        this.$api.getUser().then(({user}) => {
-          this.users = user
+        this.$api.getUser().then((users) => {
+          console.log(users)
+          this.users = users
         })
       }
     }

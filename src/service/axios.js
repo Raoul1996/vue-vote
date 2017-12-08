@@ -31,9 +31,9 @@ instance.interceptors.request.use(config => {
   // if (token !== false) {
   if (localStorage.getItem('token')) {
     // 在这里添加 Authorization 请求头，目的是携带 token 给后端
-    // config.headers.Authorization = `token ${localStorage.getItem('token')}`.replace(/(^")|("$)/g, '')
+    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
     // 这里是因为后端支持 token 这个请求头
-    config.headers.token = `${localStorage.getItem('token')}`.replace(/(^")|("$)/g, '') || ''
+    // config.headers.token = `${localStorage.getItem('token')}`.replace(/(^")|("$)/g, '') || ''
     // } else {
     //   console.log(codeMap[NEED_LOGIN].toString())
     //   return Promise.reject(config)
@@ -62,7 +62,7 @@ instance.interceptors.response.use((config) => {
     sleep(1000).then(async () => { await window.location.replace('/') })
   } else {
     // console.log(data)
-    // console.log(data['data'])
+    console.log(data['data'])
     return data['data']
   }
 }, err => {
@@ -94,7 +94,8 @@ const requestService = {
   userLogin (data) {
     return instance.post(API.login, data).then(
       (response) => {
-        // const {data: {token}} = response
+        const {token} = response
+        window.localStorage.setItem('token', token)
         // TODO: 在这里集中处理 Token
         return response
       }

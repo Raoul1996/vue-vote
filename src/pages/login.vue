@@ -77,11 +77,9 @@
                 message: 'login successful'
               })
               this.USER_LOGIN(true)
-              setStore('token', data.token)
               this.SET_TOKEN(data.token)
               await lazyGoto(this, 'vote')
             })
-//            console.log(data)
           } else {
             this.$message({
               showClose: true,
