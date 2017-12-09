@@ -67,6 +67,11 @@ instance.interceptors.response.use((config) => {
   }
 }, err => {
   if (err && err['message']) {
+    const {response: {status}} = err
+    // the status is the response code.
+    if (status === 401) {
+      sleep(1000).then(async () => { await window.location.replace('/login') }).then(() => {})
+    }
     Message({
       type: 'error',
       showClose: true,
