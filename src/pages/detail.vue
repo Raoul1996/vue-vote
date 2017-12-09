@@ -14,14 +14,13 @@
       .option
         .option-list
           el-checkbox-group(v-model="options", @change="optionsChange")
-            .option-list-item(v-for="(o, index) in content.options")
+            .option-list-item(v-for="(o, index) in content")
               el-checkbox(:label="o.id", :index="index") {{o.title}}
       el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote")
         | 提交
 </template>
 
 <script>
-  import api from '../service/axios'
   import format from 'date-fns/format'
 
   export default {
@@ -31,7 +30,7 @@
         id: this.$route.params.id,
         pub: +this.$route.query.pub,
         path: this.$route.path,
-        content: {},
+        content: [],
         name: '密码',
         form: {
           password: null
@@ -78,15 +77,16 @@
         }
       },
       submitVote () {
-        this.getVoteDetail(null, this.$route.params)
+        // this.getVoteDetail(this.$route.params)
         const opt = {options: this.options}
-        api.submit(null, this.$route.params['id'], opt).then(data => {
+        this.$api.submit(this.$route.params['id'], opt).then(data => {
 //          console.log(data)
+          this.$message.info('yes')
         })
       },
-      getVoteDetail (query, param) {
+      getVoteDetail (param, query) {
         // 这里不知道后端发生了什么，拦截器失效了？
-        api.getDetail(query, param).then((data) => {
+        this.$api.getDetail(param, query).then((data) => {
           this.content = data
           this.pub = true
         })

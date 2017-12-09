@@ -1,12 +1,15 @@
 import axios from 'axios'
-import API from '../config/api'
+
 import { Message } from 'element-ui'
 import codeMap from '../config/codeMap'
-import { query2url, sleep } from '../utils'
+import { sleep } from '../utils'
 
 const TIMEOUT = 5000
 const ERR_OK = 0
 const NEED_LOGIN = 20004
+let cancel
+let promiseArr = {}
+const CancelToken = axios.CancelToken
 // this is the default config
 axios.default.timeout = TIMEOUT
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -22,22 +25,14 @@ instance.defaults.headers.post['Content-Type'] = 'application/json'
 // TODO: what the config object meaning? where can I found it?
 axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(config => {
-  // let token = null
-  // if (data && (data.token !== undefined)) {
-  //   token = data.token
-  // }
-  // 在发送请求之前，如果不明确 token 为 false 的话，就会添加 Authorization 头
-  // 这里不能使用 !token === false, 因为 !undefined === false
-  // if (token !== false) {
   if (localStorage.getItem('token')) {
-    // 在这里添加 Authorization 请求头，目的是携带 token 给后端
     config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-    // 这里是因为后端支持 token 这个请求头
-    // config.headers.token = `${localStorage.getItem('token')}`.replace(/(^")|("$)/g, '') || ''
-    // } else {
-    //   console.log(codeMap[NEED_LOGIN].toString())
-    //   return Promise.reject(config)
-    // }
+  }
+  if (promiseArr[config.url]) {
+    promiseArr[config.url]('操作取消')
+    promiseArr[config.url] = cancel
+  } else {
+    promiseArr[config.url] = cancel
   }
   return config
 }, err => {
@@ -61,16 +56,52 @@ instance.interceptors.response.use((config) => {
   } else if (code === NEED_LOGIN) {
     sleep(1000).then(async () => { await window.location.replace('/') })
   } else {
-    // console.log(data)
-    console.log(data['data'])
     return data['data']
   }
 }, err => {
-  if (err && err['message']) {
+  if (err && err.response) {
     const {response: {status}} = err
     // the status is the response code.
-    if (status === 401) {
-      sleep(1000).then(async () => { await window.location.replace('/login') }).then(() => {})
+    switch (status) {
+      case 400:
+        err.message = '错误请求'
+        break
+      case 401:
+        err.message = '未授权，请重新登录'
+        sleep(1000).then(async () => { await window.location.replace('/login') })
+        break
+      case 403:
+        err.message = '拒绝访问'
+        break
+      case 404:
+        err.message = '请求错误,未找到该资源'
+        break
+      case 405:
+        err.message = '请求方法未允许'
+        break
+      case 408:
+        err.message = '请求超时'
+        break
+      case 500:
+        err.message = '服务器端出错'
+        break
+      case 501:
+        err.message = '网络未实现'
+        break
+      case 502:
+        err.message = '网络错误'
+        break
+      case 503:
+        err.message = '服务不可用'
+        break
+      case 504:
+        err.message = '网络超时'
+        break
+      case 505:
+        err.message = 'http版本不支持该请求'
+        break
+      default:
+        err.message = `连接错误${status}`
     }
     Message({
       type: 'error',
@@ -78,60 +109,41 @@ instance.interceptors.response.use((config) => {
       message: err.message
     })
   } else {
+    err.message = '连接到服务器失败'
     Message({
       type: 'error',
       showClose: true,
-      message: err
+      message: err.message
     })
   }
-  // else {
-  //   Message.error(`${codeMap[NEED_LOGIN].toString() || 'unKnowError'}: ${NEED_LOGIN}`)
-  //   sleep(1000).then(async () => { await window.location.replace('/') })
-  // }
   return Promise.reject(err)
 })
-
-const requestService = {
-  // config the api routers
-  userRegister (data) {
-    return instance.post(API.register, data)
+export default {
+  get (url, query) {
+    return new Promise((resolve) => {
+      console.log(query)
+      instance({
+        method: 'get',
+        url: url,
+        params: query,
+        cancelToken: new CancelToken(c => {
+          cancel = c
+        })
+      }).then(res => resolve(res))
+    })
   },
-  userLogin (data) {
-    return instance.post(API.login, data).then(
-      (response) => {
-        const {token} = response
-        window.localStorage.setItem('token', token)
-        // TODO: 在这里集中处理 Token
-        return response
-      }
-    )
-  },
-  userLogout (data) {
-    return instance.post(API.logout, data)
-  },
-  getUser (data) {
-    return instance.get(API.info, data)
-  },
-  delUser (data) {
-    return instance.post(API.del, data)
-  },
-  forgetPassword (data) {
-    return instance.post(API.forget, data)
-  },
-  resetPassword (data) {
-    return instance.post(API.password, data)
-  },
-  getVote (query) {
-    return instance.get(query2url(API.vote, query))
-  },
-  createVote (data) {
-    return instance.post(API.create, data)
-  },
-  getDetail (query, param) {
-    return instance.get(query2url(API.detail, query, param))
-  },
-  submit (query, param, data) {
-    return instance.post(query2url(API.submit, query, param), data)
+  post (url, data) {
+    return new Promise((resolve) => {
+      instance({
+        method: 'post',
+        url,
+        data: data,
+        cancelToken: new CancelToken(c => {
+          cancel = c
+        })
+      }).then(res => {
+        resolve(res)
+      })
+    })
   }
 }
-export default requestService

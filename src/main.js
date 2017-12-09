@@ -7,7 +7,7 @@ import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
-import axios from './service/axios'
+import axios from './service/request'
 import {
   Button,
   Select,
