@@ -14,6 +14,7 @@
 
 <script type="text/ecmascript-6">
   import { lazyGoto } from '../utils'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'forget',
@@ -48,12 +49,12 @@
       }
     },
     methods: {
+      ...mapActions(['forgetAction']),
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            /* eslint-disable no-unused-vars */
             const opt = this.forget
-            this.api.forgetPassword(opt).then(async ({data}) => {
+            this.forgetAction(opt).then(async () => {
               this.$message({
                 type: 'success',
                 showClose: true,
@@ -92,6 +93,7 @@
       }
     }
   }
+
   @media screen and (max-width: 400px) {
     .forget {
       min-width 300px

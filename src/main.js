@@ -3,11 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'babel-polyfill'
 // import { routerMode } from './config/env'
 import store from './store'
 // import './config/rem'
-import axios from './service/request'
 import {
   Button,
   Select,
@@ -62,12 +60,9 @@ Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
-Vue.prototype.$api = axios
 /* eslint-disable no-new */
 new Vue({
-  axios,
   router,
   store,
   render: h => h(App)
-})
-  .$mount('#app')
+}).$mount('#app')

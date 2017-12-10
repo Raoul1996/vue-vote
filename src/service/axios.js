@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 import { Message } from 'element-ui'
 import codeMap from '../config/codeMap'
 import { sleep } from '../utils'
@@ -98,7 +97,7 @@ instance.interceptors.response.use((config) => {
         err.message = '网络超时'
         break
       case 505:
-        err.message = 'http版本不支持该请求'
+        err.message = 'http 版本不支持该请求'
         break
       default:
         err.message = `连接错误${status}`

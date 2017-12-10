@@ -2,17 +2,18 @@
   .users.card-border
     .avatar
       img(src='https://avatars3.githubusercontent.com/u/18366474?s=400&u=9d001b5e917bfdeeb99c66051ffe9d6c827797ae&v=4')
-    ul.users-list(v-for="(o, index) in users", :key="index")
-      li.users-item {{o.name}}
-      li.users-item {{o.mobile}}
+    ul.users-list
+      li.users-item {{info.name}}
+      li.users-item {{info.mobile}}
 </template>
 
 <script type="text/ecmascript-6">
+  import { mapActions, mapState } from 'vuex'
+
   export default {
-    name: 'template',
+    name: 'profile',
     data () {
       return {
-        msg: 'this is the users list!',
         users: {
           id: '',
           name: '',
@@ -21,15 +22,19 @@
         }
       }
     },
+    computed: mapState([
+      'info'
+    ]),
     created () {
       this.getUserMsg()
     },
     methods: {
+      ...mapActions([
+        'infoAction'
+      ]),
       getUserMsg () {
-        this.$api.getUser().then((users) => {
-          console.log(users)
-          this.users = users
-        })
+        // 这里的参数留着以后用
+        this.infoAction('')
       }
     }
   }

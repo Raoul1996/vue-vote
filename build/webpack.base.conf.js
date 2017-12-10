@@ -14,7 +14,7 @@ module.exports = {
     app: './src/main.js'
   },
   externals: {
-    'vue': "Vue"
+    // 'vue': "Vue"
     // 'vue-router':"vue-router"
   },
   output: {

@@ -60,24 +60,18 @@
     },
     methods: {
       ...mapActions([
-        'USER_LOGIN'
-      ]),
-      ...mapMutations([
-        'SET_TOKEN'
+        'loginAction'
       ]),
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            /* eslint-disable no-unused-vars */
             const opt = this.login
-            this.$api.userLogin(opt).then(async (data) => {
+            this.loginAction(opt).then(async () => {
               this.$message({
                 type: 'success',
                 showClose: true,
                 message: 'login successful'
               })
-              this.USER_LOGIN(true)
-              this.SET_TOKEN(data.token)
               await lazyGoto(this, 'vote')
             })
           } else {

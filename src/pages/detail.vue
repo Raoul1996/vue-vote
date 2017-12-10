@@ -22,6 +22,7 @@
 
 <script>
   import format from 'date-fns/format'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     name: 'content',
@@ -40,6 +41,7 @@
       }
     },
     computed: {
+      ...mapState(['detail']),
       end () {
         return format(this.content.endAt, 'YYYY/DD/MM HH:mm')
       },
@@ -59,6 +61,10 @@
       }
     },
     methods: {
+      ...mapActions([
+        'submitAction',
+        'getDetailAction'
+      ]),
       optionsChange () {
         const {maxChoose = 1} = this.content
         const length = this.options.length
@@ -79,14 +85,13 @@
       submitVote () {
         // this.getVoteDetail(this.$route.params)
         const opt = {options: this.options}
-        this.$api.submit(this.$route.params['id'], opt).then(data => {
-//          console.log(data)
+        this.submitAction(`${this.$route.params['id']}`, opt).then(data => {
           this.$message.info('yes')
         })
       },
       getVoteDetail (param, query) {
         // 这里不知道后端发生了什么，拦截器失效了？
-        this.$api.getDetail(param, query).then((data) => {
+        this.getDetailAction(param, query).then((data) => {
           this.content = data
           this.pub = true
         })

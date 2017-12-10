@@ -19,15 +19,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { removeStore } from '../config/localStorage'
-  import { mapActions, mapState } from 'vuex'
-  import store from '../store/index'
+  import { mapActions } from 'vuex'
   import { lazyGoto } from '../utils'
 
   export default {
     name: 'update',
-    // 提供store接口
-    store,
     data () {
       let validatePass = (rule, value, callback) => {
         if (value !== this.update.newPassword) {
@@ -63,14 +59,9 @@
         }
       }
     },
-    computed: {
-      ...mapState([
-        'token'
-      ])
-    },
     methods: {
       ...mapActions([
-        'USER_LOGIN'
+        'resetPasswordAction'
       ]),
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
@@ -78,10 +69,7 @@
             /* eslint-disable no-unused-vars */
 //            const {mobile, oldPassword, newPassword, checkPassword} = this.update
             const opt = this.update
-            this.$api.resetPassword(opt).then(async ({data}) => {
-//            console.log(data)
-              removeStore('token')
-              this.USER_LOGIN(false)
+            this.resetPasswordAction(opt).then(async () => {
               this.$message({
                 type: 'success',
                 showClose: true,

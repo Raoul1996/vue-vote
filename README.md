@@ -70,35 +70,14 @@
 3. 使用 Travis CI 进行自动化编译、打包、以及部署到服务器
 4. 使用 codeclimate 进行代码检查
 5. [用自己的后台](https://github.com/Raoul1996/koa-vote)，吼吼
+6. 二次封装 axios，实现错误的集中处理
+7. 使用 CDN 引入 vue.min
 
 ## 将会实现些什么？
 
 1. 使用 `vuex` 进行状态集中管理（还没做呢）
 2. 自己写组件
 
-## 如何启动
+### 20171210(学习朋友的方法，时刻总结)
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+1. 使用 CDN 引入 Vue 的时候会导致 vue-dev-tools 无法使用,参见[这个 issue](https://github.com/vuejs/vue-devtools/issues/190)

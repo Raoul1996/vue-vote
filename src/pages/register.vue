@@ -17,6 +17,7 @@
 <script type="text/ecmascript-6">
   // now Let's try to use axios api~
   import { lazyGoto } from '../utils'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'register',
@@ -56,13 +57,14 @@
       }
     },
     methods: {
+      ...mapActions([
+        'registerAction'
+      ]),
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            /* eslint-disable no-unused-vars */
-            // the opt object is the request body.
             const opt = this.register
-            this.$api.userRegister(opt).then(async ({data}) => {
+            this.registerAction(opt).then(async () => {
               this.$message({
                 type: 'success',
                 showClose: true,

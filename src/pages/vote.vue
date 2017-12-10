@@ -7,7 +7,7 @@
 
 <script>
   import Card from '../components/Card.vue'
-  import Layout from '../components/layout.vue'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     name: 'vote',
@@ -17,10 +17,14 @@
         type: this.$route.path.slice(1)
       }
     },
+    computed: {
+      ...mapState(['list'])
+    },
     created () {
       this.getVote()
     },
     methods: {
+      ...mapActions(['getVoteListAction']),
       getVote () {
         const query = {
           page: 1,
@@ -28,14 +32,10 @@
           time: 1,
           type: this.type
         }
-        this.$api.getVote(query).then((data) => {
-          const {list} = data
-          this.list = list
-        })
+        this.getVoteListAction(query)
       }
     },
     components: {
-      Layout,
       Card
     }
   }

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import api from '../service/axios'
+  import { mapActions, mapState } from 'vuex'
 
   export default {
     data () {
@@ -78,12 +78,23 @@
         }
       }
     },
+    computed: {
+      ...mapState(['vote'])
+    },
     methods: {
+      ...mapActions(['createVoteAction']),
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             const opt = this.create
-            api.createVote(opt).then((data) => {})
+            this.createVoteAction(opt).then(() => {
+              console.log(this.vote)
+              this.$message({
+                showClose: true,
+                type: 'success',
+                message: 'create successful'
+              })
+            })
           } else {
             this.$message({
               showClose: true,

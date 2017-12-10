@@ -95,6 +95,17 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "repository": "git@github.com:Fushengshe/relogin-vue-fe.git",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Raoul1996/vue-vote.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Raoul1996/vue-vote/issues"
+  },
+  "homepage": "https://github.com/Raoul1996/vue-vote#readme",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  }
 }
