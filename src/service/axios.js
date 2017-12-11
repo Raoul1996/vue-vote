@@ -5,7 +5,6 @@ import { sleep } from '../utils'
 
 const TIMEOUT = 5000
 const ERR_OK = 0
-const NEED_LOGIN = 20004
 let cancel
 let promiseArr = {}
 const CancelToken = axios.CancelToken
@@ -50,9 +49,8 @@ instance.interceptors.response.use((config) => {
       message: `${(codeMap[code] || 'unKnowError').toString()}: ${code}`
     })
     return Promise.reject(config)
-  } else if (code === NEED_LOGIN) {
-    sleep(1000).then(async () => { await window.location.replace('/') })
   } else {
+    // return 什么由具体需求决定
     return data['data']
   }
 }, err => {
