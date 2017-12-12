@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/Raoul1996/vue-vote.svg?branch=master)](https://travis-ci.org/Raoul1996/vue-vote)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b68da294651f58e8d2f7/maintainability)](https://codeclimate.com/github/Raoul1996/vue-vote/maintainability)
+[![bitHound Overall Score](https://www.bithound.io/github/Raoul1996/vue-vote/badges/score.svg)](https://www.bithound.io/github/Raoul1996/vue-vote)
+[![bitHound Dependencies](https://www.bithound.io/github/Raoul1996/vue-vote/badges/dependencies.svg)](https://www.bithound.io/github/Raoul1996/vue-vote/a606c4cfb7944fe7edce9ff1d05474fc3986b640/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/Raoul1996/vue-vote/badges/devDependencies.svg)](https://www.bithound.io/github/Raoul1996/vue-vote/a606c4cfb7944fe7edce9ff1d05474fc3986b640/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/Raoul1996/vue-vote/badges/code.svg)](https://www.bithound.io/github/Raoul1996/vue-vote)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b68da294651f58e8d2f7/test_coverage)](https://codeclimate.com/github/Raoul1996/vue-vote/test_coverage)
 
 > 使用 Vue 重构了 Vote 项目，实践各种东西
@@ -68,15 +72,20 @@
 1. 使用 pug 模板简化代码（练习jade）[html2pug](http://html2jade.vida.io/)
 2. 使用 element-ui 进行快速开发
 3. 使用 Travis CI 进行自动化编译、打包、以及部署到服务器
-4. 使用 codeclimate 进行代码检查
+4. 使用 codeclimate 进行代码检查，使用 bitHound 进行代码检查，依赖检查
 5. [用自己的后台](https://github.com/Raoul1996/koa-vote)，吼吼
 6. 二次封装 axios，实现错误的集中处理
 7. 使用 CDN 引入 vue.min
+8. 使用 `vuex` 进行状态集中管理，请求集中管理
+9. 实现状态持久化
 
 ## 将会实现些什么？
 
-1. 使用 `vuex` 进行状态集中管理（还没做呢）
-2. 自己写组件
+1. 自己写组件
+2. 完成投票查询模块
+3. 个人信息维护
+4. 个人投票维护
+5. 分享功能
 
 ### 20171206(学习朋友的方法，时刻总结) 打包分析插件
 - 安装开发环境下的 webpack 分析插件：`BundleAnalyzerPlugin`,可以在开发环境的 [8888](http://localhost:8888) 端口实时查看webpack构建情况
