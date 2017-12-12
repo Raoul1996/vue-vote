@@ -7,7 +7,8 @@ import {
   USER_TOKEN,
   VOTE_MSG,
   SUBMIT_VOTE,
-  VOTE_DETAIL,
+  VOTE_DETAIL_OPTIONS,
+  VOTE_DETAIL_MSG,
   USER_FORGET,
   RESET_PASS,
   VOTE_LIST
@@ -58,7 +59,10 @@ export default {
   [SUBMIT_VOTE] (state, success) {
     state.status = success
   },
-  [VOTE_DETAIL] (state, detail) {
-    state.detail = detail
+  [VOTE_DETAIL_OPTIONS] (state, options) {
+    state.detail.options = options
+  },
+  [VOTE_DETAIL_MSG] (state, vote) {
+    state.detail.vote = vote
   }
 }

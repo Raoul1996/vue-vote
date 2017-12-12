@@ -3,7 +3,6 @@
  */
 export const setStore = (name, content) => {
   if (!name) return
-  console.log(content)
   if (typeof content !== 'string') {
     content = JSON.stringify(content)
   }

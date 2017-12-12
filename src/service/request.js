@@ -30,8 +30,8 @@ export function createVote (data) {
   return instance.post(API.create, data)
 }
 
-export function getDetail (query, param) {
-  return instance.get(params2url(API.detail, param), query)
+export function getDetail (param) {
+  return instance.get(params2url(API.detail, param))
 }
 
 export function submit (param, data) {

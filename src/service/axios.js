@@ -51,12 +51,11 @@ instance.interceptors.response.use((config) => {
     return Promise.reject(config)
   } else {
     // return 什么由具体需求决定
-    return data['data']
+    return data.data
   }
 }, err => {
   if (err && err.response) {
     const {response: {status}} = err
-    // the status is the response code.
     switch (status) {
       case 400:
         err.message = '错误请求'
@@ -116,7 +115,6 @@ instance.interceptors.response.use((config) => {
 export default {
   get (url, query) {
     return new Promise((resolve) => {
-      console.log(query)
       instance({
         method: 'get',
         url,

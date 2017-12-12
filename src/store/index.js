@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
@@ -16,12 +17,19 @@ const state = {
     success: false // 创建投票是否成功
   },
   status: false, // 投票是否成功
-  detail: {}
+  detail: {
+    vote: {},
+    options: []
+  }
 }
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage
+})
 const store = new Vuex.Store({
   state,
   getters,
   actions,
-  mutations
+  mutations,
+  plugins: [vuexLocal.plugin]
 })
 export default store

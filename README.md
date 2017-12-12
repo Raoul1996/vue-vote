@@ -78,6 +78,15 @@
 1. 使用 `vuex` 进行状态集中管理（还没做呢）
 2. 自己写组件
 
-### 20171210(学习朋友的方法，时刻总结)
+### 20171206(学习朋友的方法，时刻总结) 打包分析插件
+- 安装开发环境下的 webpack 分析插件：`BundleAnalyzerPlugin`,可以在开发环境的 [8888](http://localhost:8888) 端口实时查看webpack构建情况
 
-1. 使用 CDN 引入 Vue 的时候会导致 vue-dev-tools 无法使用,参见[这个 issue](https://github.com/vuejs/vue-devtools/issues/190)
+### 20171210 Vue-dev-tools 不能启动
+
+- 使用 CDN 引入 Vue 的时候会导致 vue-dev-tools 无法使用,参见[这个 issue](https://github.com/vuejs/vue-devtools/issues/190)
+
+### 20171213 数据持久化
+
+- 状态已经成功集中管理，但是有一个问题就是：**状态的持久化**，这个就比较恶心了。状态集中管理的好处就是可以不必费力进行组件间的传值，但是在 vuex 中存储的数据会在刷新之后丢失。
+使用 vuex-persist 这个包做数据持久化可以避免每次 mutation data 时候手动存入 localStorage，读取数据的时候再从 localStorage 中读取的麻烦
+

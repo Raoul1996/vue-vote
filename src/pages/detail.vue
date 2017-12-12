@@ -7,31 +7,30 @@
           .el-form-item__content
             el-input(v-model="form.password", placeholder="请输入密码")
         el-form-item
-          el-button(type="primary", @click="onSubmit") 确定
-    .card-border(v-else="", :content="content")
-      h1.title {{content.title}}（{{voteType}}）
-      .end-time 截止时间：{{end}}
+          el-button(type="primary", @click="onSubmit", :disabled="!form.password") 确定
+    .card-border(v-if="pub", :detail="detail")
+      h1.title {{detail.vote.title}}（{{detail.vote.voteType}}）
+      .end-time 截止时间：{{detail.vote.end}}
       .option
         .option-list
           el-checkbox-group(v-model="options", @change="optionsChange")
-            .option-list-item(v-for="(o, index) in content")
+            .option-list-item(v-for="(o, index) in detail.options")
               el-checkbox(:label="o.id", :index="index") {{o.title}}
       el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote")
         | 提交
 </template>
 
 <script>
-  import format from 'date-fns/format'
   import { mapState, mapActions } from 'vuex'
 
   export default {
-    name: 'content',
+    name: 'detail',
     data () {
+      const {path, params: {id}, query: {pub}} = this.$route
       return {
-        id: this.$route.params.id,
-        pub: +this.$route.query.pub,
-        path: this.$route.path,
-        content: [],
+        id: id,
+        pub: +pub,
+        path: path,
         name: '密码',
         form: {
           password: null
@@ -41,18 +40,16 @@
       }
     },
     computed: {
-      ...mapState(['detail']),
-      end () {
-        return format(this.content.endAt, 'YYYY/DD/MM HH:mm')
-      },
-      voteType () {
-        return this.content.type === 1 ? '单选' : '多选'
+      ...mapState(['detail'])
+    },
+    watch: {
+      detail: function (val, oldValue) {
+        this.$data.pub = true
       }
     },
     mounted () {
-      console.log(this.$route.params)
       if (this.$data.pub && this.$route.query) {
-        this.getVoteDetail(null, this.$route.params['id'])
+        this.getDetailAction(this.$route.params.id)
       } else {
         this.$message({
           showClose: true,
@@ -66,7 +63,7 @@
         'getDetailAction'
       ]),
       optionsChange () {
-        const {maxChoose = 1} = this.content
+        const {maxChoose = 1} = this.detail.options
         const length = this.options.length
         if (length < maxChoose) {
           // do nothing
@@ -85,20 +82,14 @@
       submitVote () {
         // this.getVoteDetail(this.$route.params)
         const opt = {options: this.options}
-        this.submitAction(`${this.$route.params['id']}`, opt).then(data => {
+        this.submitAction(`${this.$route.params.id}`, opt).then(() => {
           this.$message.info('yes')
         })
       },
-      getVoteDetail (param, query) {
-        // 这里不知道后端发生了什么，拦截器失效了？
-        this.getDetailAction(param, query).then((data) => {
-          this.content = data
-          this.pub = true
-        })
-      },
       onSubmit () {
-        const {password} = this.$data.form
-        this.getVoteDetail({password: password}, this.$route.params['id'])
+        const {password} = this.form
+        this.$data.pub = true
+        this.getDetailAction(`${this.id}?password=${password}`)
       }
     }
   }

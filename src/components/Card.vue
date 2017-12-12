@@ -11,9 +11,10 @@
 <script>
   import format from 'date-fns/format'
   import { goto } from '../utils'
+  import { mapMutations } from 'vuex'
 
   export default {
-    name: 'card',
+    name: 'item',
     props: {
       'vote': {
         type: Object,
@@ -23,8 +24,8 @@
     data () {
       const {id = '', title = '', type = '', isPublic = 0} = this.vote
       return {
-        id: id,
-        title: title,
+        id,
+        title,
         button: id,
         type: type,
         path: this.$route.path,
@@ -44,8 +45,11 @@
       }
     },
     methods: {
+      ...mapMutations([
+        'VOTE_DETAIL_MSG'
+      ]),
       getDetail (id) {
-        console.log(this.$route.path)
+        this.VOTE_DETAIL_MSG(Object.assign({}, this.vote, {voteType: this.voteType, start: this.start, end: this.end}))
         goto(this, `${this.path}/${id}?pub=${this.$data.isPublic}`)
       }
     }

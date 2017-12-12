@@ -13,7 +13,6 @@
     name: 'vote',
     data () {
       return {
-        list: '',
         type: this.$route.path.slice(1)
       }
     },

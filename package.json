@@ -25,6 +25,7 @@
     "vue": "^2.5.9",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
+    "vuex-persist": "^1.0.3",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "devDependencies": {

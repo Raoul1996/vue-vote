@@ -16,7 +16,7 @@ import {
   USER_TOKEN,
   VOTE_MSG,
   SUBMIT_VOTE,
-  VOTE_DETAIL,
+  VOTE_DETAIL_OPTIONS,
   USER_FORGET,
   LOGOUT,
   RESET_PASS,
@@ -26,7 +26,6 @@ import {
 export default {
   async infoAction ({commit, state}, data) {
     let res = await getUser(data)
-    console.log(res)
     commit(USER_INFO, res)
   },
   async loginAction ({commit, state}, data) {
@@ -66,8 +65,8 @@ export default {
     commit(SUBMIT_VOTE, success)
   },
   // TODO: 这里考虑重构
-  async getDetailAction ({commit, state}, query, param) {
-    const detail = await getDetail(query, param)
-    commit(VOTE_DETAIL, detail)
+  async getDetailAction ({commit, state}, param) {
+    const detail = await getDetail(param)
+    commit(VOTE_DETAIL_OPTIONS, detail)
   }
 }
