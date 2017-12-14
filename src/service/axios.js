@@ -125,52 +125,10 @@ export default {
       }).then(res => resolve(res))
     })
   },
-  post (url, data) {
+  post (url, data, name = 'post') {
     return new Promise((resolve) => {
       instance({
-        method: 'post',
-        url,
-        data,
-        cancelToken: new CancelToken(c => {
-          cancel = c
-        })
-      }).then(res => {
-        resolve(res)
-      })
-    })
-  },
-  put (url, data) {
-    return new Promise(resolve => {
-      instance({
-        method: 'put',
-        url,
-        data,
-        cancelToken: new CancelToken(c => {
-          cancel = c
-        })
-      }).then(res => {
-        resolve(res)
-      })
-    })
-  },
-  delete (url, data) {
-    return new Promise(resolve => {
-      instance({
-        method: 'delete',
-        url,
-        data,
-        cancelToken: new CancelToken(c => {
-          cancel = c
-        })
-      }).then(res => {
-        resolve(res)
-      })
-    })
-  },
-  patch (url, data) {
-    return new Promise(resolve => {
-      instance({
-        method: 'patch',
+        method: name.toLowerCase(),
         url,
         data,
         cancelToken: new CancelToken(c => {
