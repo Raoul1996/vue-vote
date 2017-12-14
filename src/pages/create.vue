@@ -3,23 +3,23 @@
     h1.title 创建投票
     el-form(:model="create", :rules="rules", ref="create", label-position="left")
       .create-card
-        el-form-item(prop="pub", required="")
-          el-switch(v-model="create.pub", active-text="公开投票", inactive-text="私密投票")
-        el-form-item(label="投票名称", prop="name", required="")
-          el-input(v-model="create.name", placeholder="请填写投票名称")
+        el-form-item(prop="isPublic", required="")
+          el-switch(v-model="create.isPublic", active-text="公开投票", inactive-text="私密投票")
+        el-form-item(label="投票名称", prop="title", required="")
+          el-input(v-model="create.title", placeholder="请填写投票名称")
         el-form-item(label="投票类型", prop="type")
           el-select(v-model="create.type", placeholder="请选择投票类型")
-            el-option(label="单选", value="single")
-            el-option(label="多选", value="muti")
-        el-form-item(label="投票密码", prop="password", v-if="!create.pub")
+            el-option(label="单选", value=0)
+            el-option(label="多选", value=1)
+        el-form-item(label="投票密码", prop="password", v-if="!create.isPublic")
           el-input(v-model="create.password", placeholder="请填写投票密码")
       .create-card
         el-form-item(label="开始时间", required="")
-          el-form-item(prop="startTime")
-            el-date-picker(v-model="create.startTime", type="datetime", placeholder="选择日期时间")
+          el-form-item(prop="startAt")
+            el-date-picker(v-model="create.startAt", type="datetime", placeholder="选择日期时间")
         el-form-item(label="结束时间", required="")
-          el-form-item(prop="endTime")
-            el-date-picker(v-model="create.endTime", type="datetime", placeholder="选择日期时间")
+          el-form-item(prop="endAt")
+            el-date-picker(v-model="create.endAt", type="datetime", placeholder="选择日期时间")
       .create-card
         el-form-item(v-for="(option, index) in create.options", :label="'选项' + (index + 1)", :key="option.key", :prop="'options.' + index + '.value'", :rules="{required: true, message: '选项内容不能为空', trigger: 'blur'}")
           .options
@@ -40,7 +40,7 @@
   export default {
     data () {
       const validatePass = (rule, value, callback) => {
-        if (value === null && !this.create.pub) {
+        if (value === null && !this.create.isPublic) {
           callback(new Error('请输入密码'))
         } else {
           callback()
@@ -48,28 +48,28 @@
       }
       return {
         create: {
-          name: '',
+          title: '',
           password: null,
           type: '',
-          startTime: '',
-          endTime: '',
-          pub: true,
+          startAt: '',
+          endAt: '',
+          isPublic: 1,
           options: [{
             value: ''
           }]
         },
         rules: {
-          name: [
+          title: [
             {required: true, message: '请输入投票名称', trigger: 'blur'},
             {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
           ],
           type: [
             {required: true, message: '请选择投票类型', trigger: 'change'}
           ],
-          startTime: [
+          startAt: [
             {type: 'date', required: true, message: '请选择开始时间', trigger: 'change'}
           ],
-          endTime: [
+          endAt: [
             {type: 'date', required: true, message: '请选择结束时间', trigger: 'change'}
           ],
           password: [
@@ -87,6 +87,9 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             const opt = this.create
+            if (opt.isPublic) {
+              opt.password = null
+            }
             this.createVoteAction(opt).then(() => {
               console.log(this.vote)
               this.$message({

@@ -1,4 +1,4 @@
-# Vue-vote——一款在线投票系统 (side project)
+# Vue-vote —— 在线投票系统 (side project)
 
 [![Build Status](https://travis-ci.org/Raoul1996/vue-vote.svg?branch=master)](https://travis-ci.org/Raoul1996/vue-vote)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b68da294651f58e8d2f7/maintainability)](https://codeclimate.com/github/Raoul1996/vue-vote/maintainability)

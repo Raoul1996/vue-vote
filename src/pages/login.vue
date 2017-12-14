@@ -31,8 +31,7 @@
           mobile: null,
           password: null,
           // 使用的是 web 端
-          client: 1,
-          token: false
+          client: 1
         },
         rules: {
           password: [

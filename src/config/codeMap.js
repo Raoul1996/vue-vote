@@ -16,6 +16,7 @@ const Map = {
   2002: 'user exist',
   2003: 'user not exist',
   2004: 'new password can not the same as old password',
+  3001: 'Vote is exist',
   7001: 'app exist',
   9001: 'The server is extremely busy at the moment please send it again.',
   9002: 'The server is extremely busy at the moment please send it again.'
