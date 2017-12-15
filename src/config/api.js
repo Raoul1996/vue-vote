@@ -1,8 +1,9 @@
-// API HOST 是本地的 mock server
-const __APIHOST__ = 'http://localhost:3000'
-
-const ApiMaker = (path) => {
-  return `${__APIHOST__}/${path}`
+const ApiMaker = (path, host = 'http://localhost:3000') => {
+  const hostname = window.location.hostname.toLowerCase()
+  if (hostname !== 'localhost' && hostname !== '127.0.0.1' && hostname !== '0.0.0.0') {
+    host = `http://api.raoul1996.cn`
+  }
+  return `${host}/${path}`
 }
 export default {
   host: ApiMaker(''),

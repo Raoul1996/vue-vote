@@ -5,6 +5,7 @@ const Map = {
   20004: 'need login',
   50004: '您已投过票',
   50003: '非公开投票需要密码',
+  1000: 'login fail',
   1001: 'invalid password',
   1002: 'invalid mobile',
   1101: 'invalid version',
