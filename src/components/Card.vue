@@ -22,15 +22,15 @@
       }
     },
     data () {
-      const {id = '', title = '', type = '', isPublic = 0} = this.vote
+      // eslint-disable-next-line
+      const {id = '', title = '', type = '', is_public = 0} = this.vote
       return {
         id,
         title,
         button: id,
         type: type,
         path: this.$route.path,
-        // TODO:使用 Vuex 进行传参
-        isPublic: isPublic
+        isPublic: is_public
       }
     },
     computed: {

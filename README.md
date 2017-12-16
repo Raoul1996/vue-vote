@@ -65,19 +65,27 @@
 5. axios
 6. Promise
 
+## 存在问题
+
+- 20171217：由于使用了状态树持久化，诞生出一个新的问题：在需要密码才能投票的页面进行刷新，会提示需要输入密码，但是组件的数据还存在。需要想办法解决：
+  - 思路1：在刷新的时候不重新拉取数据，不进行 v-if 判断，直接使用原来页面的数据
+  - 思路2：对 detail 中的数据不进行持久化，但是会增大开销
+
 ## 学习 && 改进
-1. [vue项目中对axios的二次封装](https://juejin.im/post/5a293e50f265da432153f190)
+-  [vue项目中对axios的二次封装](https://juejin.im/post/5a293e50f265da432153f190)
+- [为什么我们要做三份 Webpack 配置文件](https://zhuanlan.zhihu.com/p/29161762),生产环境下移除 console.log
 ## 实现了些什么？
 
-1. 使用 pug 模板简化代码（练习jade）[html2pug](http://html2jade.vida.io/)
-2. 使用 element-ui 进行快速开发
-3. 使用 Travis CI 进行自动化编译、打包、以及部署到服务器
-4. 使用 codeclimate 进行代码检查，使用 bitHound 进行代码检查，依赖检查
-5. [用自己的后台](https://github.com/Raoul1996/koa-vote)，吼吼
-6. 二次封装 axios，实现错误的集中处理
-7. 使用 CDN 引入 vue.min
-8. 使用 `vuex` 进行状态集中管理，请求集中管理
-9. 实现状态持久化
+- 使用 pug 模板简化代码（练习jade）[html2pug](http://html2jade.vida.io/)
+- 使用 element-ui 进行快速开发
+- 使用 Travis CI 进行自动化编译、打包、以及部署到服务器
+- 使用 codeclimate 进行代码检查，使用 bitHound 进行代码检查，依赖检查
+- [用自己的后台](https://github.com/Raoul1996/koa-vote)，吼吼
+- 二次封装 axios，实现错误的集中处理
+- 使用 CDN 引入 vue.min
+- 使用 `vuex` 进行状态集中管理，请求集中管理
+- 实现状态持久化
+- 开发环境下移除 console.log，console.info
 
 ## 将会实现些什么？
 
@@ -99,3 +107,7 @@
 - 状态已经成功集中管理，但是有一个问题就是：**状态的持久化**，这个就比较恶心了。状态集中管理的好处就是可以不必费力进行组件间的传值，但是在 vuex 中存储的数据会在刷新之后丢失。
 使用 vuex-persist 这个包做数据持久化可以避免每次 mutation data 时候手动存入 localStorage，读取数据的时候再从 localStorage 中读取的麻烦
 
+### 20171217 过早优化是万恶之源
+
+- 因为今天用 babel-transform-remove-console 插件去掉了 console.log 和 info，所以导致今天很纠结为什么 console.log 没用。过早优化真的是万恶之源。
+- 在 detail 组件是所有组件共用的组件，所以在 detail 组件销毁的时候将状态销毁。使用 beforeDestroy 生命周期钩子，在销毁之前将 detail.options 清空

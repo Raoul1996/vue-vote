@@ -1,6 +1,6 @@
 <template lang="pug">
   .detail
-    .password-input(v-if="!pub")
+    .password-input(v-if="detail.options<1")
       el-form(:inline="true", :model="form", @submit.native.prevent="true")
         .el-form-item
           label.el-form-item__label {{name}}
@@ -8,20 +8,20 @@
             el-input(v-model="form.password", placeholder="请输入密码")
         el-form-item
           el-button(type="primary", @click="onSubmit", :disabled="!form.password") 确定
-    .card-border(v-if="pub", :detail="detail")
+    .card-border(v-if="detail.options.length>0", :detail="detail")
       h1.title {{detail.vote.title}}（{{detail.vote.voteType}}）
       .end-time 截止时间：{{detail.vote.end}}
       .option
         .option-list
           el-checkbox-group(v-model="options", @change="optionsChange")
             .option-list-item(v-for="(o, index) in detail.options")
-              el-checkbox(:label="o.id", :index="index") {{o.title}}
+              el-checkbox(:label="index", :index="index") {{o.title}}
       el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote")
         | 提交
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapMutations } from 'vuex'
 
   export default {
     name: 'detail',
@@ -42,10 +42,8 @@
     computed: {
       ...mapState(['detail'])
     },
-    watch: {
-      detail: function (val, oldValue) {
-        this.$data.pub = true
-      }
+    destroyed () {
+      this.VOTE_DETAIL_OPTIONS('')
     },
     mounted () {
       if (this.$data.pub && this.$route.query) {
@@ -62,15 +60,17 @@
         'submitAction',
         'getDetailAction'
       ]),
+      ...mapMutations([
+        'VOTE_DETAIL_OPTIONS'
+      ]),
       optionsChange () {
-        const {maxChoose = 1} = this.detail.options
+        const maxChoose = Math.min(this.detail.vote.max_choose, this.detail.options.length)
         const length = this.options.length
         if (length < maxChoose) {
-          // do nothing
           this.enableClickButton = false
-        } else if (this.options.length === maxChoose) {
+        } else if (length === maxChoose) {
           this.enableClickButton = true
-        } else if (this.options.length > maxChoose) {
+        } else if (length > maxChoose) {
           this.$message({
             showClose: true,
             type: 'info',
@@ -88,7 +88,6 @@
       },
       onSubmit () {
         const {password} = this.form
-        this.$data.pub = true
         this.getDetailAction(`${this.id}?password=${password}`)
       }
     }
