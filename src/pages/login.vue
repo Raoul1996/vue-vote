@@ -41,7 +41,6 @@
           mobile: [
             {required: true, message: '请填写手机号码', trigger: 'blur'},
             {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
-//            {type: 'number', message: '手机号码只有数字'}
           ]
         },
         msgFlag: true

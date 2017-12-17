@@ -67,7 +67,6 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             /* eslint-disable no-unused-vars */
-//            const {mobile, oldPassword, newPassword, checkPassword} = this.update
             const opt = this.update
             this.resetPasswordAction(opt).then(async () => {
               this.$message({

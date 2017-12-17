@@ -43,7 +43,6 @@
     beforeUpdate: function () {
       const path = this.$route.matched[0].path
       this.activeIndex = path
-//      console.log(this.hiddenNav)
     },
     methods: {
       handleSelect (key, keyPath) {
@@ -54,7 +53,6 @@
 </script>
 
 <style lang="stylus">
-  @import "normalize.css/normalize.css"
   ul, li {
     margin 0
     padding 0

@@ -108,9 +108,6 @@
           }
         })
       },
-//      resetForm (formName) {
-//        this.$refs[formName].resetFields()
-//      },
       removeOption (item) {
         let index = this.create.options.indexOf(item)
         if (index !== -1) {
