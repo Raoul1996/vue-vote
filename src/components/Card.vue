@@ -50,7 +50,7 @@
       ]),
       getDetail (id) {
         this.VOTE_DETAIL_MSG(Object.assign({}, this.vote, {voteType: this.voteType, start: this.start, end: this.end}))
-        goto(this, `${this.path}/${id}?pub=${this.$data.isPublic}`)
+        goto(this, `${this.path}/${id}?pub=${this.isPublic}`)
       }
     }
   }

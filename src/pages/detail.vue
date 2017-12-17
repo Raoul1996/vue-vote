@@ -1,6 +1,7 @@
 <template lang="pug">
   .detail
-    .password-input(v-if="detail.options<1")
+    // 当 datail 中的 fetch 属性为假，或者 detail 中 vote 对象为空
+    .password-input(v-if="!detail.fetch || returnList")
       el-form(:inline="true", :model="form", @submit.native.prevent="true")
         .el-form-item
           label.el-form-item__label {{name}}
@@ -8,7 +9,8 @@
             el-input(v-model="form.password", placeholder="请输入密码")
         el-form-item
           el-button(type="primary", @click="onSubmit", :disabled="!form.password") 确定
-    .card-border(v-if="detail.options.length>0", :detail="detail")
+    // 当 datail 中的 fetch 属性为假，或者 detail 中 vote 对象为空
+    .card-border(v-if="detail.fetch && !returnList", :detail="detail")
       h1.title {{detail.vote.title}}（{{detail.vote.voteType}}）
       .end-time 截止时间：{{detail.vote.end}}
       .option
@@ -40,19 +42,27 @@
       }
     },
     computed: {
-      ...mapState(['detail'])
+      ...mapState(['detail']),
+      returnList: function () {
+        const {vote} = this.detail
+        return !(vote && vote.id)
+      }
     },
     destroyed () {
-      this.VOTE_DETAIL_OPTIONS('')
+      this.VOTE_DETAIL_OPTIONS({})
+      this.VOTE_DETAIL_MSG({})
+      this.VOTE_DETAIL_FETCH(false)
     },
     mounted () {
-      if (this.$data.pub && this.$route.query) {
+      if (this.pub && this.$route.query) {
         this.getDetailAction(this.$route.params.id)
       } else {
-        this.$message({
-          showClose: true,
-          message: '需要密码'
-        })
+        if (!this.detail.fetch) {
+          this.$message({
+            showClose: true,
+            message: '需要密码'
+          })
+        }
       }
     },
     methods: {
@@ -61,7 +71,9 @@
         'getDetailAction'
       ]),
       ...mapMutations([
-        'VOTE_DETAIL_OPTIONS'
+        'VOTE_DETAIL_OPTIONS',
+        'VOTE_DETAIL_FETCH',
+        'VOTE_DETAIL_MSG'
       ]),
       optionsChange () {
         const maxChoose = Math.min(this.detail.vote.max_choose, this.detail.options.length)
@@ -88,7 +100,16 @@
       },
       onSubmit () {
         const {password} = this.form
-        this.getDetailAction(`${this.id}?password=${password}`)
+        if (this.returnList) {
+          this.$message({
+            showClose: true,
+            message: 'vote 为空，请返回列表选择'
+          })
+        } else {
+          if (!this.detail.fetch) {
+            this.getDetailAction(`${this.id}?password=${password}`)
+          }
+        }
       }
     }
   }

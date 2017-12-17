@@ -8,6 +8,7 @@ import {
   VOTE_MSG,
   SUBMIT_VOTE,
   VOTE_DETAIL_OPTIONS,
+  VOTE_DETAIL_FETCH,
   VOTE_DETAIL_MSG,
   USER_FORGET,
   RESET_PASS,
@@ -61,6 +62,14 @@ export default {
   },
   [VOTE_DETAIL_OPTIONS] (state, options) {
     state.detail.options = options
+  },
+  /**
+   * 是否需要重新获取投票列表
+   * @param state
+   * @param options
+   */
+  [VOTE_DETAIL_FETCH] (state, options) {
+    state.detail.fetch = options
   },
   [VOTE_DETAIL_MSG] (state, vote) {
     state.detail.vote = vote

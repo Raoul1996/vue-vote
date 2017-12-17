@@ -9,7 +9,6 @@ import {
   resetPassword,
   getVote
 } from '../service/request'
-/* eslint-disable no-unused-vars */
 import {
   USER_LOGIN,
   USER_INFO,
@@ -17,6 +16,7 @@ import {
   VOTE_MSG,
   SUBMIT_VOTE,
   VOTE_DETAIL_OPTIONS,
+  VOTE_DETAIL_FETCH,
   USER_FORGET,
   LOGOUT,
   RESET_PASS,
@@ -39,7 +39,6 @@ export default {
   },
   async registerAction ({commit, state}, data) {
     const res = await userRegister(data)
-    // TODO: 返回用户信息，修改后端
     commit(USER_INFO, res)
   },
   async forgetAction ({commit, state}, data) {
@@ -59,14 +58,13 @@ export default {
     const list = await getVote(data)
     commit(VOTE_LIST, list)
   },
-  // TODO: 这里考虑重构
   async submitAction ({commit, state}, param, data) {
     const success = await submit(param, data)
     commit(SUBMIT_VOTE, success)
   },
-  // TODO: 这里考虑重构
   async getDetailAction ({commit, state}, param) {
     const detail = await getDetail(param)
     commit(VOTE_DETAIL_OPTIONS, detail)
+    commit(VOTE_DETAIL_FETCH, !!(detail && detail.length))
   }
 }

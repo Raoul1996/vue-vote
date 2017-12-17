@@ -19,7 +19,8 @@ const state = {
   status: false, // 投票是否成功
   detail: {
     vote: {},
-    options: []
+    options: [],
+    fetch: false
   }
 }
 const vuexLocal = new VuexPersistence({

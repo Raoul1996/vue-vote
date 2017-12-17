@@ -36,7 +36,6 @@
 
 <script>
   import { mapActions, mapState } from 'vuex'
-
   export default {
     data () {
       const validatePass = (rule, value, callback) => {
