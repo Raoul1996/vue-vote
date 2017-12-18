@@ -11,6 +11,10 @@
           el-select(v-model="create.type", placeholder="请选择投票类型")
             el-option(label="单选", value=0)
             el-option(label="多选", value=1)
+        el-form-item(label="选项上限", prop="max", v-if="+create.type")
+          el-input(v-model.number="create.max", placeholder="请输入选项上限")
+            el-option(label="单选", value=0)
+            el-option(label="多选", value=1)
         el-form-item(label="投票密码", prop="password", v-if="!create.isPublic")
           el-input(v-model="create.password", placeholder="请填写投票密码")
       .create-card
@@ -36,6 +40,7 @@
 
 <script>
   import { mapActions, mapState } from 'vuex'
+
   export default {
     data () {
       const validatePass = (rule, value, callback) => {
@@ -50,6 +55,7 @@
           title: '',
           password: null,
           type: '',
+          max: 1,
           startAt: '',
           endAt: '',
           isPublic: 1,
@@ -64,6 +70,9 @@
           ],
           type: [
             {required: true, message: '请选择投票类型', trigger: 'change'}
+          ],
+          max: [
+            {required: true, message: '请输入选项上限', trigger: 'blur'}
           ],
           startAt: [
             {type: 'date', required: true, message: '请选择开始时间', trigger: 'change'}

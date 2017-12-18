@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   USER_LOGIN,
   LOGOUT,
