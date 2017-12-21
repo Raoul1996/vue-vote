@@ -4,7 +4,7 @@
       img(src='https://avatars3.githubusercontent.com/u/18366474?s=400&u=9d001b5e917bfdeeb99c66051ffe9d6c827797ae&v=4')
     ul.users-list
       li.users-item {{info.name}}
-      li.users-item {{info.mobile}}
+      li.users-item {{info.email}}
 </template>
 
 <script type="text/ecmascript-6">
@@ -34,7 +34,7 @@
       ]),
       getUserMsg () {
         // 这里的参数留着以后用
-        this.infoAction('')
+        this.infoAction()
       }
     }
   }

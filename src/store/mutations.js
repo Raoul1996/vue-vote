@@ -11,7 +11,8 @@ import {
   VOTE_DETAIL_MSG,
   USER_FORGET,
   RESET_PASS,
-  VOTE_LIST
+  VOTE_LIST,
+  SEND_MAIL
 } from './mutation-types'
 import { setStore } from 'src/config/localStorage'
 
@@ -72,5 +73,8 @@ export default {
   },
   [VOTE_DETAIL_MSG] (state, vote) {
     state.detail.vote = vote
+  },
+  [SEND_MAIL] (state, mail) {
+    state.mail = mail
   }
 }

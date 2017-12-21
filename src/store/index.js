@@ -12,6 +12,7 @@ const state = {
   reset: false, // 是否重置密码
   token: null, // jwt token
   list: {}, // 投票列表
+  mail: '', // 发送激活邮件
   vote: {
     data: {}, // 投票的信息
     success: false // 创建投票是否成功

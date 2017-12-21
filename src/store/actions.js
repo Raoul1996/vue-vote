@@ -7,7 +7,7 @@ import {
   getDetail,
   forgetPassword,
   resetPassword,
-  getVote
+  getVote, sendMail
 } from '../service/request'
 import {
   USER_LOGIN,
@@ -20,7 +20,8 @@ import {
   USER_FORGET,
   LOGOUT,
   RESET_PASS,
-  VOTE_LIST
+  VOTE_LIST,
+  SEND_MAIL
 } from './mutation-types'
 
 export default {
@@ -66,5 +67,9 @@ export default {
     const detail = await getDetail(param)
     commit(VOTE_DETAIL_OPTIONS, detail)
     commit(VOTE_DETAIL_FETCH, !!(detail && detail.length))
+  },
+  async sendMailAction ({commit, state}, data) {
+    const mail = await sendMail(data)
+    commit(SEND_MAIL, mail)
   }
 }

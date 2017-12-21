@@ -4,6 +4,8 @@
     el-form.card-border(v-bind:model="register", v-bind:rules="rules", ref="register")
       el-form-item(label="name", prop="name")
         el-input(v-model="register.name", placeholder="Pick a name")
+      el-form-item(label="email", prop="email")
+        el-input(v-model="register.email", placeholder="Input Your email")
       el-form-item(label="mobile", prop="mobile")
         el-input(v-model="register.mobile", placeholder="Pick a mobile")
       el-form-item(label="password", prop="password")
@@ -15,10 +17,8 @@
           | Sign up for Voter
 </template>
 <script type="text/ecmascript-6">
-  // now Let's try to use axios api~
   import { lazyGoto } from '../utils'
   import { mapActions } from 'vuex'
-
   export default {
     name: 'register',
     data () {
@@ -33,6 +33,7 @@
         register: {
           name: '',
           mobile: '',
+          email: '',
           password: '',
           checkPassword: '',
           token: false
@@ -40,6 +41,10 @@
         rules: {
           name: [
             {required: true, message: '请取一个用户名', trigger: 'blur'}
+          ],
+          email: [
+            {required: true, message: '请填写邮箱', trigger: 'blur'},
+            {type: 'email', message: '请填写正确的邮箱', trigger: 'blur'}
           ],
           mobile: [
             {required: true, message: '请填写手机号码', trigger: 'blur'},
@@ -70,7 +75,7 @@
                 showClose: true,
                 message: 'Register successful'
               })
-              await lazyGoto(this, 'login')
+              await lazyGoto(this, 'send')
             })
           } else {
             this.$message({

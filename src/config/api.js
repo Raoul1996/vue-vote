@@ -15,6 +15,7 @@ export default {
   detail: ApiMaker('votes/detail'),
   create: ApiMaker('votes/create'),
   submit: ApiMaker('votes/part'),
+  send: ApiMaker('send'),
   logout: ApiMaker('logout'),
   me: ApiMaker('me'),
   del: ApiMaker('del'),

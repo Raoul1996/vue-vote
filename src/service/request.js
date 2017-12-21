@@ -6,8 +6,8 @@ export function userLogout (data) {
   return instance.post(API.logout, data)
 }
 
-export function getUser (data) {
-  return instance.get(API.info, data)
+export function getUser (param) {
+  return instance.get(params2url(API.info, param))
 }
 
 export function delUser (data) {
@@ -44,4 +44,8 @@ export function userLogin (data) {
 
 export function userRegister (data) {
   return instance.post(API.register, data)
+}
+
+export function sendMail (data) {
+  return instance.post(API.send, data)
 }
