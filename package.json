@@ -17,11 +17,9 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "babel-polyfill": "^6.26.0",
     "date-fns": "^1.29.0",
     "element-ui": "^2.0.8",
     "pug": "^2.0.0-rc.4",
-    "v-autocomplete": "^1.8.1",
     "vue": "^2.5.11",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
