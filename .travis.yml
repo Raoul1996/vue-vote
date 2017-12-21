@@ -30,14 +30,6 @@ script:
 - npm run build
 # 5. 执行 script 脚本成功之后执行
 # 6. 最后执行
-after_script:
-# push 代码到 dist 分支
-#- git init
-#- git config user.name "${U_NAME}"
-#- git config user.email "${U_EMAIL}"
-#- git add .
-#- git commit -m "${COMMIT_MSG}"
-#- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
 after_success:
 # 移动到打包好的目录中
 - cd ./dist
@@ -48,6 +40,8 @@ after_success:
 # unzip
 - ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ./vote.tar.bz2 /usr/share/nginx/html/votes'
 - ssh ubuntu@123.207.252.230 'cd /usr/share/nginx/html/votes && tar -jxf vote.tar.bz2 && rm -rf vote.tar.bz2'
+after_script:
+
 branches:
   only:
   - master
