@@ -2,10 +2,25 @@
   .login
     h1.title Sign in to Voter
     el-form.card-border(v-bind:model="login", ref="login", v-bind:rules="rules")
+      el-form-item(label="email", prop="email")
+        el-input(v-model="login.email",
+        placeholder="请输入邮箱",
+        auto-complele="on",
+        class="input-with-select")
+          el-select(v-model="login.emailAddOn",
+          slot="append",
+          placeholder="请选择邮箱后缀")
+            el-option(label="@gmail.com", value="@gmail.com")
+            el-option(label="@163.com", value="@163.com")
+            el-option(label="@hotmail.com", value="@hotmail.com")
       el-form-item(label="mobile", prop="mobile")
-        el-input(v-model="login.mobile")
+        el-input(v-model="login.mobile", placeholder="请输入手机号码", auto-complele="on")
       el-form-item(label="password", prop="password")
-        el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.password", auto-complete="on")
+        el-input(@keyup.native.enter="submitForm('login')",
+        type="password",
+        v-model="login.password",
+        placeholder="请输入密码",
+        auto-complete="off")
       el-form-item
         router-link.forget(to="forget") Forgot password?
       el-form-item
@@ -28,6 +43,8 @@
     data () {
       return {
         login: {
+          email: '',
+          emailAddOn: '',
           mobile: null,
           password: null,
           // 使用的是 web 端
