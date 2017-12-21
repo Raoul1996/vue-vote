@@ -5,7 +5,7 @@
       el-form-item(label="email", prop="email")
         el-input(v-model="login.email")
         <!--el-select(v-model="login.email", filterable, placeholder="请输入邮箱地址" class="el-input", @change="ChangeConsole")-->
-          <!--el-option(v-for="item in login.options", :key="item.value", :label="item.label", :value="item.value")-->
+        <!--el-option(v-for="item in login.options", :key="item.value", :label="item.label", :value="item.value")-->
       el-form-item(label="mobile", prop="mobile")
         el-input(v-model="login.mobile")
       el-form-item(label="password", prop="password")
@@ -23,13 +23,10 @@
 
 <script type="text/ecmascript-6">
   /* eslint-disable no-unused-vars */
-  import { setStore } from '../config/localStorage'
-  import { lazyGoto, goto } from 'src/utils'
-  import { mapActions, mapState, mapMutations } from 'vuex'
-  import ElInput from 'element-ui/packages/input/src/input'
+  import { lazyGoto } from 'src/utils'
+  import { mapActions } from 'vuex'
 
   export default {
-    components: {ElInput},
     name: 'login',
     data () {
       return {
