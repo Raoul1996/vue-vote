@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 // import './config/rem'
 import {
+  Autocomplete,
   Button,
   Select,
   Form,
@@ -33,6 +34,7 @@ import {
 } from 'element-ui'
 
 Vue.config.productionTip = false
+Vue.use(Autocomplete)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Switch)
