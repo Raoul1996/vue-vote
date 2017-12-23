@@ -10,12 +10,24 @@ export function getUser (param) {
   return instance.get(params2url(API.info, param))
 }
 
-export function delUser (data) {
-  return instance.post(API.del, data)
-}
-
 export function forgetPassword (data) {
   return instance.post(API.forget, data)
+}
+
+export function userLogin (data) {
+  return instance.post(API.login, data)
+}
+
+export function userRegister (data) {
+  return instance.post(API.register, data)
+}
+
+export function sendMail (data) {
+  return instance.post(API.send, data)
+}
+
+export function getCaptcha () {
+  return instance.get(API.captcha)
 }
 
 export function resetPassword (data) {
@@ -36,16 +48,4 @@ export function getDetail (param) {
 
 export function submit (param, data) {
   return instance.post(params2url(API.submit, param), data)
-}
-
-export function userLogin (data) {
-  return instance.post(API.login, data)
-}
-
-export function userRegister (data) {
-  return instance.post(API.register, data)
-}
-
-export function sendMail (data) {
-  return instance.post(API.send, data)
 }

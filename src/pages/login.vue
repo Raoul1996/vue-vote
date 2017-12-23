@@ -10,6 +10,10 @@
       <!--el-input(v-model="login.mobile" placeholder="请输入手机号")-->
       el-form-item(label="password", prop="password")
         el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.password", placeholder="请输入密码", auto-complete="on")
+      el-form-item(label="captcha", prop="captcha")
+        div.captcha-wrapper
+          el-input.captcha-input(v-model="login.captcha", placeholder="请输入验证码", type="text", )
+          captcha.captcha
       el-form-item
         router-link.forget(to="forget") Forgot password?
       el-form-item
@@ -25,8 +29,10 @@
   /* eslint-disable no-unused-vars */
   import { lazyGoto } from 'src/utils'
   import { mapActions } from 'vuex'
+  import Captcha from '../components/captcha'
 
   export default {
+    components: {Captcha},
     name: 'login',
     data () {
       return {
@@ -34,6 +40,7 @@
           email: '',
           // mobile: null,
           password: null,
+          captcha: '',
           options: [{
             value: `${this.email}@gmail.com`,
             label: `${this.email}@gmail.com`
@@ -65,6 +72,10 @@
           password: [
             {required: true, message: '请填写密码', trigger: 'blur'},
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
+          ],
+          captcha: [
+            {required: true, message: '请填写验证码', trigger: 'blur'},
+            {len: 6, message: '验证码是6位', trigger: 'blur'}
           ]
         },
         msgFlag: true
@@ -90,9 +101,6 @@
       ...mapActions([
         'loginAction'
       ]),
-      ChangeConsole (e) {
-        console.log(e)
-      },
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
@@ -125,6 +133,21 @@
     margin 0 auto
     width 30%
     min-width 400px
+    .captcha-wrapper {
+      position relative
+      padding-right 40%
+      text-align left
+      .captcha-input {
+        width 90%
+      }
+      .captcha {
+        position absolute
+        right 0
+        bottom 1px
+        height 38px
+        width 40%
+      }
+    }
     .forget {
       margin-top -1em
       margin-bottom -1em
