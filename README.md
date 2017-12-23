@@ -13,47 +13,56 @@
 ## 文件结构
 ```
 .
-├── App.vue
-├── assets
-│   └── logo.png
-├── components
-│   ├── Card.vue
-│   ├── HelloWorld.vue
-│   ├── layout.vue
-│   ├── loginStatus.vue
-│   ├── nav.vue
-│   └── verify.vue
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── ISSUE_TEMPLATE.md
+├── LICENSE
+├── README.md
+├── build
+│   ├── build.js
+│   ├── check-versions.js
+│   ├── logo.png
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   ├── webpack.prod.conf.js
+│   └── webpack.test.conf.js
 ├── config
-│   ├── api.js
-│   ├── codeMap.js
-│   ├── env.js
-│   ├── localStorage.js
-│   └── rem.js
-├── main.js
-├── pages
-│   ├── 404.vue
-│   ├── Hello.vue
-│   ├── create.vue
-│   ├── detail.vue
-│   ├── forget.vue
-│   ├── login.vue
-│   ├── profile.vue
-│   ├── register.vue
-│   ├── update.vue
-│   └── vote.vue
-├── router
-│   └── index.js
-├── service
-│   └── axios.js
-├── store
-│   ├── actions.js
-│   ├── getters.js
+│   ├── dev.env.js
 │   ├── index.js
-│   ├── mutation-types.js
-│   └── mutations.js
-└── utils.js
+│   ├── prod.env.js
+│   └── test.env.js
+├── dist
+│   ├── index.html
+│   ├── static
+│   └── statistics.html
+├── fjpublish.config.js
+├── gh-pages.config.js
+├── helper
+│   └── unitTest.md
+├── id_rsa.enc
+├── index.css
+├── index.html
+├── package-lock.json
+├── package.json
+├── src
+│   ├── App.vue
+│   ├── assets
+│   ├── components
+│   ├── config
+│   ├── main.js
+│   ├── pages
+│   ├── router
+│   ├── service
+│   ├── store
+│   └── utils.js
+├── static
+└── test
+    ├── e2e
+    └── unit
 
-7 directories, 32 files
+17 directories, 31 files
 
 ```
 ## 技术栈
@@ -70,9 +79,10 @@
 - ~~20171217：由于使用了状态树持久化，诞生出一个新的问题：在需要密码才能投票的页面进行刷新，会提示需要输入密码，但是组件的数据还存在。需要想办法解决：~~
   - ~~思路1：在刷新的时候不重新拉取数据，不进行 v-if 判断，直接使用原来页面的数据~~
   - ~~思路2：对 detail 中的数据不进行持久化，但是会增大开销~~
-
-## 学习 && 改进
--  [vue项目中对axios的二次封装](https://juejin.im/post/5a293e50f265da432153f190)
+## 优秀资料
+## 未学习资料
+## 实际操作
+- [vue项目中对axios的二次封装](https://juejin.im/post/5a293e50f265da432153f190)
 - [为什么我们要做三份 Webpack 配置文件](https://zhuanlan.zhihu.com/p/29161762),生产环境下移除 console.log
 ## 实现了些什么？
 
@@ -96,6 +106,7 @@
 5. 分享功能
 6. 邮箱自动补全功能，这个查了一晚上，并没有找到什么好的解决方案
 
+## 学习笔记
 ### 20171206(学习朋友的方法，时刻总结) 打包分析插件
 - 安装开发环境下的 webpack 分析插件：`BundleAnalyzerPlugin`,可以在开发环境的 [8888](http://localhost:8888) 端口实时查看webpack构建情况
 
@@ -138,5 +149,5 @@
 ### 20171224 登录图片验证码坑多
 - 祝自己平安夜快乐，没有女盆友只能自己和代码瞎几把过。没有女朋友的过圣诞节，有女朋友的就可以过 shengdan 节了。
 - 验证码的刷新问题：点击的时候，可以通过改动 img 的src 属性的值进行触发。我选择了把当前时间作为 queryString 加到地址上来触发验证码的刷新
-- 返回的验证码的 response.type 定义成了 image/png，所以不可以按照其他请求的方式进行集中处理，而且状态树中没有必要也不应该去保存验证码图片。
+- 返回的验证码的 response.type 定义成了 image/png，所以不可以按照其他请求的方式进行集中处理，而且状态树中没有必要也不应该去保存验证码图片。具体参见[这个 commit](https://github.com/Raoul1996/vue-vote/commit/fac8bc175ccb913241ab666f9b4638552d776d31)
 - 可以使用 position 结合 padding 来实现左右布局。在el-input组件的label会受到 flex 的影响，比较麻烦。注意在 wrapper 容器中进行一下相对定位，防止排版错乱（有方法避免）
