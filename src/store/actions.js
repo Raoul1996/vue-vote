@@ -59,7 +59,7 @@ export default {
     const list = await getVote(data)
     commit(VOTE_LIST, list)
   },
-  async submitAction ({commit, state}, param, data) {
+  async submitAction ({commit, state}, {param, data}) {
     const success = await submit(param, data)
     commit(SUBMIT_VOTE, success)
   },

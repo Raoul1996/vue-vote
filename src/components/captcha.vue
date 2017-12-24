@@ -19,7 +19,7 @@
     methods: {
       getCaptchaUrl () {
         const hostname = window.location.hostname.toLowerCase()
-        const captcha = `/captcha?${new Date().getTime()}`
+        const captcha = `/captcha?timestamp=${new Date().getTime()}`
         if (hostname !== 'localhost' && hostname !== '127.0.0.1' && hostname !== '0.0.0.0') {
           this.captchaUrl = productionUrl + captcha
         } else {

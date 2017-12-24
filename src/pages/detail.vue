@@ -17,7 +17,7 @@
         .option-list
           el-checkbox-group(v-model="options", @change="optionsChange")
             .option-list-item(v-for="(o, index) in detail.options")
-              el-checkbox(:label="index", :index="index") {{o.title}}
+              el-checkbox(:label="index", :index="index", :value="o.title") {{o.title}}
       el-button.button(type="primary", :disabled="!enableClickButton", size="medium", @click="submitVote")
         | 提交
 </template>
@@ -75,7 +75,8 @@
         'VOTE_DETAIL_FETCH',
         'VOTE_DETAIL_MSG'
       ]),
-      optionsChange () {
+      optionsChange (e) {
+        console.log(e)
         const maxChoose = Math.min(this.detail.vote.max_choose, this.detail.options.length)
         const length = this.options.length
         if (length < maxChoose) {
@@ -93,8 +94,8 @@
       },
       submitVote () {
         // this.getVoteDetail(this.$route.params)
-        const opt = {options: this.options}
-        this.submitAction(`${this.$route.params.id}`, opt).then(() => {
+        const data = {options: this.options}
+        this.submitAction({param: `${this.$route.params.id}`, data}).then(() => {
           this.$message.info('yes')
         })
       },
