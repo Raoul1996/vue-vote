@@ -75,7 +75,6 @@
           ],
           captcha: [
             {required: true, message: '请填写验证码', trigger: 'blur'},
-            {len: 6, message: '验证码是6位', trigger: 'blur'}
           ]
         },
         msgFlag: true
