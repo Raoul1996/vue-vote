@@ -1,39 +1,22 @@
 <template lang="pug">
-  .vote
-    vote-list(:list="list")
+  ul.vote-list
+    li.vote-item(v-for="(o, index) in list", :key="index")
+      Card(:vote="o")
 </template>
 
 <script>
-  import voteList from '../components/voteList'
-  import { mapState, mapActions } from 'vuex'
+  import Card from '../components/Card.vue'
 
   export default {
     name: 'vote',
-    data () {
-      return {
-        type: this.$route.path.slice(1)
-      }
-    },
-    computed: {
-      ...mapState(['list'])
-    },
-    created () {
-      this.getVote()
-    },
-    methods: {
-      ...mapActions(['getVoteListAction']),
-      getVote () {
-        const query = {
-          page: 1,
-          size: 100,
-          time: 1,
-          type: this.type
-        }
-        this.getVoteListAction(query)
+    props: {
+      list: {
+        type: Object,
+        required: true
       }
     },
     components: {
-      voteList
+      Card
     }
   }
 </script>

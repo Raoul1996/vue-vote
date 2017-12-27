@@ -22,7 +22,9 @@ const state = {
     vote: {},
     options: [],
     fetch: false
-  }
+  },
+  ownVote: {},
+  statistic: {}
 }
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage

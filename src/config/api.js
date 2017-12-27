@@ -23,6 +23,9 @@ export default {
   detail: ApiMaker('votes/detail'),
   create: ApiMaker('votes/create'),
   submit: ApiMaker('votes/part'),
+  statistic: ApiMaker('votes/statistic'),
+  ownVote: ApiMaker('votes/own'),
+  // mock
   del: ApiMaker('del'),
   name: ApiMaker('nickname'),
   test: ApiMaker('test')

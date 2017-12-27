@@ -22,7 +22,6 @@
       }
     },
     data () {
-      // eslint-disable-next-line
       const {id = '', title = '', type = '', is_public = 0} = this.vote
       return {
         id,
@@ -35,7 +34,7 @@
     },
     computed: {
       voteType: function () {
-        return this.type === 1 ? '单选' : '多选'
+        return this.type === 0 ? '单选' : '多选'
       },
       start: function () {
         return format(this.vote.startAt, 'YYYY/DD/MM HH:mm')

@@ -74,7 +74,7 @@
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
           captcha: [
-            {required: true, message: '请填写验证码', trigger: 'blur'},
+            {required: true, message: '请填写验证码', trigger: 'blur'}
           ]
         },
         msgFlag: true

@@ -7,7 +7,10 @@ import {
   getDetail,
   forgetPassword,
   resetPassword,
-  getVote, sendMail
+  getVote,
+  sendMail,
+  getStatistic,
+  getOwnVote
 } from '../service/request'
 import {
   USER_LOGIN,
@@ -21,7 +24,9 @@ import {
   LOGOUT,
   RESET_PASS,
   VOTE_LIST,
-  SEND_MAIL
+  SEND_MAIL,
+  VOTE_STATISTIC,
+  OWN_VOTE
 } from './mutation-types'
 
 export default {
@@ -71,5 +76,13 @@ export default {
   async sendMailAction ({commit, state}, data) {
     const mail = await sendMail(data)
     commit(SEND_MAIL, mail)
+  },
+  async getStatisticAction ({commit, state}, data) {
+    const statistic = await getStatistic(data)
+    commit(VOTE_STATISTIC, statistic)
+  },
+  async getOwnVoteAction ({commit, state}, data) {
+    const ownVote = await getOwnVote(data)
+    commit(OWN_VOTE, ownVote)
   }
 }

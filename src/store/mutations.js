@@ -12,7 +12,9 @@ import {
   USER_FORGET,
   RESET_PASS,
   VOTE_LIST,
-  SEND_MAIL
+  SEND_MAIL,
+  VOTE_STATISTIC,
+  OWN_VOTE
 } from './mutation-types'
 import { setStore } from 'src/config/localStorage'
 
@@ -76,5 +78,11 @@ export default {
   },
   [SEND_MAIL] (state, mail) {
     state.mail = mail
+  },
+  [VOTE_STATISTIC] (state, statistic) {
+    state.statistic = statistic
+  },
+  [OWN_VOTE] (state, ownVote) {
+    state.ownVote = ownVote
   }
 }

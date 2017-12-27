@@ -49,3 +49,11 @@ export function getDetail (param) {
 export function submit (param, data) {
   return instance.post(params2url(API.submit, param), data)
 }
+
+export function getStatistic (param) {
+  return instance.get(params2url(API.statistic, param))
+}
+
+export function getOwnVote (param) {
+  return instance.get(params2url(API.ownVote, param))
+}
