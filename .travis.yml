@@ -38,8 +38,8 @@ after_success:
 # scp
 - scp vote.tar.bz2 ubuntu@123.207.252.230:~/
 # unzip
-- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ./vote.tar.bz2 /usr/share/nginx/html/votes'
-- ssh ubuntu@123.207.252.230 'cd /usr/share/nginx/html/votes && tar -jxf vote.tar.bz2 && rm -rf vote.tar.bz2'
+- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/vote && mv ./vote.tar.bz2 /usr/share/nginx/html/vote'
+- ssh ubuntu@123.207.252.230 'cd /usr/share/nginx/html/vote && tar -jxf vote.tar.bz2 && rm -rf vote.tar.bz2'
 after_script:
 
 branches:
