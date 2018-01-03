@@ -3,9 +3,7 @@
     .title {{vote.title}}
     .time {{vote.start_at}} -- {{vote.end_at}}
 </template>
-
 <script>
-
   export default {
     name: 'own',
     props: {

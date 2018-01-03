@@ -158,3 +158,66 @@
 - action 传参数的时候需要将所有参数封装到一个对象中
 ### 20171227
 - 决定将展示型组件拆分到 component 中，容器型组件放到 page 中，每个对应一个路由
+### 20180102-20180103
+- 为域名部署 SSL 证书，过程比较坎坷。使用免费的个人单域名证书，意思就是每个域名都需要自己去配置一个单独的 SSL 证书，这里提供 nginx 配置文件
+  1. 可以使用 service nginx restart 重启nginx 服务，使更改的配置生效
+  2. 如果不能重启，可以使用 nginx -t 查看配置文件错误
+```
+# /etc/nginx/conf.d/vote.conf
+# 部署时候服务器为 Ubuntu 12.04， Nginx 版本为 1.4.6
+server {
+    # nginx 监听的端口，即为 http 协议访问的端口
+    listen 80;
+    # 域名
+    server_name vote.raoul1996.cn;
+
+    index index.html index.htm index.php;
+
+    add_header Strict-Transport-Security max-age=2592000;
+    # 将 http://vote.raoul1996.cn 的请求转到 https://vote.raoul1996.cn
+    rewrite ^/.*$ https://$host$request_uri? permanent;
+
+    location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)$ {
+        expires      30d;
+    }
+    location ~ .*\.(js|css)?$ {
+        expires      1h;
+    }
+
+}
+server {
+  # nginx 监听的端口，即为 https 协议访问的端口
+	listen 443;
+	# 域名
+	server_name vote.raoul1996.cn;
+	# 开启 ssl
+	ssl on;
+	# 申请到的证书存放的地址，一定不能错
+	ssl_certificate /etc/ssl/nginx/1_vote.raoul1996.cn_bundle.crt;
+	ssl_certificate_key /etc/ssl/nginx/2_vote.raoul1996.cn.key;
+
+	ssl_session_timeout 5m;
+
+	ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+	ssl_prefer_server_ciphers on;
+
+	location / {
+	  # 当前域名映射的目录
+		root /usr/share/nginx/html/vote/;
+    # force timeouts if the backend dies
+    proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
+    # set headers
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+    # Let the OpenERP web service know that we're using HTTPS, otherwise
+    # it will generate URL using http:// and not https://
+    proxy_set_header X-Forwarded-Proto https;
+    # by default, do not forward anything
+    proxy_redirect off;
+    # 解决二级路由 404
+		try_files $uri $uri /index.html;
+	}
+}
+```
