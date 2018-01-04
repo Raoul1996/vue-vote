@@ -6,7 +6,7 @@
         el-form-item(prop="isPublic", required="")
           el-switch(v-model="create.isPublic", active-text="公开投票", inactive-text="私密投票")
         el-form-item(label="投票名称", prop="title", required="")
-          el-input(v-model="create.title", placeholder="请填写投票名称")
+          el-input(v-model.trim="create.title", placeholder="请填写投票名称")
         el-form-item(label="投票类型", prop="type")
           el-select(v-model="create.type", placeholder="请选择投票类型")
             el-option(label="单选", value=0)

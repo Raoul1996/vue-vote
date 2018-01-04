@@ -3,8 +3,8 @@
     .avatar
       img(:src="url")
     ul.users-list
-      li.users-item {{info.name}}
-      li.users-item {{info.email}}
+      li.users-item.title {{info.name}}
+      <!--li.users-item.email {{info.email}}-->
 </template>
 
 <script>
@@ -26,23 +26,24 @@
 
 <style scoped lang="stylus">
   .info {
-    display flex
     .avatar {
-      width 80px
-      height 80px
+      margin 0 auto
+      width 150px
+      height 150px
       img {
         max-width 100%
       }
     }
     .users-list {
-      display flex
-      flex-direction column
-      justify-content space-around
-      align-items baseline
       padding 0
       .users-item {
-        line-height 40px
         list-style none
+      }
+      .title {
+        font-size 2em
+      }
+      .email {
+        font-size 1.2em
       }
     }
   }

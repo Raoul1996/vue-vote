@@ -186,13 +186,9 @@ server {
 
 }
 server {
-  # nginx 监听的端口，即为 https 协议访问的端口
 	listen 443;
-	# 域名
 	server_name vote.raoul1996.cn;
-	# 开启 ssl
 	ssl on;
-	# 申请到的证书存放的地址，一定不能错
 	ssl_certificate /etc/ssl/nginx/1_vote.raoul1996.cn_bundle.crt;
 	ssl_certificate_key /etc/ssl/nginx/2_vote.raoul1996.cn.key;
 
@@ -203,21 +199,21 @@ server {
 	ssl_prefer_server_ciphers on;
 
 	location / {
-	  # 当前域名映射的目录
+		# 当前域名映射的目录
 		root /usr/share/nginx/html/vote/;
-    # force timeouts if the backend dies
-    proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
-    # set headers
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
-    # Let the OpenERP web service know that we're using HTTPS, otherwise
-    # it will generate URL using http:// and not https://
-    proxy_set_header X-Forwarded-Proto https;
-    # by default, do not forward anything
-    proxy_redirect off;
+		# proxy_pass    https://vote.raoul1996.cn;
+        	# force timeouts if the backend dies
+        	proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
+        	# set headers
+        	proxy_set_header Host $host;
+       		proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+        	# Let the OpenERP web service know that we're using HTTPS, otherwise
+        	# it will generate URL using http:// and not https://
+        	proxy_set_header X-Forwarded-Proto https;
+        	# by default, do not forward anything
+        	proxy_redirect off;
     # 解决二级路由 404
 		try_files $uri $uri /index.html;
 	}
-}
-```
+}```

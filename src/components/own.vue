@@ -1,15 +1,28 @@
 <template lang="pug">
   .own
+    .name {{name}}
     .title {{vote.title}}
-    .time {{vote.start_at}} -- {{vote.end_at}}
+    .time {{start}} -- {{end}}
 </template>
 <script>
+  import moment from 'date-fns/format'
+
   export default {
     name: 'own',
     props: {
       vote: {
         type: Object,
         required: true
+      },
+      name: {
+        type: String,
+        required: true
+      }
+    },
+    data(){
+      return{
+        start: new Date(this.vote.start_at).toLocaleString(),
+        end: new Date(this.vote.end_at).toLocaleString()
       }
     },
     components: {}
@@ -18,27 +31,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  // 三列布局
-
-  .vote-list {
-    margin 0 auto
-    max-width: 1035px
-    width 100%
-    display flex
-    flex-wrap wrap
-    .vote-item {
-      display inline-block
-      margin 20px
-      width 300px
+  .own {
+    text-align left
+    .title {
+      font-size 1.5em
     }
-  }
-
-  @media screen and (max-width: 690px) {
-    .vote-list {
-      .vote-item {
-        margin 20px auto
-      }
-    }
-
   }
 </style>

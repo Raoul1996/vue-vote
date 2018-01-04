@@ -1,11 +1,10 @@
 <template lang="pug">
   div
-    .card-border
-      info(:info="info")
+    info.info-card(:info="info")
     .card-border
       ul.vote-list
         li.vote-item(v-for="(o, index) in ownVote", :key="index")
-          own(:vote="o")
+          own(:vote="o", :name="info.name")
 </template>
 
 <script type="text/ecmascript-6">
@@ -56,5 +55,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
+  .info-card {
+    margin 30px
+  }
 </style>
