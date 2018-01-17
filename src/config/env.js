@@ -1,25 +1,19 @@
 /**
  * 配置编译环境和线上环境之间的切换
- *
  * baseUrl: 域名地址
- * routerMode: 路由模式
- * imgBaseUrl: 图片所在域名地址
- *
  */
-
+const productionUrl = 'https://api.raoul1996.cn'
+const developmentUrl = 'http://127.0.0.1:3000'
+const unKnowUrl = 'https://api.raoul196.cn'
 let baseUrl = ''
-let routerMode = 'history'
-let imgBaseUrl = 'http://images.cangdu.org/'
-
 if (process.env.NODE_ENV === 'development') {
-
+  baseUrl = developmentUrl
 } else if (process.env.NODE_ENV === 'production') {
-
-  // baseUrl = 'http://cangdu.org:8001';
+  baseUrl = productionUrl
+} else {
+  baseUrl = unKnowUrl
 }
 
 export {
-  baseUrl,
-  routerMode,
-  imgBaseUrl
+  baseUrl
 }

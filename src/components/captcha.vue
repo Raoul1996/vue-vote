@@ -4,7 +4,7 @@
 </template>
 
 <script>
-  import { developmentUrl, productionUrl } from 'src/config'
+  import { baseUrl } from 'src/config/env'
 
   export default {
     name: 'captcha',
@@ -18,13 +18,7 @@
     },
     methods: {
       getCaptchaUrl () {
-        const hostname = window.location.hostname.toLowerCase()
-        const captcha = `/captcha?timestamp=${new Date().getTime()}`
-        if (hostname !== 'localhost' && hostname !== '127.0.0.1' && hostname !== '0.0.0.0') {
-          this.captchaUrl = productionUrl + captcha
-        } else {
-          this.captchaUrl = developmentUrl + captcha
-        }
+        this.captchaUrl = `${baseUrl}/captcha?timestamp=${new Date().getTime()}`
       }
     }
   }

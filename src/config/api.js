@@ -1,11 +1,7 @@
-import { developmentUrl, productionUrl } from './index'
+import { baseUrl } from './env'
 
-const ApiMaker = (path, host = developmentUrl) => {
-  const hostname = window.location.hostname.toLowerCase()
-  if (hostname !== 'localhost' && hostname !== '127.0.0.1' && hostname !== '0.0.0.0') {
-    host = productionUrl
-  }
-  return `${host}/${path}`
+const ApiMaker = (path) => {
+  return `${baseUrl}/${path}`
 }
 export default {
   host: ApiMaker(''),

@@ -5,8 +5,6 @@
     .time {{start}} -- {{end}}
 </template>
 <script>
-  import moment from 'date-fns/format'
-
   export default {
     name: 'own',
     props: {
@@ -19,8 +17,8 @@
         required: true
       }
     },
-    data(){
-      return{
+    data () {
+      return {
         start: new Date(this.vote.start_at).toLocaleString(),
         end: new Date(this.vote.end_at).toLocaleString()
       }

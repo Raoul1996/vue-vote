@@ -41,22 +41,6 @@
           // mobile: null,
           password: null,
           captcha: '',
-          options: [{
-            value: `${this.email}@gmail.com`,
-            label: `${this.email}@gmail.com`
-          }, {
-            value: '选项2',
-            label: '双皮奶'
-          }, {
-            value: '选项3',
-            label: '蚵仔煎'
-          }, {
-            value: '选项4',
-            label: '龙须面'
-          }, {
-            value: '选项5',
-            label: '北京烤鸭'
-          }],
           // 使用的是 web 端
           client: 1
         },

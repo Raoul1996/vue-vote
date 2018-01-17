@@ -216,4 +216,7 @@ server {
     # 解决二级路由 404
 		try_files $uri $uri /index.html;
 	}
-}```
+}
+```
+### 20180118
+- 通过 `process.env.NODE_ENV` 切换开发环境和生产环境。
