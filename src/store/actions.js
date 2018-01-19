@@ -77,9 +77,14 @@ export default {
     const mail = await sendMail(data)
     commit(SEND_MAIL, mail)
   },
+  // 这里是因为统计组件中传递参数的时候必须要将 statistic 的值传入，所以使用 promise 将其返回给组件，保证异步逻辑
   async getStatisticAction ({commit, state}, data) {
-    const statistic = await getStatistic(data)
-    commit(VOTE_STATISTIC, statistic)
+    return new Promise((resolve, reject) => {
+      getStatistic(data).then((statistic) => {
+        commit(VOTE_STATISTIC, statistic)
+        resolve(statistic)
+      }).catch(err => reject(err))
+    })
   },
   async getOwnVoteAction ({commit, state}, data) {
     const ownVote = await getOwnVote(data)

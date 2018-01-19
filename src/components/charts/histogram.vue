@@ -1,11 +1,7 @@
-<template>
-  <ve-histogram :data="chartData" :settings="chartSettings">
-
-  </ve-histogram>
+<template lang="pug">
+  ve-histogram(:data="chartData", :settings="chartSettings")
 </template>
-
 <script>
-
   export default {
     name: 'histogram',
     props: {
@@ -14,18 +10,24 @@
         required: true
       }
     },
-    created: function () {
+    data () {
+      return {
+        chartData: {}
+      }
+    },
+    created () {
       this.chartData = {
         columns: ['count', 'title'],
-        // count:0
-        //created_at:null
-        //id:327
-        //title:
         rows: this.statistic
       }
       this.chartSettings = {
         metrics: ['count'],
         dimension: ['title']
+      }
+    },
+    mounted () {
+      this.chartData = {
+        rows: this.statistic
       }
     }
   }

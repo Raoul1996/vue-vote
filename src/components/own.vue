@@ -4,11 +4,11 @@
       .name {{name}}
       .title {{vote.title}}
       .time {{start}} -- {{end}}
-    div.histogram(v-if="showHistogram")
+    div.histogram(v-if="showHistogram && statistic.length")
       histogram(:statistic="statistic")
 </template>
 <script>
-  import { mapActions, mapState } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
   import Histogram from './charts/histogram'
 
   export default {
@@ -28,18 +28,21 @@
       return {
         start: new Date(this.vote.start_at).toLocaleString(),
         end: new Date(this.vote.end_at).toLocaleString(),
-        showHistogram: false
+        showHistogram: false,
+        statistic: []
       }
     },
-    computed: mapState([
-      'statistic'
-    ]),
+    destroyed () {
+      this.VOTE_STATISTIC([])
+    },
     methods: {
       ...mapActions(['getStatisticAction']),
+      ...mapMutations(['VOTE_STATISTIC']),
       handleClick (id) {
-        this.getStatisticAction(id)
+        this.getStatisticAction(id).then(res => {
+          this.statistic = res
+        })
         this.showHistogram = !this.showHistogram
-        console.log(this.showHistogram)
       }
 
     }

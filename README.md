@@ -223,3 +223,4 @@ server {
 
 ### 20180119
 - 使用 [v-charts](https://elemefe.github.io/v-charts/) 库处理投票统计
+- v-charts 在 create 生命周期中完成数据的初始化，所以在父组件中为其传入 props，完成数据的渲染。但是由于所有的数据请求已经集中处理，所以使用 Promise 将 response 传递到下一个 then。
