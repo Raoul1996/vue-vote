@@ -5,10 +5,10 @@
       .title {{vote.title}}
       .time {{start}} -- {{end}}
     div.histogram(v-if="showHistogram")
-      histogram
+      histogram(:statistic="statistic")
 </template>
 <script>
-  import { mapActions } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
   import Histogram from './charts/histogram'
 
   export default {
@@ -31,6 +31,9 @@
         showHistogram: false
       }
     },
+    computed: mapState([
+      'statistic'
+    ]),
     methods: {
       ...mapActions(['getStatisticAction']),
       handleClick (id) {
