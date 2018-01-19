@@ -49,8 +49,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
-    new BundleAnalyzerPlugin(),
-    new DuplicatePackageCheckerPlugin()
+    // new BundleAnalyzerPlugin(),
+    // new DuplicatePackageCheckerPlugin()
   ]
 })
 

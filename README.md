@@ -220,3 +220,6 @@ server {
 ```
 ### 20180118
 - 通过 `process.env.NODE_ENV` 切换开发环境和生产环境。
+
+### 20180119
+- 使用 [v-charts](https://elemefe.github.io/v-charts/) 库处理投票统计

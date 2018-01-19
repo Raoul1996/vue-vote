@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 // import { routerMode } from './config/env'
+import VeHistogram from 'v-charts/lib/histogram'
 import store from './store'
 // import './config/rem'
 import {
@@ -32,7 +33,7 @@ import {
   Loading,
   Notification
 } from 'element-ui'
-
+Vue.component(VeHistogram.name, VeHistogram)
 Vue.config.productionTip = false
 Vue.use(Autocomplete)
 Vue.use(Radio)
@@ -63,6 +64,7 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 /* eslint-disable no-new */
+
 new Vue({
   router,
   store,
