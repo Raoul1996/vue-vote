@@ -54,6 +54,7 @@ instance.interceptors.response.use((config) => {
     return data.data
   }
 }, err => {
+  console.dir(err)
   if (err && err.response) {
     const {response: {status}} = err
     switch (status) {
@@ -114,7 +115,7 @@ instance.interceptors.response.use((config) => {
 })
 export default {
   get (url, query) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       instance({
         method: 'get',
         url,

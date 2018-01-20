@@ -39,6 +39,7 @@
       ...mapActions(['getStatisticAction']),
       ...mapMutations(['VOTE_STATISTIC']),
       handleClick (id) {
+        // 使用集中存储的 Statistic 会导致有时获取不到信息，所以这里独立处理
         this.getStatisticAction(id).then(res => {
           this.statistic = res
         })

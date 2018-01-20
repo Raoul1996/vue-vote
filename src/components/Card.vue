@@ -9,10 +9,8 @@
         div.time {{start}} ---- {{end}}
 </template>
 <script>
-  import format from 'date-fns/format'
   import { goto } from '../utils'
   import { mapMutations } from 'vuex'
-
   export default {
     name: 'item',
     props: {
@@ -37,10 +35,10 @@
         return this.type === 0 ? '单选' : '多选'
       },
       start: function () {
-        return format(this.vote.startAt, 'YYYY/DD/MM HH:mm')
+        return new Date(this.vote.start_at).toLocaleString()
       },
       end: function () {
-        return format(this.vote.endAt, 'YYYY/DD/MM HH:mm')
+        return new Date(this.vote.end_at).toLocaleString()
       }
     },
     methods: {
