@@ -9,9 +9,9 @@
 
 <script type="text/ecmascript-6">
   import { mapActions, mapState } from 'vuex'
-  import own from '../components/own'
-  import Statistic from '../components/statistic'
-  import Info from '../components/info'
+  import own from '../../components/own'
+  import Statistic from '../../components/statistic'
+  import Info from '../../components/info'
 
   export default {
     components: {

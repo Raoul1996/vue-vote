@@ -1,13 +1,15 @@
 <template lang="pug">
   .info
-    .avatar
-      img(:src="url")
+    .avatar(@click="changeAvatar")
+      img(:src="info.avatar")
     ul.users-list
       li.users-item.title {{info.name}}
       <!--li.users-item.email {{info.email}}-->
 </template>
 
 <script>
+  import { goto } from '../utils.js'
+
   export default {
     name: 'info',
     props: {
@@ -16,9 +18,9 @@
         required: true
       }
     },
-    data () {
-      return {
-        url: 'https://avatars3.githubusercontent.com/u/18366474?s=400&u=9d001b5e917bfdeeb99c66051ffe9d6c827797ae&v=4'
+    methods: {
+      changeAvatar () {
+        goto(this, '/profile/setting')
       }
     }
   }

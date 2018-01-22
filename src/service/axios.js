@@ -54,7 +54,6 @@ instance.interceptors.response.use((config) => {
     return data.data
   }
 }, err => {
-  console.dir(err)
   if (err && err.response) {
     const {response: {status}} = err
     switch (status) {

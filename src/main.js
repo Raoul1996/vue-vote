@@ -28,6 +28,7 @@ import {
   Switch,
   RadioGroup,
   Radio,
+  Upload,
   MessageBox,
   Message,
   Loading,
@@ -55,6 +56,7 @@ Vue.use(Checkbox)
 Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Submenu)
+Vue.use(Upload)
 Vue.prototype.$store = store
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
