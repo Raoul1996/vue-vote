@@ -1,7 +1,7 @@
 <template lang="pug">
   .info
     .avatar(@click="changeAvatar")
-      img(:src="info.avatar")
+      img(:src="avatarUrl")
     ul.users-list
       li.users-item.title {{info.name}}
       <!--li.users-item.email {{info.email}}-->
@@ -9,13 +9,18 @@
 
 <script>
   import { goto } from '../utils.js'
-
+  import {baseUrl} from '../config'
   export default {
     name: 'info',
     props: {
       info: {
         type: Object,
         required: true
+      }
+    },
+    computed: {
+      avatarUrl () {
+        return '' + baseUrl + this.info.avatar
       }
     },
     methods: {

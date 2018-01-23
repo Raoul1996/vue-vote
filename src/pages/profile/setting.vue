@@ -2,7 +2,7 @@
   <div class="setting">
     <el-upload
       class="avatar-uploader"
-      action="http://localhost:3000/upload"
+      :action="uploadUrl"
       :show-file-list="false"
       :headers="headers"
       :on-success="handleAvatarSuccess"
@@ -14,12 +14,13 @@
 </template>
 
 <script>
+  import { baseUrl } from '../../config'
   export default {
     name: 'hello',
     data () {
       return {
-        msg: 'Welcome to setting page',
         imageUrl: '',
+        uploadUrl: baseUrl + '/upload',
         headers: {}
       }
     },
