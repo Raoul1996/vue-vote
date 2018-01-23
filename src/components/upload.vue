@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import { baseUrl } from '../../config'
+  import { baseUrl } from '../config/index'
   export default {
     name: 'hello',
     data () {

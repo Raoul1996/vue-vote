@@ -8,7 +8,6 @@ const Login = () => import(/* webpackChunkName: "user" */ 'pages/login.vue')
 const Register = () => import(/* webpackChunkName: "user" */ 'pages/register.vue')
 const Send = () => import(/* webpackChunkName: "user" */ 'pages/send.vue')
 const profile = () => import(/* webpackChunkName: "user" */ 'pages/profile/index.vue')
-const setting = () => import(/* webpackChunkName: "user" */ 'pages/profile/setting.vue')
 const Update = () => import(/* webpackChunkName: "user" */ 'pages/update.vue')
 const Forget = () => import(/* webpackChunkName: "user" */ 'pages/forget.vue')
 const Vote = () => import(/* webpackChunkName: "vote" */ 'pages/vote.vue')
@@ -69,13 +68,6 @@ const router = new Router({
         requireAuth: false
       },
       component: profile
-    }, {
-      path: '/profile/setting',
-      name: 'Setting',
-      meta: {
-        requireAuth: false
-      },
-      component: setting
     },
     {
       path: '/nav',
