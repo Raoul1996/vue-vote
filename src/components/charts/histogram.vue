@@ -12,20 +12,25 @@
     },
     data () {
       return {
-        chartData: {}
+        chartData: {
+          columns: ['count', 'title'],
+          rows: this.statistic
+        },
+        chartSettings: {
+          metrics: ['count'],
+          dimension: ['title'],
+          label: {
+            normal: {show: true, position: 'top'}
+          }
+        }
+      }
+    },
+    watch: {
+      statistic () {
+        this.chartData.rows = this.statistic
       }
     },
     created () {
-      this.chartData = {
-        columns: ['count', 'title'],
-        rows: this.statistic
-      }
-      this.chartSettings = {
-        metrics: ['count'],
-        dimension: ['title']
-      }
-    },
-    mounted () {
       this.chartData = {
         rows: this.statistic
       }

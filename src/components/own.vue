@@ -8,7 +8,7 @@
       histogram(:statistic="statistic")
 </template>
 <script>
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions, mapMutations, mapState } from 'vuex'
   import Histogram from './charts/histogram'
 
   export default {
@@ -32,6 +32,9 @@
         statistic: []
       }
     },
+    computed: {
+      ...mapState([])
+    },
     destroyed () {
       this.VOTE_STATISTIC([])
     },
@@ -39,7 +42,7 @@
       ...mapActions(['getStatisticAction']),
       ...mapMutations(['VOTE_STATISTIC']),
       handleClick (id) {
-        // 使用集中存储的 Statistic 会导致有时获取不到信息，所以这里独立处理
+        // 使用集中存储的 Statistic 会导致不同组件间数据发生不期望的同步，所以这里独立处理
         this.getStatisticAction(id).then(res => {
           this.statistic = res
         })
