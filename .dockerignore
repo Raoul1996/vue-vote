@@ -1,0 +1,17 @@
+.git
+.gitignore
+node_modules
+.idea
+.vscode
+.DS_Store
+server/docs
+server/seek
+server/config-tpl.js
+pm2.json
+server/public/file
+README.md
+yarn-error.log
+.travis.yml
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+ISSUE_TEMPLATE.md

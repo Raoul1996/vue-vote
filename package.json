@@ -1,19 +1,21 @@
 {
-  "name": "vue-voter",
+  "name": "voter",
   "version": "1.0.0",
-  "description": "this is a vue demo edit by raoul1996",
+  "description": "this is a vue project powered by raoul1996",
   "author": "周宝 <baobaozhou199606@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "status": "",
     "unit": "jest --config test/unit/jest.conf.js",
     "cov": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "build": "node build/build.js",
-    "upload": "fjpublish env pub"
+    "start": "nodemon server/app.js",
+    "docs": "apidoc -i ./server/controller -o ./server/docs/",
+    "view": "npm run docs  && live-server --port=8081 --open=./server/docs --watch=./server/docs",
+    "pm2": "pm2 start server/app.js "
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -25,7 +27,34 @@
     "vue-image-crop-upload": "^2.2.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-persist": "^1.0.3"
+    "vuex-persist": "^1.0.3",
+    "busboy": "^0.2.14",
+    "ccap": "^0.6.10",
+    "child_process": "^1.0.2",
+    "excel-export": "^0.5.1",
+    "formidable": "^1.1.1",
+    "fundebug-nodejs": "0.0.9",
+    "jsonwebtoken": "^8.1.0",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-bouncer": "^6.0.4",
+    "koa-compose": "^4.0.0",
+    "koa-convert": "^1.2.0",
+    "koa-jwt": "^3.3.0",
+    "koa-logger": "^3.0.0",
+    "koa-mount": "^3.0.0",
+    "koa-parameter": "^3.0.1",
+    "koa-router": "^7.1.0",
+    "koa-send": "^4.1.2",
+    "koa-static": "^4.0.2",
+    "koa-views": "^6.1.3",
+    "koa2-cors": "^2.0.5",
+    "moment": "^2.20.1",
+    "mysql": "^2.15.0",
+    "nodemailer": "^4.4.2",
+    "printj": "^1.1.1",
+    "restc": "^0.2.2",
+    "xlsx": "^0.11.19"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.3",
@@ -41,7 +70,6 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-register": "^6.22.0",
     "chalk": "^2.0.1",
-    "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.3.0",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.7",
@@ -86,7 +114,10 @@
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.9.7",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "apidoc": "^0.17.6",
+    "eslint-config-koa": "^2.0.2",
+    "nodemon": "^1.14.11"
   },
   "engines": {
     "node": ">= 6.0.0",
@@ -109,5 +140,12 @@
   "main": "index.html",
   "directories": {
     "test": "test"
+  },
+  "apidoc": {
+    "name": "Voter",
+    "version": "0.0.1",
+    "description": "vote platform API doc",
+    "title": "Koa-vote",
+    "url": "http://api.raoul1996.cn"
   }
 }
