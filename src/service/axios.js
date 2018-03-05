@@ -19,6 +19,7 @@ const instance = axios.create({
   headers: []
 })
 instance.defaults.headers.post['Content-Type'] = 'application/json'
+instance.defaults.withCredentials = true
 
 // config Request Interceptors
 axios.interceptors.request.use = instance.interceptors.request.use
@@ -75,6 +76,9 @@ instance.interceptors.response.use((config) => {
         break
       case 408:
         err.message = '请求超时'
+        break
+      case 422:
+        err.message = '数据错误'
         break
       case 500:
         err.message = '服务器端出错'

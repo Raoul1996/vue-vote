@@ -3,7 +3,7 @@
  * baseUrl: 域名地址
  */
 const productionUrl = 'https://api.raoul1996.cn'
-const developmentUrl = 'http://127.0.0.1:3000'
+const developmentUrl = 'http://127.0.0.1:7001'
 const unKnowUrl = 'https://api.raoul196.cn'
 let baseUrl = ''
 if (process.env.NODE_ENV === 'development') {

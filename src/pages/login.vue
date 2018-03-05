@@ -3,13 +3,14 @@
     h1.title Sign in to Voter
     el-form.card-border(v-bind:model="login", ref="login", v-bind:rules="rules")
       el-form-item(label="email", prop="email")
+
         el-input(v-model="login.email", placeholder="请输入邮箱")
         <!--el-select(v-model="login.email", filterable, placeholder="请输入邮箱地址" class="el-input", @change="ChangeConsole")-->
         <!--el-option(v-for="item in login.options", :key="item.value", :label="item.label", :value="item.value")-->
       <!--el-form-item(label="mobile", prop="mobile")-->
       <!--el-input(v-model="login.mobile" placeholder="请输入手机号")-->
-      el-form-item(label="password", prop="password")
-        el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.password", placeholder="请输入密码", auto-complete="on")
+      el-form-item(label="password", prop="pwd")
+        el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.pwd", placeholder="请输入密码", auto-complete="on")
       el-form-item(label="captcha", prop="captcha")
         div.captcha-wrapper
           el-input.captcha-input(v-model="login.captcha", placeholder="请输入验证码", type="text", )
@@ -39,7 +40,7 @@
         login: {
           email: '',
           // mobile: null,
-          password: null,
+          pwd: null,
           captcha: '',
           // 使用的是 web 端
           client: 1
@@ -53,7 +54,7 @@
           //   {required: true, message: '请填写手机号码', trigger: 'blur'},
           //   {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
           // ],
-          password: [
+          pwd: [
             {required: true, message: '请填写密码', trigger: 'blur'},
             {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
           ],
