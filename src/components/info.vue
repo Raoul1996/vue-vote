@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import { baseUrl } from '../config'
+  import { baseUrl } from '../config/env'
   import myUpload from 'vue-image-crop-upload'
   import { mapMutations, mapState } from 'vuex'
 
@@ -31,9 +31,9 @@
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         },
-        uploadUrl: baseUrl + '/upload',
+        uploadUrl: baseUrl + '/user/avatar',
         imgDataUrl: '', // the datebase64 url of created image
-        avatarUrl: '' + baseUrl + this.info.avatar
+        avatarUrl: this.info.avatar ? '' + baseUrl + this.info.avatar : 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3925261251,15874899&fm=27&gp=0.jpg'
       }
     },
     computed: {...mapState([])},
@@ -45,7 +45,7 @@
       cropSuccess (imgDataUrl, field) {
       },
       cropUploadSuccess (jsonData, field) {
-        const avatar = jsonData.data.data.pictureUrl
+        const avatar = jsonData.data.url
         this.USER_INFO(Object.assign({}, this.info, {avatar}))
         // 这里使用 $nextTick 的作用是在更改状态树种的 info.avatar 值之后，
         // 会导致当前组件的 avatarUrl 获取不到正确的 avatar 值，所以在这里对 avatarUrl 在下一次刷新的时候进行重新赋值

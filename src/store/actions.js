@@ -69,9 +69,10 @@ export default {
     commit(SUBMIT_VOTE, success)
   },
   async getDetailAction ({commit, state}, param) {
-    const detail = await getDetail(param)
-    commit(VOTE_DETAIL_OPTIONS, detail)
-    commit(VOTE_DETAIL_FETCH, !!(detail && detail.length))
+    const res = await getDetail(param)
+    console.log(res)
+    commit(VOTE_DETAIL_OPTIONS, res.options)
+    commit(VOTE_DETAIL_FETCH, !!res.id)
   },
   async sendMailAction ({commit, state}, data) {
     const mail = await sendMail(data)

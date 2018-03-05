@@ -7,7 +7,7 @@ export function userLogout (data) {
 }
 
 export function getUser (param) {
-  return instance.get(params2url(API.info, param))
+  return instance.get(API.info)
 }
 
 export function forgetPassword (data) {
@@ -55,5 +55,5 @@ export function getStatistic (param) {
 }
 
 export function getOwnVote (param) {
-  return instance.get(params2url(API.ownVote, param))
+  return instance.get(API.ownVote)
 }

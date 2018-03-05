@@ -57,6 +57,7 @@ instance.interceptors.response.use((config) => {
 }, err => {
   if (err && err.response) {
     const {response: {status}} = err
+    console.dir(err)
     switch (status) {
       case 400:
         err.message = '错误请求'
@@ -69,7 +70,7 @@ instance.interceptors.response.use((config) => {
         err.message = '拒绝访问'
         break
       case 404:
-        err.message = '请求错误,未找到该资源'
+        err.message = err.response.data || '请求错误,未找到该资源'
         break
       case 405:
         err.message = '请求方法未允许'
