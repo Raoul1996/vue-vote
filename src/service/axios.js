@@ -47,7 +47,7 @@ instance.interceptors.response.use((config) => {
     Message({
       type: 'error',
       showClose: true,
-      message: `${(codeMap[code] || 'unKnowError').toString()}: ${code}`
+      message: `${(codeMap[code] || data.data || 'unKnowError').toString()}: ${code}`
     })
     return Promise.reject(config)
   } else {

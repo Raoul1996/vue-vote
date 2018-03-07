@@ -3,7 +3,6 @@
     h1.title Sign in to Voter
     el-form.card-border(v-bind:model="login", ref="login", v-bind:rules="rules")
       el-form-item(label="email", prop="email")
-
         el-input(v-model="login.email", placeholder="请输入邮箱")
         <!--el-select(v-model="login.email", filterable, placeholder="请输入邮箱地址" class="el-input", @change="ChangeConsole")-->
         <!--el-option(v-for="item in login.options", :key="item.value", :label="item.label", :value="item.value")-->

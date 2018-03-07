@@ -5,7 +5,7 @@
   "author": "周宝 <baobaozhou199606@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server  --public --inline --progress --config build/webpack.dev.conf.js",
     "status": "",
     "unit": "jest --config test/unit/jest.conf.js",
     "cov": "jest --config test/unit/jest.conf.js --coverage",

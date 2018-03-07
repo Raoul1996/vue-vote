@@ -1,12 +1,10 @@
-<template>
-  <div class="hello" style="margin: 20px auto">
-    您已经成功注册，请在邮箱中查看激活信件
-    <div>
-      <el-button type="primary" style="margin: 20px auto" @click="jump">
-        前往列表界面
-      </el-button>
-    </div>
-  </div>
+<template lang="pug">
+  div.hello(style="margin: 20px auto")
+    | 您已经成功注册，发送激活邮件，请到邮箱检查邮件哦~
+    div
+      <!--el-form.card-bord(:model="send", :rules="rules", ref="send")-->
+      el-button(type="primary", style="margin: 20px auto", @click="jump")
+        | 确定
 </template>
 
 <script>
@@ -29,7 +27,7 @@
     },
     mounted () {
       const {email} = this.info
-      this.sendMailAction({email})
+      this.sendMailAction({mail: email})
     },
     methods: {
       ...mapActions([
