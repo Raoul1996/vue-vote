@@ -144,5 +144,17 @@ if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
+if (config.build.qiniuUpload) {
+  const QiniuPlugin = require('qiniu-webpack-plugin')
+  webpackConfig.plugins.push(
+    new QiniuPlugin({
+      ACCESS_KEY: process.env.ak,
+      SECRET_KEY: process.env.sk,
+      bucket: 'vue-buck',
+      path: ''
+    })
+  )
+  webpackConfig.output.publicPath = config.build.Qiniu
+}
 
 module.exports = webpackConfig

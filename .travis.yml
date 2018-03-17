@@ -27,7 +27,7 @@ before_script:
 script:
 # 这里一般会进行 test 或者代码覆盖率什么的，但是暂时先不用
 # 编译项目到 dist 文件夹
-- npm run build
+- npm run build --qiniu
 # 5. 执行 script 脚本成功之后执行
 # 6. 最后执行
 after_success:

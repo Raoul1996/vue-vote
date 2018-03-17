@@ -3,6 +3,7 @@ import { Message } from 'element-ui'
 import codeMap from '../config/codeMap'
 import { sleep } from '../utils'
 
+const token = localStorage.getItem('token')
 const TIMEOUT = 5000
 const ERR_OK = 0
 let cancel
@@ -20,12 +21,11 @@ const instance = axios.create({
 })
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 instance.defaults.withCredentials = true
-
 // config Request Interceptors
 axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(config => {
-  if (localStorage.getItem('token')) {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
   }
   if (promiseArr[config.url]) {
     promiseArr[config.url]('操作取消')

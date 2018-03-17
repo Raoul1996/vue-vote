@@ -235,3 +235,7 @@ server {
 
 ### 20180305
 - 使用 eggjs 重构后端并切换 api
+
+### 20180317
+
+- 使用 [qiniu-webpack-plugin](https://www.npmjs.com/package/qiniu-webpack-plugin) 将打包好的 assets 上传到七牛

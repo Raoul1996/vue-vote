@@ -42,10 +42,10 @@
     "babel-register": "^6.22.0",
     "chalk": "^2.0.1",
     "chromedriver": "^2.27.2",
+    "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.3.0",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.7",
-    "webpack-visualizer-plugin": "^0.1.11",
     "duplicate-package-checker-webpack-plugin": "^2.0.2",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^10.2.1",
@@ -72,6 +72,7 @@
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.9",
+    "qiniu-webpack-plugin": "^0.4.2",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.8.1",
     "semver": "^5.3.0",
@@ -86,7 +87,8 @@
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.9.7",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "engines": {
     "node": ">= 6.0.0",
