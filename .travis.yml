@@ -33,13 +33,10 @@ script:
 after_success:
 # 移动到打包好的目录中
 - cd ./dist
-# 压缩，为上传准备
-- tar -jcf votes.tar.bz2 *
 # scp
-- scp votes.tar.bz2 ubuntu@123.207.252.230:~/
-# unzip
-- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ./votes.tar.bz2 /usr/share/nginx/html/votes'
-- ssh ubuntu@123.207.252.230 'cd /usr/share/nginx/html/votes && tar -jxf votes.tar.bz2 && rm -rf votes.tar.bz2'
+- scp index.html ubuntu@123.207.252.230:~/
+- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ~/index.html /usr/share/nginx/html/votes'
+# - ssh ubuntu@123.207.252.230 'cd /usr/share/nginx/html/votes && tar -jxf index.html && rm -rf index.html'
 after_script:
 
 branches:

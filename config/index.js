@@ -54,7 +54,7 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    Qiniu: 'http://p5j565es2.bkt.clouddn.com/static/',
+    Qiniu: 'https://asset.raoul1996.cn/',
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
