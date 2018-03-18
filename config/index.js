@@ -54,7 +54,6 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    Qiniu: 'https://asset.raoul1996.cn/',
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
@@ -78,6 +77,13 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
-    qiniuUpload: process.env.npm_config_qiniu
+    qiniu: process.env.npm_config_qiniu,
+  },
+  qiniu:{
+    ak: process.env.ak,
+    sk: process.env.sk,
+    AssetsRoot: 'https://asset.raoul1996.cn/',
+    bucket: 'vue-buck',
+    path: ''
   }
 }

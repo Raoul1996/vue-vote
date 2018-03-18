@@ -144,17 +144,17 @@ if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
-if (config.build.qiniuUpload) {
+if (config.build.qiniu) {
   const QiniuPlugin = require('qiniu-webpack-plugin')
   webpackConfig.plugins.push(
     new QiniuPlugin({
-      ACCESS_KEY: process.env.ak,
-      SECRET_KEY: process.env.sk,
-      bucket: 'vue-buck',
-      path: ''
+      ACCESS_KEY: config.qiniu.ak,
+      SECRET_KEY: config.qiniu.sk,
+      bucket: config.qiniu.bucket,
+      path: config.qiniu.path
     })
   )
-  webpackConfig.output.publicPath = config.build.Qiniu
+  webpackConfig.output.publicPath = config.qiniu.AssetsRoot
 }
 
 module.exports = webpackConfig

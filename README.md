@@ -241,3 +241,8 @@ server {
 - 使用 [qiniu-webpack-plugin](https://www.npmjs.com/package/qiniu-webpack-plugin) 将打包好的 assets 上传到七牛
 - 由于开启了全站强制 HTTPS，故添加 [asset.raoul1996.cn](https://asset.raoul1996.cn)为七牛云融合 CDN 加速域名
 - 收费服务，慎重
+
+### 20180318
+
+- 添加 favicon，优化性能
+- 重新整理 webpack 配置文件
