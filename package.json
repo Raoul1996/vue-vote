@@ -13,7 +13,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "build": "node build/build.js",
-    "upload": "npm run build --qiniu"
+    "upload": "npm run build --qiniu --nomap"
   },
   "dependencies": {
     "axios": "^0.17.1",
