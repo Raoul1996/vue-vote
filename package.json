@@ -13,7 +13,9 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "build": "node build/build.js",
-    "upload": "npm run build --qiniu --nomap"
+    "upload": "npm run build --qiniu --nomap",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -26,7 +28,8 @@
     "vue-image-crop-upload": "^2.2.3",
     "vue-router": "3.0.1",
     "vuex": "3.0.1",
-    "vuex-persist": "1.2.2"
+    "vuex-persist": "1.2.2",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.6",
@@ -112,5 +115,6 @@
   "main": "index.html",
   "directories": {
     "test": "test"
-  }
+  },
+  "snyk": true
 }
