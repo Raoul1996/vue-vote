@@ -16,7 +16,7 @@
     "upload": "npm run build --qiniu --nomap"
   },
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "1.6.0",
     "circular-json": "^0.5.3",
     "echarts": "^4.1.0",
     "element-ui": "2.3.7",
